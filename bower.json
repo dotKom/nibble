@@ -21,6 +21,7 @@
   ],
   "dependencies": {
     "angular": "~1.4.7",
-    "angular-materialize": "*"
+    "angular-materialize": "*",
+    "angular-route": "~1.4.7"
   }
 }
