@@ -28,3 +28,14 @@
   content: "";
   padding: 0;
 }
+.hidden{
+  display:none;
+}
+.input-field label {
+ color: #FFF;
+}
+/* label focus color */
+.input-field input[type=text]:focus + label {
+ color: #FFF;
+}
+

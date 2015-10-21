@@ -1,3 +1,34 @@
-<form>
-  
-</form>
+<!--
+  Not very good looking atm, just tmp
+-->
+
+<div class = "row">
+  <div class = "col m8 l8 offset-m2 offset-l2">
+    <div class = "card amber darken-1">
+      <div class = "card-content white-text">
+        <span class = "card-title">Login</span>
+        <p>
+            Beep boop  
+        </p>
+        <form ng-show = "development" id = "rfid-form">
+          <!--Rfid input field -->
+          <div class = "input-field">
+            <input class = "/*hidden*/" type = "text" id = "rfid-input" name = "rfid" />
+            <label for ="rfid-input">Input field for rfid</label>
+          </div>
+        </form>
+        <form ng-show = "validation_fail" id = "reg-form">
+          <div class = "row">
+          <div class = "input-field col m6 l6">
+            <input class = "col" id = "user" type = "text" />
+            <label for = "user">Username</label>
+          </div>
+          <div class = "input-field col m6 l6">
+            <input class = "col" id = "password" type = "password"/>
+            <label for = "password">Password</label>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

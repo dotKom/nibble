@@ -16,17 +16,32 @@
 
 </head>
 <body>
-  <nav>
-    <div class = "nav-wrapper">
-      <ul class="right hide-on-med-and-down">
-        <li><a href="#/">login</a></li>
-        <!--Temp-->
-        <li><a href="#/view1">view1</a></li>
-        <li><a href="#/view2">view2</a></li>
-      </ul>
-    </div>
-  </nav>
-
+  <div class = "page-wrapper">
+    <nav>
+      <div class = "nav-wrapper">
+        <a href = "" class = "brand-logo">&nbsp;&nbsp;Nibble</a>
+        <ul class="right hide-on-med-and-down">
+          <li>
+            <!--Hides 'login' when $rootScope.user is not null, shows dropdown otherwise-->
+            <a ng-hide = "user" href="#/">login</a>
+            <span ng-show = "user">
+              <a href = "#" class = "dropdown-button btn" data-activates = "user-action">{{ user.name }} : {{ user.balance }}kr</a>
+              <ul class = "dropdown-content" id = "user-action">
+                <!--logout() function should be provided in $rootScope-->
+                <li><a href = "#/" ng-click = "logout()">Logout</a></li>
+                <li><a href = "#/transactions">Transaction</a></li>
+                <li><a href = "#/...">...</a></li>
+              </ul>
+            </span>
+          </li>
+          <!--Temp-->
+          <li><a href="#/view1">view1</a></li>
+          <li><a href="#/view2">view2</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+  <div ng-view class = ""></div>
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-route/angular-route.js"></script>
   <script src="bower_components/angular-materialize/src/angular-materialize.js"></script>
@@ -35,5 +50,6 @@
   <script src="views/view1/view1.js"></script>
   <script src="views/view2/view2.js"></script>
   <script src="views/login/login.js"></script>
+  <script src="views/shop/shop.js"></script>
 </body>
 </html>

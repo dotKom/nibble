@@ -1,8 +1,8 @@
 'use strict';
 
-describe('myApp.login module', function() {
+describe('nibble.login module', function() {
 
-  beforeEach(module('myApp.login'));
+  beforeEach(module('nibble.login'));
 
   describe('login controller', function(){
 
