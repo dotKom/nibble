@@ -6,23 +6,36 @@
   <title>Nibble</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="bower_components/materialize/dist/css/materialize.min.css">
+
+
+  <link rel="stylesheet" href="bower_components/materialize/bin/materialize.css">
+  <link rel="stylesheet" href="app.css">
 
   <script src="bower_components/jquery/dist/jquery.js"></script>
-  <script src="bower_components/materialize/dist/js/materialize.min.js"></script>
-
-  <link rel="stylesheet" href="app.css">
+  <script src="bower_components/materialize/bin/materialize.js"></script>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-route/angular-route.js"></script>
+  
+  <script src="app.js"></script>
+  <script src="views/view1/view1.js"></script>
+  <script src="views/view2/view2.js"></script>
+  <script src="views/login/login.js"></script>
 </head>
-<body  ng-controller="MainCtrl">
-  <div ng-view></div>
-  <div>Angular seed app: v<span app-version></span></div>
+<body>
+  <nav>
+    <div class = "nav-wrapper">
+      <ul class="right hide-on-med-and-down">
+        <li><a href="#/">login</a></li>
+        <!--Temp-->
+        <li><a href="#/view1">view1</a></li>
+        <li><a href="#/view2">view2</a></li>
+      </ul>
+    </div>
+  </nav>
 
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-route/angular-route.js"></script>
   <script src="bower_components/angular-materialize/src/angular-materialize.js"></script>
-  <script src="view1/view1.js"></script>
-  <script src="view2/view2.js"></script>
-  <script src="app.js"></script>
 
 </body>
 </html>

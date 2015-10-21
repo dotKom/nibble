@@ -3,9 +3,10 @@ angular.module('nibble', [
   'ui.materialize',
   'nibble.view1',
   'nibble.view2',
+  'nibble.login'
 ]).
 config(['$routeProvider', function($routeProvider) {
-  $routeProvider.otherwise({redirectTo: '/view1'});
+  $routeProvider.otherwise({redirectTo: '/'});
 }]).
 controller('MainCtrl', ["$scope", function ($scope) {
         $scope.select = {
@@ -17,3 +18,9 @@ controller('MainCtrl', ["$scope", function ($scope) {
         $scope.dummyInputs = {};
 
     }]);
+
+  'myApp.view1',
+  'myApp.view2',
+  'myApp.login'
+])
+;
