@@ -21,6 +21,14 @@ angular.module('nibble.shop', ['ngRoute'])
     var testItem2 = {"name":"Billys", "description":"Dypfryst pizza med ost og skinke", "price":"20", "amount":42, "available":true, "category":"mat"}
     
     $scope.items = [testItem, testItem2, testItem, testItem2, testItem, testItem2, testItem, testItem2]
+
+    /*function add(item){
+      try:
+      order[item.unique].amount += 1;
+      else:
+        order[item.unique] = {amount:1, item:item}
+
+    }*/
   }
 })
 ;

@@ -6,44 +6,9 @@
 
 <div class="row">
   <div class="col m8 l8 offset-m2 offset-l2">
-  <!-- Maybe a slider with trending/new items? -->
-  <!--
-    <div class="slider" slider>
-      <ul class="slides">
-        <li>
-          <img src="http://lorempixel.com/580/250/nature/1">
-          <div class="caption center-align">
-            <h3>This is our big Tagline!</h3>
-            <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
-          </div>
-        </li>
-        <li>
-          <img src="http://lorempixel.com/580/250/nature/2">
-          <div class="caption left-align">
-            <h3>Left Aligned Caption</h3>
-            <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
-          </div>
-        </li>
-        <li>
-          <img src="http://lorempixel.com/580/250/nature/3">
-          <div class="caption right-align">
-            <h3>Right Aligned Caption</h3>
-            <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
-          </div>
-        </li>
-        <li>
-          <img src="http://lorempixel.com/580/250/nature/4">
-          <div class="caption center-align">
-            <h3>This is our big Tagline!</h3>
-            <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
-          </div>
-        </li>
-      </ul>
-    </div>-->
-
     <div class = "row">
-      <div class = "col m6 l6 offset-m3 offset-l3">
-        <div class = "card amber darken-1">
+      <div class = "col m6 l6 offset-m3 offset-l3 align-wrapper">
+        <div class = "card amber darken-1 valign">
           <div class = "card-content white-text">
         <span class="card-title">Scan ditt studenkort for å handle</span>
         <p>
@@ -55,6 +20,7 @@
             <input class="/*hidden*/" type="text" id="rfid-input" name="rfid" ng-model="user.rfid"/>
             <label for ="rfid-input">Input field for rfid</label>
           </div>
+          <img src="http://www.fancyicons.com/free-icons/232/industry/png/256/rfid_signal_256.png"/>
         </form>
         <form ng-show="validation_fail" id="reg-form">
           <div class="row">

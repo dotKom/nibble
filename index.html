@@ -26,7 +26,7 @@
             <!--Hides 'login' when $rootScope.user is not null, shows dropdown otherwise-->
             <a ng-hide="user" href="#/">login</a>
             <span ng-show="user" class="">
-              <a href="#" class="dropdown-button" data-activates="user-action">{{ user.name }} : {{ user.balance }}kr
+              <a href="#" class="dropdown-button" data-activates="user-action">{{ user.name }}: {{ user.balance }}kr
                 <i class="material-icons right">arrow_drop_down</i>
               </a>
               <ul class="dropdown-content" id="user-action">
