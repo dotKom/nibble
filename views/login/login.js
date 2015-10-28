@@ -8,7 +8,6 @@ angular.module('nibble.login', ['ngRoute'])
     controller: 'loginCtrl'
   });
 }])
-
 .controller('loginCtrl', ["$rootScope","$http","$location",function(root,http,location) {
   $("#reg-form").submit(function(e){
     e.preventDefault();

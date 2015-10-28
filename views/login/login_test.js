@@ -8,7 +8,7 @@ describe('nibble.login module', function() {
 
     it('should ....', inject(function($controller) {
       var loginCtrl = $controller('loginCtrl');
-      expect(view1Ctrl).toBeDefined();
+      expect(loginCtrl).toBeDefined();
     }));
 
   });

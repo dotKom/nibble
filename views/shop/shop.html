@@ -1,7 +1,7 @@
 <div class="row" ng-controller="shopCtrl">
   <div class="col m8 l8 offset-m2 offset-l2">
 
-    <div ng-repeat="item in items" class="col s4">
+    <div ng-repeat="item in items track by $index" class="col s4">
       <div class="card small">
         <div class="card-image waves-effect waves-block waves-light">
           <img class="activator" src="http://lorempixel.com/580/250/nature/1">

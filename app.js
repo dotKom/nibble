@@ -25,6 +25,7 @@ controller('MainCtrl', ["$scope", function ($scope) {
   /*Definitions of root functions:*/
   root.development = true;
   root.logout = function(){
+    root.rfid = null;
     root.user = null;
   }
 }])
