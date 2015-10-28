@@ -1,0 +1,13 @@
+<ul id = "products-list" class = "row">
+  <li class = "col s6 m2 l2" ng-repeat = "x in products track by $index">
+    <div class = "card small">
+      <div class = "card-image">
+        <img width = "100" src = "{{ x.img }}" />
+        <span class = "card-title">{{ x.name }}</span>
+      </div>
+      <div class = "card-content">
+        {{ x.desc }}
+      </div>
+    </div>
+  </li>
+</ul>
