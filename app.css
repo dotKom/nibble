@@ -1,10 +1,40 @@
 /* styles for nibble app */
 /* see http://materializecss.com/color.html for color palette. Current palette is amber */
-nav{
+nav {
   background-color: #ff6f00;  /* amber darken-4 */
 }
 
+.nav-wrapper {
+  margin: 0 20px;
+}
 
+.card-image {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  background-color: rgba(0,0,0,0.1);
+}
+
+.card .card-action {
+    display: flex;
+    padding: 0;
+}
+
+.card .card-action a{
+  color: black;
+  margin-right: 0px;
+}
+
+.card .card-content {
+    padding: 10px 20px;
+}
+.item-count{
+  line-height: 36px;
+  padding: 0 2rem;
+  text-align: center;
+  font-weight: bold;
+  
+}
 
 
 
