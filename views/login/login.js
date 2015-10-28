@@ -64,8 +64,10 @@ angular.module('nibble.login', ['ngRoute'])
         /*Display error in card?*/
       
         /*Temp test code: */
-        root.user = {name: "testUser",balance: 200};
-        location.url("/shop");
+        if(root.development){  
+          root.user = {name: "testUser",balance: 200};
+          location.url("/shop");
+        }
       }
 
     );
