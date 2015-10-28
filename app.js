@@ -10,7 +10,7 @@ config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/'});
 }]).
 controller('MainCtrl', ["$scope", function ($scope) {
-  /*Not used*/  
+  /*Not used
   $scope.select = {
         value1: "Option1",
         value2: "I'm an option",
@@ -18,6 +18,8 @@ controller('MainCtrl', ["$scope", function ($scope) {
     };
 
     $scope.dummyInputs = {};
+
+    */
 
 }]).run(["$rootScope",function(root){
   /*Definitions of root functions:*/

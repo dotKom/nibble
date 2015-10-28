@@ -36,7 +36,7 @@ angular.module('nibble.login', ['ngRoute'])
     //Check if a user is assosiated with the rfid
     //$http request:
     http({
-      url: "",
+      url: "login/",
       method: "post",
       data: {rfid: root.rfid}
     }).then(function(ret){

@@ -1,4 +1,15 @@
-/* app css stylesheet */
+/* styles for nibble app */
+/* see http://materializecss.com/color.html for color palette. Current palette is amber */
+nav{
+  background-color: #ff6f00;  /* amber darken-4 */
+}
+
+
+
+
+
+
+/* old css styles from materialize site */
 
 .menu {
   list-style: none;

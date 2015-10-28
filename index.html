@@ -17,23 +17,23 @@
 
 </head>
 <body>
-  <div class = "page-wrapper">
-    <nav class = "blue darken-3">
-      <div class = "nav-wrapper container">
-        <a href = "" class = "brand-logo">Nibble</a>
+  <div class="page-wrapper">
+    <nav>
+      <div class="nav-wrapper container">
+        <a href="" class="brand-logo">Nibble</a>
         <ul class="right hide-on-med-and-down">
           <li>
             <!--Hides 'login' when $rootScope.user is not null, shows dropdown otherwise-->
-            <a ng-hide = "user" href="#/">login</a>
-            <span ng-show = "user" class = "">
-              <a href = "#" class = "dropdown-button" data-activates = "user-action">{{ user.name }} : {{ user.balance }}kr
+            <a ng-hide="user" href="#/">login</a>
+            <span ng-show="user" class="">
+              <a href="#" class="dropdown-button" data-activates="user-action">{{ user.name }} : {{ user.balance }}kr
                 <i class="material-icons right">arrow_drop_down</i>
               </a>
-              <ul class = "dropdown-content" id = "user-action">
+              <ul class="dropdown-content" id="user-action">
                 <!--logout() function should be provided in $rootScope-->
-                <li><a href = "#/" ng-click = "logout()">Logout</a></li>
-                <li><a href = "#/transactions">Transactions</a></li>
-                <li><a href = "">...</a></li>
+                <li><a href="#/" ng-click="logout()">Logout</a></li>
+                <li><a href="#/transactions">Transactions</a></li>
+                <li><a href="">...</a></li>
               </ul>
             </span>
           </li>
@@ -44,7 +44,9 @@
       </div>
     </nav>
   </div>
+
   <div ng-view></div>
+
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-route/angular-route.js"></script>
   <script src="bower_components/angular-materialize/src/angular-materialize.js"></script>
