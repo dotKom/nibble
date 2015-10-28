@@ -24,6 +24,10 @@ controller('MainCtrl', ["$scope", function ($scope) {
 }]).run(["$rootScope",function(root){
   /*Definitions of root functions:*/
   root.development = true;
+  root.showBalModule = false;
+  root.toggleBal = function(){
+    root.showBalModule = !root.showBalModule;
+  }
   root.logout = function(){
     root.rfid = null;
     root.user = null;

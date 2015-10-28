@@ -19,32 +19,34 @@
 <body>
   <div class="page-wrapper">
     <nav>
-      <div class="nav-wrapper container">
+      <div class="nav-wrapper">
         <a href="" class="brand-logo">Nibble</a>
-        <ul class="right hide-on-med-and-down">
-          <li>
-            <!--Hides 'login' when $rootScope.user is not null, shows dropdown otherwise-->
-            <a ng-hide="user" href="#/">login</a>
-            <span ng-show="user" class="">
-              <a href="#" class="dropdown-button" data-activates="user-action">{{ user.name }} : {{ user.balance }}kr
+        <ul class="right">
+          <li ng-hide="user"><a href="#/">login</a></li>
+          <span ng-show="user">
+            <li><a  href ng-click = "toggleBal()">Legg in penger</a></li>
+            <li>
+              <a href="#" class="dropdown-button" data-activates="user-action">{{ user.name }}: {{ user.balance }}kr
                 <i class="material-icons right">arrow_drop_down</i>
               </a>
               <ul class="dropdown-content" id="user-action">
-                <!--logout() function should be provided in $rootScope-->
-                <li><a href="#/" ng-click="logout()">Logout</a></li>
-                <li><a href="#/transactions">Transactions</a></li>
-                <li><a href="">...</a></li>
+                <!--View spesifict functions?-->
+                <!--'History' will so show a modal with a history of all sessions-->
+                <li><a href="">History</a></li>
+                <!--'Ta ut penger' will so show a modal with for widthdrawing money-->
+                <li><a href="">Ta ut penger</a></li>
               </ul>
-            </span>
-          </li>
-          <!--Temp-->
-          <li><a href="#/view1">view1</a></li>
-          <li><a href="#/view2">view2</a></li>
+            </li>
+            <!--Temp-->
+            <li><a class="waves-effect waves-light" href="#/" ng-show="user" ng-click="logout()">Logout</a></li>
+          </span>
         </ul>
       </div>
     </nav>
   </div>
-
+  <div ng-show = "showBalModule" class = "balanceModule">
+    <h1>Test1234</h1>
+  </div>
   <div ng-view></div>
 
   <script src="bower_components/angular/angular.js"></script>
