@@ -38,4 +38,7 @@
 .input-field input[type=text]:focus + label {
  color: #FFF;
 }
+.vertical-center{
+  padding: 5em;
+}
 
