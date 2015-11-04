@@ -33,7 +33,7 @@ angular.module('nibble.shop', ['ngRoute'])
   }
   $scope.shopQueue = {};
   $scope.items = [testItem, testItem2, testItem, testItem2, testItem, testItem2, testItem, testItem2];
-  $scope.selectedItems = [testItem, testItem2, testItem3];
+  $scope.selectedItems = [testItem, testItem2];
 
   $scope.totalSum = getTotalSum();
 
