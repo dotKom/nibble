@@ -31,6 +31,7 @@ controller('MainCtrl', ["$scope", function ($scope) {
   root.logout = function(){
     root.rfid = null;
     root.user = null;
+    root.showBalModule = false;
   }
 }])
 ;
