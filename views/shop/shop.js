@@ -27,23 +27,46 @@ angular.module('nibble.shop', ['ngRoute'])
     Materialize.toast("Could not load shop inventory", 4000);
   });
   
-  var testItem = {id:"1","name":"Øl", "description":"0.5L Dahls på glassflaske", "price":"20", "amount":42, "available":true, "category":"drink", 
+  var testItem = {id:"a1","name":"Øl", "description":"0.5L Dahls på glassflaske", "price":"20", "amount":42, "available":true, "category":"drink", 
                   "image": "http://3.bp.blogspot.com/_eBUfxxSLsVw/TSoQTbARxiI/AAAAAAAAAEk/V927sCd8uRU/s1600/dahls.png","dispCount":0}
-  var testItem2 = {id:"2","name":"Billys", "description":"Dypfryst pizza med ost og skinke", "price":"20", "amount":42, "available":true, 
+  var testItem2 = {id:"a2","name":"Billys", "description":"Dypfryst pizza med ost og skinke", "price":"20", "amount":42, "available":true, 
                   "category":"mat", "image": "http://www.brynildsen.no/upload/Billys-original-NY.png","dispCount":0}
   
+  
+  
   $scope.items = [testItem, testItem2, testItem, testItem2, testItem, testItem2, testItem, testItem2];
+  /*$scope.selectedItems = [testItem, testItem2];*/
+  $scope.shopQueue = {};
+ 
+/*  $scope.totalSum = getTotalSum();*/
+  $scope.totalSum = 0;
+  function getTotalSum(){
+    var totalSum = 0; 
+    angular.forEach($scope.shopQueue, function(element) {
+      totalSum += element.count * element.item.price;
+    });
+    return totalSum;
+  }
+  
   $scope.changeCount = function(itemRef,count){
     if(!$scope.shopQueue[itemRef.id]){
       $scope.shopQueue[itemRef.id] = {"item":itemRef,"count": 0};
     }
     $scope.shopQueue[itemRef.id].count = Math.max(0,$scope.shopQueue[itemRef.id].count+count);
     $scope.shopQueue[itemRef.id].item.dispCount = $scope.shopQueue[itemRef.id].count;
-    /*if($scope.shopQueue[itemRef.id].count <= 0){
-      $scope.shopQueue[itemRef.id] = undefined;
-    }*/
+    if($scope.shopQueue[itemRef.id].count <= 0){
+      
+      console.log($scope.shopQueue);
+      delete $scope.shopQueue[itemRef.id];
+      /*Force key reorder:*/
+      var tmp = $scope.shopQueue;
+      $scope.shopQueue = {};
+      for(var k in tmp){
+        $scope.shopQueue[k] = tmp[k];
+      }
+    }
+    $scope.totalSum = getTotalSum();
   }
-  $scope.shopQueue = {};
   $scope.checkout = function(){
     /*
       Insert validation code here  
