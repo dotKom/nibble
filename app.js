@@ -39,5 +39,4 @@ controller('MainCtrl', ["$scope", function ($scope) {
     }
     return false;
   }
-}])
-;
+}]);
