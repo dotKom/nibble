@@ -33,5 +33,4 @@ controller('MainCtrl', ["$scope", function ($scope) {
     root.user = null;
     root.showBalModule = false;
   }
-}])
-;
+}]);
