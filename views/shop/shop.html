@@ -41,7 +41,7 @@
           <tr ng-repeat="element in shopQueue track by $index"> 
             <td>
               {{ element.item.name }} 
-              <a class="waves-effect waves-red btn btn-flat red lighten-3 right" href="#" >
+              <a class="waves-effect waves-red btn btn-flat red lighten-3 right" href="" ng-click = "changeCount(element.item,-element.count)">
                 -
               </a>
               <a class="item-count right" href="#">

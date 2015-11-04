@@ -58,7 +58,8 @@ angular.module('nibble.shop', ['ngRoute'])
       
       console.log($scope.shopQueue);
       delete $scope.shopQueue[itemRef.id];
-      /*Force key reorder:*/
+      /*Force key 'reorder':*/
+      /**/
       var tmp = $scope.shopQueue;
       $scope.shopQueue = {};
       for(var k in tmp){
