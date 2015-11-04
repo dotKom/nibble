@@ -18,11 +18,22 @@ angular.module('nibble.shop', ['ngRoute'])
     return;*/
   }
 
-  var testItem = {"name":"Øl", "description":"0.5L Dahls på glassflaske", "price":"20", "amount":42, "available":true, "category":"drink", "image": "http://3.bp.blogspot.com/_eBUfxxSLsVw/TSoQTbARxiI/AAAAAAAAAEk/V927sCd8uRU/s1600/dahls.png"}
-  var testItem2 = {"name":"Billys", "description":"Dypfryst pizza med ost og skinke", "price":"20", "amount":42, "available":true, "category":"mat", "image": "http://www.brynildsen.no/upload/Billys-original-NY.png"}
+  var testItem = {"name":"Øl", "description":"0.5L Dahls på glassflaske", "price":"20", "amount":42, "available":true, "category":"drink", "image": "http://3.bp.blogspot.com/_eBUfxxSLsVw/TSoQTbARxiI/AAAAAAAAAEk/V927sCd8uRU/s1600/dahls.png"};
+  var testItem2 = {"name":"Billys", "description":"Dypfryst pizza med ost og skinke", "price":"20", "amount":42, "available":true, "category":"mat", "image": "http://www.brynildsen.no/upload/Billys-original-NY.png"};
+  var testItem3 = {"name":"Billys", "description":"Dypfryst pizza med ost og skinke", "price":"20", "amount":42, "available":true, "category":"mat", "image": "http://www.brynildsen.no/upload/Billys-original-NY.png"};
   
-  $scope.items = [testItem, testItem2, testItem, testItem2, testItem, testItem2, testItem, testItem2]
+  $scope.items = [testItem, testItem2, testItem, testItem2, testItem, testItem2, testItem, testItem2];
+  $scope.selectedItems = [testItem, testItem2, testItem3];
 
+  $scope.totalSum = getTotalSum();
+
+  function getTotalSum(){
+    var totalSum = 0; 
+    angular.forEach($scope.selectedItems, function(item) {
+      totalSum += item.amount * item.price;
+    });
+    return totalSum;
+  }
   /*function add(item){
     try:
     order[item.unique].amount += 1;
