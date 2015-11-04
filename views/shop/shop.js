@@ -18,10 +18,20 @@ angular.module('nibble.shop', ['ngRoute'])
     return;*/
   }
 
-  var testItem = {"name":"Øl", "description":"0.5L Dahls på glassflaske", "price":"20", "amount":42, "available":true, "category":"drink", "image": "http://3.bp.blogspot.com/_eBUfxxSLsVw/TSoQTbARxiI/AAAAAAAAAEk/V927sCd8uRU/s1600/dahls.png"};
-  var testItem2 = {"name":"Billys", "description":"Dypfryst pizza med ost og skinke", "price":"20", "amount":42, "available":true, "category":"mat", "image": "http://www.brynildsen.no/upload/Billys-original-NY.png"};
-  var testItem3 = {"name":"Billys", "description":"Dypfryst pizza med ost og skinke", "price":"20", "amount":42, "available":true, "category":"mat", "image": "http://www.brynildsen.no/upload/Billys-original-NY.png"};
+  var testItem = {"name":"Øl", "description":"0.5L Dahls på glassflaske", "price":"20", "amount":42, "available":true, "category":"drink", 
+                  "image": "http://3.bp.blogspot.com/_eBUfxxSLsVw/TSoQTbARxiI/AAAAAAAAAEk/V927sCd8uRU/s1600/dahls.png","dispCount":0}
+  var testItem2 = {"name":"Billys", "description":"Dypfryst pizza med ost og skinke", "price":"20", "amount":42, "available":true, 
+                  "category":"mat", "image": "http://www.brynildsen.no/upload/Billys-original-NY.png","dispCount":0}
   
+  $scope.items = [testItem, testItem2, testItem, testItem2, testItem, testItem2, testItem, testItem2]
+  $scope.changeCount = function(itemRef,count){
+    if(!$scope.shopQueue[itemRef.name]){
+      $scope.shopQueue[itemRef.name] = {"item":itemRef,"count": 0}
+    }
+    $scope.shopQueue[itemRef.name].count = Math.max(0,$scope.shopQueue[itemRef.name].count+count);
+    $scope.shopQueue[itemRef.name].item.dispCount = $scope.shopQueue[itemRef.name].count;
+  }
+  $scope.shopQueue = {};
   $scope.items = [testItem, testItem2, testItem, testItem2, testItem, testItem2, testItem, testItem2];
   $scope.selectedItems = [testItem, testItem2, testItem3];
 
@@ -41,8 +51,7 @@ angular.module('nibble.shop', ['ngRoute'])
       order[item.unique] = {amount:1, item:item}
 
   }*/
-})
-;
+});
 
 /*
 === Models ===
