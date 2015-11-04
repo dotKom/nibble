@@ -24,14 +24,20 @@ controller('MainCtrl', ["$scope", function ($scope) {
 }]).run(["$rootScope",function(root){
   /*Definitions of root functions:*/
   root.development = true;
-  root.showBalModule = false;
-  root.toggleBal = function(){
-    root.showBalModule = !root.showBalModule;
-  }
+  root.add_amounts = [10, 15, 20, 40, 50, 100, 200, 400, 500];
+  root.add_money_amount = "";
   root.logout = function(){
     root.rfid = null;
     root.user = null;
     root.showBalModule = false;
+  }
+
+  root.validAmount = function(){
+    console.log(root.add_money_amount);
+    if(root.add_money_amount != "" && root.add_money_amount>0){
+      return true;
+    }
+    return false;
   }
 }])
 ;

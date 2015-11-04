@@ -33,7 +33,7 @@ angular.module('nibble.shop', ['ngRoute'])
                   "category":"mat", "image": "http://www.brynildsen.no/upload/Billys-original-NY.png","dispCount":0}
   
   
-  
+
   $scope.items = [testItem, testItem2, testItem, testItem2, testItem, testItem2, testItem, testItem2];
   /*$scope.selectedItems = [testItem, testItem2];*/
   $scope.shopQueue = {};

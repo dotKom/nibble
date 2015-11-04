@@ -5,7 +5,7 @@ nav {
 }
 
 .nav-wrapper {
-  margin: 0 20px;
+  margin: 0 0 0 20px;
 }
 
 .card-image {
@@ -47,6 +47,17 @@ nav {
     -webkit-touch-callout: none;
 }
 
+.add-money .radio-group{
+
+}
+.radio-group{
+  display: flex;
+}
+
+.radio-group span{
+  flex-grow: 1;
+}
+
 /* old css styles from materialize site */
 
 .menu {
@@ -80,13 +91,7 @@ nav {
 .hidden{
   display:none;
 }
-.input-field label {
- color: #FFF;
-}
-/* label focus color */
-.input-field input[type=text]:focus + label {
- color: #FFF;
-}
+
 .vertical-center{
   padding: 5em;
 }
