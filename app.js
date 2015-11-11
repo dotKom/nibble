@@ -1,10 +1,9 @@
 angular.module('nibble', [
   'ngRoute',
   'ui.materialize',
-  'nibble.view1',
-  'nibble.view2',
   'nibble.login',
-  'nibble.shop'
+  'nibble.shop',
+  'nibble.kvitering'
 ]).
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/'});
@@ -26,6 +25,7 @@ controller('MainCtrl', ["$scope", function ($scope) {
   root.development = true;
   root.add_amounts = [10, 15, 20, 40, 50, 100, 200, 400, 500];
   root.add_money_amount = "";
+  
   root.logout = function(){
     root.rfid = null;
     root.user = null;
@@ -33,7 +33,7 @@ controller('MainCtrl', ["$scope", function ($scope) {
   }
 
   root.validAmount = function(){
-    console.log(root.add_money_amount);
+    console.log("Valid money amount: " + root.add_money_amount);
     if(root.add_money_amount != "" && root.add_money_amount>0){
       return true;
     }
