@@ -11,15 +11,15 @@
           </span>
         </div>
         <div class="card-action">
-          <a class="waves-effect waves-green btn btn-flat green lighten-3" ng-click="changeCount(item,1)" href="">
+          <a class="add waves-effect waves-green btn btn-flat green" ng-click="changeCount(item,1)" href="">
             +
           </a>
           <a class="item-count">
             {{ item.dispCount }}
           </a>
-          <a class="btn btn-flat waves-effect" ng-class = "{'disabled':item.dispCount <= 0,'waves-red red lighten-3':item.dispCount > 0}" href="" ng-click="changeCount(item,-1)">
+          <!--<a class="btn btn-flat waves-effect" ng-class = "{'disabled':item.dispCount <= 0,'waves-red red lighten-3':item.dispCount > 0}" href="" ng-click="changeCount(item,-1)">
             -
-          </a>
+          </a>-->
         </div>
         <!--<div class="card-reveal">
           <span class="card-title grey-text text-darken-4">{{item.name}}<i class="material-icons right">close</i></span>
@@ -29,33 +29,38 @@
     </div>
 
   </div>
-  <div class="col m3 l3 z-depth-2">
-      <h3>{{ user.name }}: {{ user.balance }}kr</h3>
+  <div class="col m3 l3 z-depth-2 side-nav fixed">
+      <h5>
+        <span ng-show="!totalSum">Din saldo: </span>
+        <span ng-show="totalSum">Du har </span>
+        {{ user.balance - totalSum }}kr 
+        <span ng-show="totalSum">igjen</span>
+      </h5>
       <table>
-        <thead>
+        <thead class="thead">
           <tr>
               <th data-field="id">Varer:</th>
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="element in shopQueue track by $index"> 
+          <tr class="item_box" ng-repeat="element in shopQueue track by $index"> 
             <td>
-              {{ element.item.name }} 
-              <a class="waves-effect waves-red btn btn-flat red lighten-3 right" href="" ng-click = "changeCount(element.item,-element.count)">
-                -
+              <span class="item_name">
+                {{ element.item.name }}
+              </span> 
+              <a class="remove waves-effect waves-red right" href="" ng-click = "changeCount(element.item,-element.count)">
+                <i class="material-icons">clear</i>
               </a>
               <a class="item-count right" href="#">
                 {{ element.count }}
               </a>
             </td>
           </tr>
-          <tr>
-            <td>
-              <b>Totalsum: <span class="right">{{ totalSum }},-</span></b>
-            </td>
-          </tr>
         </tbody>
       </table>
-      <a class="waves-effect waves-light btn-large" style="width: 100%;" href="#">Kjøp</a>
+      <div class="checkout">
+        <div class="sum">Totalsum: <span class="right">{{ totalSum }},-</span></div>
+        <a class="buy waves-effect waves-light btn-large green" style="width: 100%;" href="">Kjøp</a>
+      </div>
   </div>
 </div>

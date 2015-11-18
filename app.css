@@ -13,6 +13,7 @@ nav {
   background-repeat: no-repeat;
   background-position: 50%;
   background-color: rgba(0,0,0,0.1);
+  height: 100%;
 }
 
 .card .card-action {
@@ -56,6 +57,58 @@ nav {
 
 .radio-group span{
   flex-grow: 1;
+}
+
+.checkout{
+  position: fixed;
+  width: 315px;
+  bottom: 10px;
+  border-top: 1px solid rgba(0,0,0,0.1);
+}
+.sum{
+  font-weight: bold;
+  font-size: 30px;
+}
+.buy{
+  color: white !important;
+  font-weight: bold;
+}
+.item_name{
+  font-size: 18px;
+  line-height: 60px;
+}
+.item_box{
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+/*Side nav */
+
+.side-nav{
+  float: right;
+  right: 0;
+  top: 64px;
+  left: auto !important;
+}
+
+.thead{
+  border-bottom: none;
+}
+
+.add{
+  width: 100%;
+  color: white !important;
+}
+a.remove{
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 256px;
+  color: red !important;
+  padding: 5px 20px !important;
+}
+img.logo {
+    height: 33px;
+    padding-right: 20px;
+    vertical-align: text-top;
+    opacity: 0.5;
 }
 
 /* old css styles from materialize site */
@@ -111,7 +164,7 @@ nav {
   font-family: 'Material Icons';
   font-style: normal;
   font-weight: 400;
-  src: local('Material Icons'), local('MaterialIcons-Regular'), url(/static/fonts/material.woff2) format('woff2');
+  src: local('Material Icons'), local('MaterialIcons-Regular'), url(./static/fonts/material.woff2) format('woff2');
 }
 
 .material-icons {
