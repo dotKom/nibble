@@ -23,10 +23,20 @@ angular.module('nibble.shop', ['ngRoute'])
     data: {}
   }).then(function(ret){
     $scope.items = ret.data.inventory;
+    for(var i=0; i< $scope.items.length;i++){
+      $scope.items[i]["oId"] = "a" + $scope.items[i]["id"];
+    }
   },function(error){
     Materialize.toast("Could not load shop inventory", 4000);
   });
   /*http://www.lunsj.no/14636-thickbox_default/knorr-tomatsuppe.jpg*/
+  /*
+    Set oId to "a" + id
+    oId is used for referance in $scope.shopQueue
+    regular id can't be used, it needs to contain
+    alpha characters in order to display the queue
+    correctly
+  */
   var testItem = {oId:"a1",id:"1","name":"Øl", "description":"0.5L Dahls på glassflaske", "price":"20", "amount":42, "available":true, "category":"drikke", 
                   "image": "http://3.bp.blogspot.com/_eBUfxxSLsVw/TSoQTbARxiI/AAAAAAAAAEk/V927sCd8uRU/s1600/dahls.png","dispCount":0}
   var testItem2 = {oId:"a2", id:"2","name":"Billys", "description":"Dypfryst pizza med ost og skinke", "price":20, "amount":42, "available":true, 
@@ -36,7 +46,7 @@ angular.module('nibble.shop', ['ngRoute'])
   /**/
   var testItem4 = {oId:"a4", id:"4","name":"Solbærtoddy", "description":"Toddy", "price":20, "amount":42, "available":true, "category":"drikke", "image": "http://proddb.kraft-hosting.net/prod_db/proddbimg/11324.png","dispCount":0}
   
-  var testItem5 = {oId:"a5", id:"5","name":"Kinder: bueno", "description":"kinder", "price":20, "amount":42, "available":true, "category":"snacks", "image": "http://www.kinder.me/image/journal/article?img_id=7231869&t=1445520902223","dispCount":0}
+  var testItem5 = {oId:"a5", id:"5","name":"Kinder: bueno", "description":"Kinder", "price":20, "amount":42, "available":true, "category":"snacks", "image": "http://www.kinder.me/image/journal/article?img_id=7231869&t=1445520902223","dispCount":0}
   
 
   
@@ -56,10 +66,10 @@ angular.module('nibble.shop', ['ngRoute'])
   
   $scope.changeCount = function(itemRef,count){
     if(($scope.totalSum+(itemRef.price*count)) <= $scope.user.balance){
-    if(!$scope.shopQueue[itemRef.oId]){
-      $scope.shopQueue[itemRef.oId] = {"item":itemRef,"count": 0};
-    }
-    $scope.shopQueue[itemRef.oId].count = Math.max(0,$scope.shopQueue[itemRef.oId].count+count);
+      if(!$scope.shopQueue[itemRef.oId]){
+        $scope.shopQueue[itemRef.oId] = {"item":itemRef,"count": 0};
+      }
+      $scope.shopQueue[itemRef.oId].count = Math.max(0,$scope.shopQueue[itemRef.oId].count+count);
       $scope.shopQueue[itemRef.oId].item.dispCount = $scope.shopQueue[itemRef.oId].count;
       if($scope.shopQueue[itemRef.oId].count <= 0){
         delete $scope.shopQueue[itemRef.oId];
@@ -76,7 +86,7 @@ angular.module('nibble.shop', ['ngRoute'])
       }
     }else{
       console.log(($scope.totalSum+itemRef.price),$scope.user.balance);
-      Materialize.toast("Totalprisen overstrider din saldo", 500);
+      Materialize.toast("Totalprisen overstrider din saldo", 2000);
     }
     $scope.totalSum = getTotalSum();
   }
@@ -84,7 +94,7 @@ angular.module('nibble.shop', ['ngRoute'])
     /*
       Insert validation code here  
     */
-     http({
+     $http({
       url: "/payme/buy",
       method: "post",
       data: {
@@ -94,10 +104,13 @@ angular.module('nibble.shop', ['ngRoute'])
      }).then(function(ret){
        $scope.shopQueue = {};
        /*Prompt user to 'logout' or 'continue shopping'*/
+       $location.url("/kvitering");
      },function(error){
        Materialize.toast("Could not checkout", 4000);
-       Materialize.toast("Server returned error code: " + error.status, 4000);
-        
+       Materialize.toast("Server returned error code: " + error.status, 4000); 
+       
+       $location.url("/kvitering");
+     
      });
   }
   
@@ -115,6 +128,7 @@ angular.module('nibble.shop', ['ngRoute'])
 === Models ===
 
 Product
+    id
     Name
     Price
     Description

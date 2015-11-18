@@ -72,6 +72,7 @@ nav {
 .buy{
   color: white !important;
   font-weight: bold;
+  width: 100%;
 }
 .item_name{
   font-size: 18px;
