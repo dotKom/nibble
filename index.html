@@ -22,22 +22,30 @@
         <div class="nav-wrapper">
           <a href="" class="brand-logo"><img class="logo" src="./static/images/favicon.png"/>Nibble</a>
           <ul class="right">
-            <li><a href="#helpModal" modal><i class="material-icons">help_outline</i>Hjelp</a></li>
+            <li title="Hjelp"><a href="#helpModal" modal><i class="material-icons">help_outline</i><span class="hover-text">Hjelp</span></a></li>
             <span ng-show="user">
-              <li><a href="#addCashModal" modal><i class="material-icons">attach_money</i>Påfyll</a></li>
-              <li>
-                <a href="#" class="dropdown-button darker" data-activates="user-action">{{ user.name }}: {{ user.balance }}kr
+              <li title="Legg til cash">
+                <a href="#addCashModal" modal>
+                  <i class="material-icons pre-icon inline">add</i>
+                  <i class="material-icons inline">attach_money</i>
+                  <span class="hover-text">Påfyll</span>
+                </a>
+              </li>
+              <li title="Min bruker">
+                <a href="#" class="dropdown-button darker nav-user" data-activates="user-action">{{ user.name }} <small> {{ user.balance }}kr</small>
                   <i class="material-icons right">arrow_drop_down</i>
                 </a>
                 <ul class="dropdown-content" id="user-action">
                   <!--View spesifict functions?-->
                   <!--'History' will so show a modal with a history of all sessions-->
-                  <li><a href="">History</a></li>
+                  <li><a href="">Kjøpshistorikk</a></li>
+                  <li><a href="#addCashModal" modal>Legg til penger</a></li>
                   <!--'Ta ut penger' will so show a modal with for widthdrawing money-->
-                  <li><a href="">Ta ut penger</a></li>
+                  <li><a href="withdrawCashModal" modal>Ta ut penger</a></li>
+                  
                 </ul>
               </li>
-              <li><a href="#/" ng-click="logout()"><i class="material-icons">exit_to_app</i>Exit</a></li>
+              <li><a href="#/" ng-click="logout()"><i class="material-icons">exit_to_app</i><span class="hover-text">Exit</span></a></li>
             </span>
           </ul>
         </div>
@@ -52,7 +60,7 @@
           <h4>Legg inn penger</h4>
           <h5>Kontant</h5>
           <p>
-          Legg kontant i pengekassa som står i kjøleskapet og registrer samme beløp her
+          <b>Legg kontant i pengekassa som står i kjøleskapet, så registrer samme beløp her!</b>
 
           <div class="radio-group">
             <span ng-repeat="amount in add_amounts">
@@ -60,6 +68,9 @@
               <label for="check_{{amount}}">{{amount}}kr</label>
             </span>
           </div>
+
+          <br>
+          eller:
           <div class="input-field col s6">
             <input ng-model="add_money_amount" id="custom_amount" type="text">
             <label for="custom_amount">Velg eget beløp</label>
