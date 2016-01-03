@@ -31,6 +31,10 @@ small{
   display: inline !important;
 }
 
+.fullwidth{
+  width: 100%;
+}
+
 .material-icons.pre-icon{
   font-size: 1.3rem;
   vertical-align: top;
@@ -64,6 +68,7 @@ small{
 .card .card-action {
     display: inline-block;
     padding: 0;
+    
 }
 
 .card .card-action a{
@@ -77,6 +82,7 @@ small{
 .card .card-content {
     padding: 10px 20px;
     display: inline-table;
+    vertical-align: middle;
 }
 
 .item-count{

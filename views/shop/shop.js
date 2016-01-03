@@ -12,7 +12,7 @@ angular.module('nibble.shop', ['ngRoute'])
 .controller('shopCtrl', function($scope, $rootScope, $location, $http) {
   /*Note: The controller runs tiwce for some reason*/
   if(!$rootScope.user){
-    $rootScope.user = {name: "testUser",balance: 1000};
+    $rootScope.user = {name: "Ola Nordmann",balance: 987};
     /*$location.url("/");
     Materialize.toast("You need to login first!", 4000);
     return;*/
