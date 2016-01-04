@@ -10,11 +10,11 @@
             {{ item.name }}
           </span>
           <span class="item-count">
-            {{ item.price }}kr <span ng-show="item.dispCount != 0"> x {{ item.dispCount }}</span>
+            {{ item.price }}kr <span class="thin" ng-show="item.dispCount != 0"> x {{ item.dispCount }}</span>
           </span>
         </div>
         <div class="card-action">
-          <a class="add waves-effect waves-green btn btn-flat green left-align" href="">
+          <a class="add waves-effect waves-blue btn btn-flat nibble-color lighter left-align" href="">
             LEGG TIL
           </a>
         </div>
@@ -66,7 +66,7 @@
       </table>
       <div class="checkout">
         <div class="sum">Total: <span class="right">{{ totalSum }},-</span></div>
-        <a class="buy waves-effect waves-light btn-large" ng-click="checkout()" href="">Kjøp</a>
+        <button ng-disabled="!totalSum" class="buy waves-effect waves-light nibble-color success btn-large" ng-click="checkout()" href="">Kjøp</button>
       </div>
   </div>
 </div>

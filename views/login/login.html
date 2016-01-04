@@ -1,9 +1,7 @@
 <div class="row">
-  <div class="col m8 l8 offset-m2 offset-l2">
-    <div class="row">
-      <div class="col m6 l6 offset-m3 offset-l3 align-wrapper">
-        <div class="card amber darken-1 valign">
-          <div class="card-content white-text">
+  <div class="col m6 l6 offset-m3 offset-l3 center-wrapper">
+    <div class="card nibble-color alt">
+      <div class="card-content white-text">
         <span class="card-title">Scan ditt studenkort for å handle</span>
         <p>
             Lorem ipsum do we even need any text here, maybe how to use the system and what it is 
@@ -21,13 +19,14 @@
 
         <form ng-show ="validation_fail" id="reg-form">
           <div class="row">
-          <div input-field class="input-field col m6 l6">
-            <input ng-model="user.username" class="col" id="user" type="text" />
-            <label for="user">Username</label>
-          </div>
-          <div input-field class="input-field col m6 l6">
-            <input ng-model="user.password" class="col" id="password" type="password"/>
-            <label for="password">Password</label>
+            <div input-field class="input-field col m6 l6">
+              <input ng-model="user.username" class="col" id="user" type="text" />
+              <label for="user">Username</label>
+            </div>
+            <div input-field class="input-field col m6 l6">
+              <input ng-model="user.password" class="col" id="password" type="password"/>
+              <label for="password">Password</label>
+            </div>
           </div>
         </form>
       </div>

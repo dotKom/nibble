@@ -33,7 +33,6 @@ controller('MainCtrl', ["$scope", function ($scope) {
   }
 
   root.validAmount = function(){
-    console.log("Valid money amount: " + root.add_money_amount);
     if(root.add_money_amount != "" && root.add_money_amount>0){
       return true;
     }
