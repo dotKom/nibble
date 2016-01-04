@@ -65,6 +65,8 @@
           <b>Legg kontant i pengekassa som står i kjøleskapet, så registrer samme beløp her!</b>
 
           <div class="radio-group">
+
+          <!-- TODO: Fix checkboxes (currently nothing happens when clicked) -->
             <span ng-repeat="amount in add_amounts">
               <input value="{{amount}}" ng-model="add_money_amount" name="amount" type="radio" id="check_{{amount}}" />
               <label for="check_{{amount}}">{{amount}}kr</label>
@@ -82,8 +84,8 @@
       </div>
       <div class="modal-footer">
           <a href class="modal-action modal-close waves-effect btn-flat">Avbryt</a>
-          <a ng-click="addMoney(add_money_amount)" class="modal-action modal-close waves-effect btn nibble-color lighter
-">Bekreft</a>
+          <button ng-click="addMoney(add_money_amount)" ng-disabled="invalidAmount(add_money_amount)" class="modal-action modal-close waves-effect btn nibble-color lighter
+">Bekreft</button>
       </div>
   </div>
 
@@ -95,7 +97,7 @@
       </div>
       <div class="modal-footer">
           <a href class="modal-action modal-close waves-effect btn-flat">Ny handel</a>
-          <a ng-disabled="validAmount" ng-click="addMoney(add_money_amount)" class="modal-action modal-close waves-effect btn green">Logg ut (10)</a>
+          <a ng-click="addMoney(add_money_amount)" class="modal-action modal-close waves-effect btn green">Logg ut (10)</a>
       </div>
   </div>
   <div id="helpModal" class="modal">

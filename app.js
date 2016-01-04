@@ -24,7 +24,7 @@ controller('MainCtrl', ["$scope", function ($scope) {
   /*Definitions of root functions:*/
   root.development = true;
   root.add_amounts = [10, 15, 20, 40, 50, 100, 200, 400, 500];
-  root.add_money_amount = "";
+  root.add_money_amount = 0;
   
   root.logout = function(){
     root.rfid = null;
@@ -32,10 +32,10 @@ controller('MainCtrl', ["$scope", function ($scope) {
     root.showBalModule = false;
   }
 
-  root.validAmount = function(){
-    if(root.add_money_amount != "" && root.add_money_amount>0){
-      return true;
+  root.invalidAmount = function(amount){
+    if(amount && parseInt(amount)>0){
+      return false;
     }
-    return false;
+    return true;
   }
 }]);
