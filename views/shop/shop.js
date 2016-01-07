@@ -9,7 +9,7 @@ angular.module('nibble.shop', ['ngRoute'])
   });
 }])
 
-.controller('shopCtrl', function($scope, $rootScope, $location, $http) {
+.controller('shopCtrl', function($scope, $rootScope, $location, $interval, $http) {
   /*Note: The controller runs tiwce for some reason*/
   if(!$rootScope.user){
     $rootScope.user = {name: "Ola Nordmann",balance: 720};
@@ -17,6 +17,7 @@ angular.module('nibble.shop', ['ngRoute'])
     Materialize.toast("You need to login first!", 4000);
     return;*/
   }
+
   $http({
     url: "/api/v1/inventory/",
     method: "post",
@@ -32,7 +33,7 @@ angular.module('nibble.shop', ['ngRoute'])
   /*http://www.lunsj.no/14636-thickbox_default/knorr-tomatsuppe.jpg*/
   /*
     Set oId to "a" + id
-    oId is used for referance in $scope.shopQueue
+    oId is used for referance in $rootScope.shopQueue
     regular id can't be used, it needs to contain
     alpha characters in order to display the queue
     correctly
@@ -52,13 +53,15 @@ angular.module('nibble.shop', ['ngRoute'])
   
   $scope.items = [testItem, testItem2, testItem3, testItem4, testItem5, testItem, testItem2, testItem3, testItem4];
   /*$scope.selectedItems = [testItem, testItem2];*/
-  $scope.shopQueue = {};
+  $rootScope.shopQueue = {};
  
 /*  $scope.totalSum = getTotalSum();*/
   $scope.totalSum = 0;
+  $rootScope.logoutTimer = 60;
+
   function getTotalSum(){
     var totalSum = 0; 
-    angular.forEach($scope.shopQueue, function(element) {
+    angular.forEach($rootScope.shopQueue, function(element) {
       totalSum += element.count * element.item.price;
     });
     return totalSum;
@@ -66,22 +69,22 @@ angular.module('nibble.shop', ['ngRoute'])
   
   $scope.changeCount = function(itemRef,count){
     if(($scope.totalSum+(itemRef.price*count)) <= $scope.user.balance){
-      if(!$scope.shopQueue[itemRef.oId]){
-        $scope.shopQueue[itemRef.oId] = {"item":itemRef,"count": 0};
+      if(!$rootScope.shopQueue[itemRef.oId]){
+        $rootScope.shopQueue[itemRef.oId] = {"item":itemRef,"count": 0};
       }
-      $scope.shopQueue[itemRef.oId].count = Math.max(0,$scope.shopQueue[itemRef.oId].count+count);
-      $scope.shopQueue[itemRef.oId].item.dispCount = $scope.shopQueue[itemRef.oId].count;
-      if($scope.shopQueue[itemRef.oId].count <= 0){
-        delete $scope.shopQueue[itemRef.oId];
+      $rootScope.shopQueue[itemRef.oId].count = Math.max(0,$rootScope.shopQueue[itemRef.oId].count+count);
+      $rootScope.shopQueue[itemRef.oId].item.dispCount = $rootScope.shopQueue[itemRef.oId].count;
+      if($rootScope.shopQueue[itemRef.oId].count <= 0){
+        delete $rootScope.shopQueue[itemRef.oId];
         /*
           Force key 'reorder':
           Has to be done in order for a newly added
           item to appear on the bottom of the queue
         */
-        var tmp = $scope.shopQueue;
-        $scope.shopQueue = {};
+        var tmp = $rootScope.shopQueue;
+        $rootScope.shopQueue = {};
         for(var k in tmp){
-          $scope.shopQueue[k] = tmp[k];
+          $rootScope.shopQueue[k] = tmp[k];
         }
       }
     }else{
@@ -89,7 +92,10 @@ angular.module('nibble.shop', ['ngRoute'])
       Materialize.toast("Totalprisen overstrider din saldo", 2000);
     }
     $scope.totalSum = getTotalSum();
+
+    $rootScope.logoutTimer = 60;
   }
+
   $scope.checkout = function(){
     /*
       Insert validation code here  
@@ -99,22 +105,57 @@ angular.module('nibble.shop', ['ngRoute'])
       method: "post",
       data: {
         "user": $rootScope.rfid,
-        "products": $scope.shopQueue
+        "products": $rootScope.shopQueue
       }
      }).then(function(ret){
-       $scope.shopQueue = {};
-       /*Prompt user to 'logout' or 'continue shopping'*/
-       $location.url("/kvitering");
+      $rootScope.shopQueue = {};
+      Materialize.toast("Success: "+ret, 4000);
+      //TODO: get new user balance and history
      },function(error){
        Materialize.toast("Could not checkout", 4000);
        Materialize.toast("Server returned error code: " + error.status, 4000); 
-       
-       $location.url("/kvitering");
      
      });
+
+     $('#checkoutModal').openModal();
+
+     $rootScope.logoutTimer = 5;
+
   }
+
+  $rootScope.newOrder = function(){
+    $rootScope.shopQueue = {};
+    $scope.totalSum = 0;
+    $('#checkoutModal').closeModal();
+    
+    $rootScope.logoutTimer = 60;
+    $interval.cancel($rootScope.interval);
+    $scope.startInterval();
+  }
+
   
-  
+  $scope.$on('$destroy', function(){
+    $rootScope.newOrder();
+    $interval.cancel($rootScope.interval);
+  });
+
+  $scope.startInterval = function(){
+    $rootScope.interval = $interval(function(){
+      $rootScope.logoutTimer -= 1;
+      
+      if($rootScope.logoutTimer <= 0){
+        $interval.cancel($rootScope.interval);
+
+        if(!$rootScope.development){
+          $rootScope.logoutTimer = 0;
+          $scope.logoutRedir();
+        }
+      }
+    }, 1000);
+  }
+
+  $scope.startInterval();
+
   /*function add(item){
     try:
     order[item.unique].amount += 1;

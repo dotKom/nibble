@@ -20,16 +20,18 @@ controller('MainCtrl', ["$scope", function ($scope) {
 
     */
 
-}]).run(["$rootScope",function(root){
+}]).run(["$rootScope", "$location", function(root, location){
   /*Definitions of root functions:*/
   root.development = true;
   root.add_amounts = [10, 15, 20, 40, 50, 100, 200, 400, 500];
   root.add_money_amount = 0;
+  root.logoutTimer = 0;
   
   root.logout = function(){
     root.rfid = null;
     root.user = null;
     root.showBalModule = false;
+    location.url("/");
   }
 
   root.invalidAmount = function(amount){

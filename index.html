@@ -47,7 +47,13 @@
                   
                 </ul>
               </li>
-              <li><a class="nav-btn alt nibble-text" title="Avbryt og logg ut" href="#/" ng-click="logout()"><i class="material-icons">exit_to_app</i><span class="hover-text">Exit</span></a></li>
+              <li>
+                <a class="nav-btn alt nibble-text" title="Avbryt og logg ut" href="#/" ng-click="logout()">
+                  <span class="countdown">{{logoutTimer}}</span>
+                  <i class="material-icons inline">exit_to_app</i>
+                  <span class="hover-text">Exit</span>
+                </a>
+              </li>
             </span>
           </ul>
         </div>
@@ -89,15 +95,30 @@
       </div>
   </div>
 
-  <div id="checkoutModal" class="modal add-money">
-      <div class="modal-content">
-          <h4>Handel fullført</h4>
-          <h5>Takk for handelen!</h5>
-          
+  <div id="checkoutModal" class="modal modal-fixed-footer add-money">
+      <div class="modal-content valign-wrapper row">
+        <div class="valign center-align col s12">
+          <i class="material-icons large-icon green-text">check_circle</i>
+          <h4 class="thinner">Handel fullført</h4>
+          <h5>
+            <span ng-repeat="element in shopQueue track by $index"> 
+              <b>
+                {{ element.item.name }}
+                <span class="thinner">
+                x {{ element.count }}
+                </span>
+              </b>
+              <br>
+            </span>
+          </h5>
+          <h5 class="thinner grey-text darken-2">
+            <b>{{ user.balance }}kr</b> igjen
+          </h5>
+        </div>
       </div>
       <div class="modal-footer">
-          <a href class="modal-action modal-close waves-effect btn-flat">Ny handel</a>
-          <a ng-click="addMoney(add_money_amount)" class="modal-action modal-close waves-effect btn green">Logg ut (10)</a>
+          <a href ng-click="newOrder()" class="modal-action modal-close waves-effect btn-flat">Ny handel</a>
+          <a ng-click="logout()" class="modal-action modal-close waves-effect btn blue-grey darken-1">Logg ut nå ({{logoutTimer}})</a>
       </div>
   </div>
   <div id="helpModal" class="modal">

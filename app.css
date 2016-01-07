@@ -16,6 +16,10 @@ nav {
 .nav-btn{
   max-height: 64px;
 }
+
+.brand-logo{
+  font-family: Lobster, sans-serif;
+}
 .nav-btn:hover{
   max-height: none;
 }
@@ -37,6 +41,17 @@ nav ul li:hover, nav ul li.active {
   max-height: 64px;
 }
 
+.large-icon{
+  font-size: 10rem !important;
+}
+
+.countdown{
+  font-family: Lobster, "Open Sans", sans-serif;
+  min-width: 50px;
+  display: inline-block;
+  font-size: 40px;
+}
+
 small{
   font-size: 60%;
 }
@@ -54,7 +69,7 @@ small{
 }
 
 .thinner{
-  font-weight: 100;
+  font-weight: 300;
 }
 
 .nibble-color{
@@ -277,6 +292,13 @@ img.logo {
   font-style: normal;
   font-weight: 400;
   src: local('Material Icons'), local('MaterialIcons-Regular'), url(./static/fonts/material.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'Lobster';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Lobster'), local('Lobster-Regular'), url(./static/fonts/lobster.woff2) format('woff2');
 }
 
 .material-icons {
