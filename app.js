@@ -40,4 +40,10 @@ controller('MainCtrl', ["$scope", function ($scope) {
     }
     return true;
   }
+
+
+  root.addMoney = function(amount){
+    root.user.balance += parseInt(amount);
+  }
+
 }]);
