@@ -91,7 +91,7 @@
       <div class="modal-footer">
           <a href class="modal-action modal-close waves-effect btn-flat">Avbryt</a>
           <button ng-click="addMoney(add_money_amount)" ng-disabled="invalidAmount(add_money_amount)" class="modal-action modal-close waves-effect btn nibble-color lighter
-">Bekreft</button>
+">Sett inn</button>
       </div>
   </div>
 
@@ -101,15 +101,16 @@
           <i class="material-icons large-icon green-text">check_circle</i>
           <h4 class="thinner">Handel fullført</h4>
           <h5>
-            <span ng-repeat="element in shopQueue track by $index"> 
-              <b>
+            <div class="row">
+              <div ng-repeat="element in shopQueue track by $index">
+                <span class="col s6 bold right-align padd">
                 {{ element.item.name }}
-                <span class="thinner">
-                x {{ element.count }}
                 </span>
-              </b>
-              <br>
-            </span>
+                <span class="col s6 thinner left-align padd">
+                  x {{ element.count }}
+                </span>
+              </div>
+            </div>
           </h5>
           <h5 class="thinner grey-text darken-2">
             <b>{{ user.balance }}kr</b> igjen

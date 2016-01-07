@@ -22,51 +22,47 @@
     </div>
 
   </div>
-  <div class="col m3 l3 z-depth-2 side-nav fixed">
-      <h5>
-        <span ng-show="!totalSum">Din saldo: </span>
-        <span ng-show="totalSum">Du har </span>
-        {{ user.balance - totalSum }}kr 
-        <span ng-show="totalSum">igjen</span>
-        <small ng-show="totalSum"><br>(etter fullført kjøp)</small>
+  <div class="col m3 l3 side-nav fixed">
 
-        <div ng-show="user.balance == 0" class="card blue-grey darken-1">
-          <div class="card-content white-text">
-            <span class="card-title">Du må sette inn penger for å kunne kjøpe varer!</span>
-          </div>
-          <div class="card-action fullwidth">
-            <a href="#addCashModal" modal class="green white-text fullwidth">
-              <span class="fullwidth">Sett inn penger</span>
-            </a>
-          </div>
+    <div ng-show="user.balance == 0" class="card blue-grey darken-1">
+      <h5>
+        <div class="card-content white-text">
+          <span class="card-title">Du må sette inn penger for å kunne kjøpe varer!</span>
         </div>
-       
+        <div class="card-action fullwidth">
+          <a href="#addCashModal" modal class="green white-text fullwidth">
+            <span class="fullwidth">Sett inn penger</span>
+          </a>
+        </div>
       </h5>
-      <table>
-        <thead class="thead">
-          <tr>
-              <th data-field="id"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="item_box" ng-repeat="element in shopQueue track by $index"> 
-            <td>
-              <span class="item_name">
-                {{ element.item.name }}
-              </span> 
-              <a class="remove waves-effect waves-red right" href="" ng-click = "changeCount(element.item,-element.count)">
-                <i class="material-icons">clear</i>
-              </a>
-              <a class="item-count right" href="#">
-                {{ element.count }}
-              </a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="checkout">
-        <div class="sum">Total: <span class="right">{{ totalSum }},-</span></div>
-        <button ng-disabled="!totalSum" ng-click="checkout()" class="buy waves-effect waves-light nibble-color success btn-large">Kjøp</button>
+    </div>
+
+    <table>
+      <tr class="item_box" ng-repeat="element in shopQueue track by $index"> 
+        <td>
+          <span class="item_name">
+            {{ element.item.name }}
+          </span> 
+          <a class="remove waves-effect waves-red right" href="" ng-click = "changeCount(element.item,-element.count)">
+            <i class="material-icons">clear</i>
+          </a>
+          <a class="item-count right">
+            {{ element.count }} x {{ element.item.price }},-
+          </a>
+        </td>
+      </tr>
+    </table>
+
+    
+
+    <div class="checkout">
+      <div class="sum">Total: <span class="right">{{ totalSum }},-</span></div>
+      <div>
+        <h5>
+          <span ng-show="totalSum">Sum etter handel: <span class="right">{{ user.balance - totalSum }},-</span></span>
+        </h5>
       </div>
+      <button ng-disabled="!totalSum" ng-click="checkout()" class="buy waves-effect waves-light nibble-color success btn-large">Kjøp</button>
+    </div>
   </div>
 </div>

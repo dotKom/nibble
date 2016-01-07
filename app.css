@@ -2,6 +2,7 @@
 /* see http://materializecss.com/color.html for color palette. Current palette is amber */
 nav {
   background-color: #ff6f00;  /* amber darken-4 */
+  box-shadow: none;
 }
 
 .nav-btn
@@ -46,7 +47,6 @@ nav ul li:hover, nav ul li.active {
 }
 
 .countdown{
-  font-family: Lobster, "Open Sans", sans-serif;
   min-width: 50px;
   display: inline-block;
   font-size: 40px;
@@ -64,12 +64,20 @@ small{
   width: 100%;
 }
 
+.bold{
+  font-weight: bold;
+}
+
 .thin{
   font-weight: 200;
 }
 
 .thinner{
   font-weight: 300;
+}
+
+.padd{
+  padding: 0 5px !important;
 }
 
 .nibble-color{
