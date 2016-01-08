@@ -100,26 +100,31 @@ angular.module('nibble.shop', ['ngRoute'])
     /*
       Insert validation code here  
     */
-     $http({
+
+    $('#checkoutModal').openModal();
+    $http({
       url: "/payme/buy",
       method: "post",
       data: {
         "user": $rootScope.rfid,
         "products": $rootScope.shopQueue
       }
-     }).then(function(ret){
+    }).then(function(ret){
+      //success
+      $scope.successCheckmark();
       $rootScope.shopQueue = {};
       Materialize.toast("Success: "+ret, 4000);
       //TODO: get new user balance and history
-     },function(error){
-       Materialize.toast("Could not checkout", 4000);
-       Materialize.toast("Server returned error code: " + error.status, 4000); 
-     
-     });
+    },function(error){
+      Materialize.toast("Could not checkout", 4000);
+      Materialize.toast("Server returned error code: " + error.status, 4000); 
+    
+    });
+    
+    if($rootScope.development)
+      $scope.successCheckmark();
 
-     $('#checkoutModal').openModal();
-
-     $rootScope.logoutTimer = 5;
+    $rootScope.logoutTimer = 5;
 
   }
 
@@ -131,6 +136,10 @@ angular.module('nibble.shop', ['ngRoute'])
     $rootScope.logoutTimer = 60;
     $interval.cancel($rootScope.interval);
     $scope.startInterval();
+
+    $(".check").attr("class", "check");
+    $(".fill").attr("class", "fill");
+    $(".path").attr("class", "path");
   }
 
   
@@ -151,6 +160,16 @@ angular.module('nibble.shop', ['ngRoute'])
           $scope.logoutRedir();
         }
       }
+    }, 1000);
+  }
+
+  $scope.successCheckmark = function(){
+    $(".check").attr("class", "check check-complete");
+    $(".fill").attr("class", "fill fill-complete");
+    setTimeout(function () {
+        $(".check").attr("class", "check check-complete success");
+        $(".fill").attr("class", "fill fill-complete success");
+        $(".path").attr("class", "path path-complete");
     }, 1000);
   }
 
