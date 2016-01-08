@@ -12,10 +12,14 @@ angular.module('nibble.shop', ['ngRoute'])
 .controller('shopCtrl', function($scope, $rootScope, $location, $interval, $http) {
   /*Note: The controller runs tiwce for some reason*/
   if(!$rootScope.user){
-    $rootScope.user = {name: "Ola Nordmann",balance: 720};
-    /*$location.url("/");
-    Materialize.toast("You need to login first!", 4000);
-    return;*/
+    if(!$rootScope.development){
+      $location.url("/");
+      Materialize.toast("Logg inn først!", 4000);
+      return;
+    }else{
+      $rootScope.user = {name: "Ola Nordmann",balance: 720};
+      Materialize.toast("(devmode) Using local test user", 1000);
+    }
   }
 
   $http({
@@ -28,7 +32,7 @@ angular.module('nibble.shop', ['ngRoute'])
       $scope.items[i]["oId"] = "a" + $scope.items[i]["id"];
     }
   },function(error){
-    Materialize.toast("Could not load shop inventory", 4000);
+    Materialize.toast("[ERROR] Could not load shop inventory", 4000);
   });
   /*http://www.lunsj.no/14636-thickbox_default/knorr-tomatsuppe.jpg*/
   /*
@@ -50,12 +54,9 @@ angular.module('nibble.shop', ['ngRoute'])
   var testItem5 = {oId:"a5", id:"5","name":"Kinder: bueno", "description":"Kinder", "price":10, "amount":42, "available":true, "category":"snacks", "image": "http://www.kinder.me/image/journal/article?img_id=7231869&t=1445520902223","dispCount":0}
   
 
-  
   $scope.items = [testItem, testItem2, testItem3, testItem4, testItem5, testItem, testItem2, testItem3, testItem4];
-  /*$scope.selectedItems = [testItem, testItem2];*/
   $rootScope.shopQueue = {};
  
-/*  $scope.totalSum = getTotalSum();*/
   $scope.totalSum = 0;
   $rootScope.logoutTimer = 60;
 
@@ -101,7 +102,10 @@ angular.module('nibble.shop', ['ngRoute'])
       Insert validation code here  
     */
 
-    $('#checkoutModal').openModal();
+    $('#checkoutModal').openModal({
+      complete : $rootScope.newOrder
+    });
+
     $http({
       url: "/payme/buy",
       method: "post",
@@ -110,24 +114,22 @@ angular.module('nibble.shop', ['ngRoute'])
         "products": $rootScope.shopQueue
       }
     }).then(function(ret){
-      //success
-      $scope.successCheckmark();
-      $rootScope.shopQueue = {};
-      Materialize.toast("Success: "+ret, 4000);
-      //TODO: get new user balance and history
+      $scope.successCheckout(ret);
     },function(error){
-      Materialize.toast("Could not checkout", 4000);
-      Materialize.toast("Server returned error code: " + error.status, 4000); 
-    
+      if(!$rootScope.development){
+        $scope.errorCheckout(error);
+      }else{
+        Materialize.toast("(devmode) Checkout actually failed, status: "+error.status, 3000);
+        $scope.successCheckout(error);
+      }
     });
     
-    if($rootScope.development)
-      $scope.successCheckmark();
-
     $rootScope.logoutTimer = 5;
 
   }
 
+
+  //Reset all temporary/user-related changes here
   $rootScope.newOrder = function(){
     $rootScope.shopQueue = {};
     $scope.totalSum = 0;
@@ -140,6 +142,12 @@ angular.module('nibble.shop', ['ngRoute'])
     $(".check").attr("class", "check");
     $(".fill").attr("class", "fill");
     $(".path").attr("class", "path");
+
+    $("#order-status").text("Handel fullført!");
+    $("#order-status").removeClass("red-text");
+
+    $(".path").attr("stroke", "#7DB0D5");
+    $(".fill").attr("stroke", "#7DB0D5");
   }
 
   
@@ -158,12 +166,16 @@ angular.module('nibble.shop', ['ngRoute'])
         if(!$rootScope.development){
           $rootScope.logoutTimer = 0;
           $scope.logoutRedir();
+        }else{
+          Materialize.toast("(devmode) Automated logout disabled", 1000);
         }
       }
     }, 1000);
   }
 
-  $scope.successCheckmark = function(){
+  $scope.successCheckout = function(ret){
+    //TODO: get new user balance and history
+
     $(".check").attr("class", "check check-complete");
     $(".fill").attr("class", "fill fill-complete");
     setTimeout(function () {
@@ -171,6 +183,14 @@ angular.module('nibble.shop', ['ngRoute'])
         $(".fill").attr("class", "fill fill-complete success");
         $(".path").attr("class", "path path-complete");
     }, 1000);
+  }
+
+  $scope.errorCheckout = function(error){
+    Materialize.toast("Server returned error code: " + error.status, 8000); 
+    $("#order-status").text("Handel feilet!");
+    $("#order-status").addClass("red-text");
+    $(".path").attr("stroke", "#F44336");
+    $(".fill").attr("stroke", "#F44336");
   }
 
   $scope.startInterval();

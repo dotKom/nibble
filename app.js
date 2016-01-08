@@ -27,6 +27,7 @@ controller('MainCtrl', ["$scope", function ($scope) {
   root.add_money_amount = 0;
   root.logoutTimer = 0;
   
+  
   root.logout = function(){
     root.rfid = null;
     root.user = null;

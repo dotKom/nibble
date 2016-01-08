@@ -55,10 +55,10 @@
     
 
     <div class="checkout">
-      <div class="sum">Total: <span class="right">{{ totalSum }},-</span></div>
+      <div class="sum">Subtotal: <span class="right">{{ totalSum }},-</span></div>
       <div>
         <h5>
-          <span ng-show="totalSum">Sum etter handel: <span class="right">{{ user.balance - totalSum }},-</span></span>
+          <span ng-show="totalSum">Balanse etter handel: <span class="right">{{ user.balance - totalSum }},-</span></span>
         </h5>
       </div>
       <button ng-disabled="!totalSum" ng-click="checkout()" class="buy waves-effect waves-light nibble-color success btn-large">Kjøp</button>
