@@ -43,7 +43,7 @@
                   <li><a href="">Kjøpshistorikk</a></li>
                   <li><a href="#addCashModal" modal>Legg til penger</a></li>
                   <!--'Ta ut penger' will so show a modal with for widthdrawing money-->
-                  <li><a href="withdrawCashModal" modal>Ta ut penger</a></li>
+                  <li><a href="#withdrawCashModal" modal>Ta ut penger</a></li>
                   
                 </ul>
               </li>
@@ -73,9 +73,9 @@
           <div class="radio-group">
 
           <!-- TODO: Fix checkboxes (currently nothing happens when clicked) -->
-            <span ng-repeat="amount in add_amounts">
-              <input value="{{amount}}" ng-model="add_money_amount" name="amount" type="radio" id="check_{{amount}}" />
-              <label for="check_{{amount}}">{{amount}}kr</label>
+            <span ng-repeat="amount in cash_amounts track by $index">
+              <input value="{{cash_amounts[$index]}}" ng-model="add_money_amount" name="cash_amounts[$index" type="radio" id="check_{{cash_amounts[$index]}}" />
+              <label for="check_{{cash_amounts[$index]}}">{{cash_amounts[$index]}}kr</label>
             </span>
           </div>
 
@@ -92,6 +92,38 @@
           <a href class="modal-action modal-close waves-effect btn-flat">Avbryt</a>
           <button ng-click="addMoney(add_money_amount)" ng-disabled="invalidAmount(add_money_amount)" class="modal-action modal-close waves-effect btn nibble-color lighter
 ">Sett inn</button>
+      </div>
+  </div>
+
+  <div id="withdrawCashModal" class="modal add-money">
+      <div class="modal-content">
+          <h4>Ta ut penger</h4>
+          <h5>Kontant</h5>
+          <p>
+          <b>Velg beløpet du ønsker å ta ut, så ta pengene fra kassa i kjøleskapet!</b>
+
+          <div class="radio-group">
+
+          <!-- TODO: Fix checkboxes (currently nothing happens when clicked) -->
+            <span ng-repeat="amount in cash_amounts track by $index">
+              <input value="{{cash_amounts[$index]}}" ng-model="withdraw_money_amount" name="cash_amounts[$index" type="radio" id="withdraw_check_{{cash_amounts[$index]}}" />
+              <label for="withdraw_check_{{cash_amounts[$index]}}">{{cash_amounts[$index]}}kr</label>
+            </span>
+          </div>
+
+          <br>
+          eller:
+          <div class="input-field col s6">
+            <input ng-model="withdraw_money_amount" id="withdraw_custom_amount" type="text">
+            <label for="withdraw_custom_amount">Velg eget beløp</label>
+          </div>
+          
+          </p>
+      </div>
+      <div class="modal-footer">
+          <a href class="modal-action modal-close waves-effect btn-flat">Avbryt</a>
+          <button ng-click="withdrawMoney(withdraw_money_amount)" ng-disabled="invalidWithdrawAmount(withdraw_money_amount)" class="modal-action modal-close waves-effect btn nibble-color lighter
+">Ta ut</button>
       </div>
   </div>
 
