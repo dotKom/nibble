@@ -23,7 +23,7 @@ controller('MainCtrl', ["$scope", function ($scope) {
 }]).run(["$rootScope", "$location", function(root, location){
   /*Definitions of root functions:*/
   root.development = true;
-  root.add_amounts = [10, 15, 20, 40, 50, 100, 200, 400, 500];
+  root.cash_amounts = [10, 15, 20, 40, 50, 100, 200, 400, 500];
   root.add_money_amount = 0;
   root.logoutTimer = 0;
   
