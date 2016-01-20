@@ -21,7 +21,7 @@ angular.module('nibble.shop', ['ngRoute'])
       Materialize.toast("(devmode) Using local test user", 1000);
     }
   }
-
+  /*Download the shops inventory*/
   $http({
     url: "/api/v1/inventory/",
     method: "post",
@@ -43,20 +43,33 @@ angular.module('nibble.shop', ['ngRoute'])
     correctly
   */
   var testItem = {oId:"a1",id:"1","name":"Øl", "description":"0.5L Dahls på glassflaske", "price":"20", "amount":42, "available":true, "category":"drikke", 
-                  "image": "http://3.bp.blogspot.com/_eBUfxxSLsVw/TSoQTbARxiI/AAAAAAAAAEk/V927sCd8uRU/s1600/dahls.png","dispCount":0}
+                  "image": "http://3.bp.blogspot.com/_eBUfxxSLsVw/TSoQTbARxiI/AAAAAAAAAEk/V927sCd8uRU/s1600/dahls.png","dispCount":0};
   var testItem2 = {oId:"a2", id:"2","name":"Billys", "description":"Dypfryst pizza med ost og skinke", "price":20, "amount":42, "available":true, 
-                  "category":"mat", "image": "http://www.brynildsen.no/upload/Billys-original-NY.png","dispCount":0}
+                  "category":"mat", "image": "http://www.brynildsen.no/upload/Billys-original-NY.png","dispCount":0};
   var testItem3 = {oId:"a3", id:"3","name":"Rett i koppen", "description":"Mat...", "price":40, "amount":42, "available":true, 
-                  "category":"mat", "image": "http://www.lunsj.no/14636-thickbox_default/knorr-tomatsuppe.jpg","dispCount":0}
+                  "category":"mat", "image": "http://www.lunsj.no/14636-thickbox_default/knorr-tomatsuppe.jpg","dispCount":0};
   /**/
-  var testItem4 = {oId:"a4", id:"4","name":"Solbærtoddy", "description":"Toddy", "price":25, "amount":42, "available":true, "category":"drikke", "image": "http://proddb.kraft-hosting.net/prod_db/proddbimg/11324.png","dispCount":0}
+  var testItem4 = {oId:"a4", id:"4","name":"Solbærtoddy", "description":"Toddy", "price":25, "amount":42, "available":true, "category":"drikke", "image": "http://proddb.kraft-hosting.net/prod_db/proddbimg/11324.png","dispCount":0};
   
-  var testItem5 = {oId:"a5", id:"5","name":"Kinder: bueno", "description":"Kinder", "price":10, "amount":42, "available":true, "category":"snacks", "image": "http://www.kinder.me/image/journal/article?img_id=7231869&t=1445520902223","dispCount":0}
+  var testItem5 = {oId:"a5", id:"5","name":"Kinder: bueno", "description":"Kinder", "price":10, "amount":42, "available":true, "category":"snacks", "image": "http://www.kinder.me/image/journal/article?img_id=7231869&t=1445520902223","dispCount":0};
   
 
   $scope.items = [testItem, testItem2, testItem3, testItem4, testItem5, testItem, testItem2, testItem3, testItem4];
   $rootScope.shopQueue = {};
- 
+
+  var historyItem_1 = {
+    "name":"Øl",
+    "id":"1",
+    "amount":10
+  }
+  var historyItem_2 = {
+    "name":"Kinder: bueno",
+    "id":"5",
+    "amount":10
+  }
+  $scope.user.history = [
+    historyItem_1,historyItem_2,historyItem_1,historyItem_1
+  ];
   $scope.totalSum = 0;
   $rootScope.logoutTimer = 60;
 
@@ -136,9 +149,8 @@ angular.module('nibble.shop', ['ngRoute'])
     $('#checkoutModal').closeModal();
     
     $rootScope.logoutTimer = 60;
-    $interval.cancel($rootScope.interval);
-    $scope.startInterval();
-
+    //$interval.cancel($rootScope.interval);
+    
     $(".check").attr("class", "check");
     $(".fill").attr("class", "fill");
     $(".path").attr("class", "path");
@@ -152,17 +164,25 @@ angular.module('nibble.shop', ['ngRoute'])
 
   
   $scope.$on('$destroy', function(){
+    if(angular.isDefined($rootScope.interval)){
+      $interval.cancel($rootScope.interval);
+    }
     $rootScope.newOrder();
-    $interval.cancel($rootScope.interval);
   });
-
   $scope.startInterval = function(){
-    $rootScope.interval = $interval(function(){
-      $rootScope.logoutTimer -= 1;
+    if(angular.isDefined($rootScope.interval)){
+      $interval.cancel($rootScope.interval);
+    }
+    $rootScope.time = new Date();
+    $rootScope.dTime = new Date();
       
+    $rootScope.interval = $interval(function(){
+      $rootScope.dTime = new Date() - $rootScope.time;
+      $rootScope.time = new Date();
+      $rootScope.logoutTimer -= $rootScope.dTime/1000;
       if($rootScope.logoutTimer <= 0){
         $interval.cancel($rootScope.interval);
-
+          
         if(!$rootScope.development){
           $rootScope.logoutTimer = 0;
           $scope.logoutRedir();
@@ -170,7 +190,7 @@ angular.module('nibble.shop', ['ngRoute'])
           Materialize.toast("(devmode) Automated logout disabled", 1000);
         }
       }
-    }, 1000);
+    }, 50);
   }
 
   $scope.successCheckout = function(ret){

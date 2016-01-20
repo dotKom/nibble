@@ -22,6 +22,7 @@ controller('MainCtrl', ["$scope", function ($scope) {
 
 }]).run(["$rootScope", "$location", function(root, location){
   /*Definitions of root functions:*/
+  root.ceil = Math.ceil;
   root.development = true;
   root.cash_amounts = [10, 15, 20, 40, 50, 100, 200, 400, 500];
   root.add_money_amount = 0;
@@ -36,10 +37,7 @@ controller('MainCtrl', ["$scope", function ($scope) {
   }
 
   root.invalidAmount = function(amount){
-    if(amount && parseInt(amount)>0){
-      return false;
-    }
-    return true;
+    return !(amount && parseFloat(amount) &&  parseFloat(amount) > 0);
   }
 
 

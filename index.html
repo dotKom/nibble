@@ -40,7 +40,7 @@
                 <ul class="dropdown-content" id="user-action">
                   <!--View spesifict functions?-->
                   <!--'History' will so show a modal with a history of all sessions-->
-                  <li><a href="">Kjøpshistorikk</a></li>
+                  <li><a href="#historyModal" modal>Kjøpshistorikk</a></li>
                   <li><a href="#addCashModal" modal>Legg til penger</a></li>
                   <!--'Ta ut penger' will so show a modal with for widthdrawing money-->
                   <li><a href="#withdrawCashModal" modal>Ta ut penger</a></li>
@@ -49,7 +49,7 @@
               </li>
               <li>
                 <a class="nav-btn alt nibble-text" title="Avbryt og logg ut" href="#/" ng-click="logout()">
-                  <span class="countdown">{{logoutTimer}}</span>
+                  <span class="countdown">{{ ceil(logoutTimer) }}</span>
                   <i class="material-icons inline">exit_to_app</i>
                   <span class="hover-text">Exit</span>
                 </a>
@@ -101,7 +101,7 @@
 
           <!-- TODO: Fix checkboxes (currently nothing happens when clicked) -->
             <span ng-repeat="amount in cash_amounts track by $index">
-              <input value="{{cash_amounts[$index]}}" ng-model="add_money_amount" name="cash_amounts[$index" type="radio" id="check_{{cash_amounts[$index]}}" />
+              <input ng-value = "amount" ng-model="add_money_amount" name="money_insert" type="radio" id="check_{{amount}}" />
               <label for="check_{{cash_amounts[$index]}}">{{cash_amounts[$index]}}kr</label>
             </span>
           </div>
@@ -149,7 +149,7 @@
       </div>
       <div class="modal-footer">
           <a href class="modal-action modal-close waves-effect btn-flat">Avbryt</a>
-          <button ng-click="withdrawMoney(withdraw_money_amount)" ng-disabled="invalidWithdrawAmount(withdraw_money_amount)" class="modal-action modal-close waves-effect btn nibble-color lighter
+          <button ng-click="withdrawMoney(withdraw_money_amount)" ng-disabled="invalidAmount(withdraw_money_amount)" class="modal-action modal-close waves-effect btn nibble-color lighter
 ">Ta ut</button>
       </div>
   </div>
@@ -189,8 +189,8 @@
       </div>
       <div class="modal-footer">
           <a href ng-click="newOrder()" class="modal-action modal-close waves-effect btn-flat">Ny handel</a>
-          <a ng-click="logout()" class="modal-action modal-close waves-effect btn blue-grey darken-1">Logg ut nå ({{logoutTimer}})</a>
-      </div>
+          <a ng-click="logout()" class="modal-action modal-close waves-effect btn blue-grey darken-1">Logg ut nå ({{ceil(logoutTimer)}})</a>
+      </div> 
   </div>
   <div id="helpModal" class="modal">
       <div class="modal-content">
@@ -205,7 +205,20 @@
           <a href class="modal-action modal-close waves-effect btn-flat">Lukk</a>
       </div>
   </div>
-
+  <div id="historyModal" class="modal">
+      <div class="modal-content">
+          <ul class = "collection with-header">
+            <li class = "collection-header"><h4>Kjøps historikk</h4></li>
+            <li class = "collection-item" ng-repeat="entry in user.history track by $index">
+              {{ entry.name }} - {{ entry.amount }}
+            </li>
+          </ul>
+      </div>
+      <div class="modal-footer">
+          <a href class="modal-action modal-close waves-effect btn-flat">Lukk</a>
+      </div>
+    
+  </div>
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-route/angular-route.js"></script>
   <script src="bower_components/angular-materialize/src/angular-materialize.js"></script>
