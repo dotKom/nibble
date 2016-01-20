@@ -150,7 +150,7 @@ angular.module('nibble.shop', ['ngRoute'])
     
     $rootScope.logoutTimer = 60;
     //$interval.cancel($rootScope.interval);
-    
+    $scope.startInterval();
     $(".check").attr("class", "check");
     $(".fill").attr("class", "fill");
     $(".path").attr("class", "path");

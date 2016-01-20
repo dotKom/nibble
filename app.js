@@ -24,8 +24,10 @@ controller('MainCtrl', ["$scope", function ($scope) {
   /*Definitions of root functions:*/
   root.ceil = Math.ceil;
   root.development = true;
-  root.cash_amounts = [10, 15, 20, 40, 50, 100, 200, 400, 500];
+  root.cash_amounts = [50, 100, 200];
   root.add_money_amount = 0;
+  root.custom_amount_disabled = false;
+  root.withdraw_money_amount = 0;
   root.logoutTimer = 0;
   
   
@@ -36,13 +38,45 @@ controller('MainCtrl', ["$scope", function ($scope) {
     location.url("/");
   }
 
+  root.selectAddAmount = function(amount){
+    root.add_money_amount = amount;
+    root.custom_amount_disabled = true;
+  }
+
+  root.selectWithdrawAmount = function(amount){
+    root.withdraw_money_amount = amount;
+    root.custom_amount_disabled = true;
+  }
+
+  root.enableCustomAmount = function(){
+    root.custom_amount_disabled = false;
+  }
+
   root.invalidAmount = function(amount){
     return !(amount && parseFloat(amount) &&  parseFloat(amount) > 0);
   }
 
-
-  root.addMoney = function(amount){
-    root.user.balance += parseInt(amount);
+  root.invalidWithdrawAmount = function(amount){
+    if(amount<=root.user.balance && !root.invalidAmount(amount)){
+        return false;
+    }
+    return true;
   }
 
+  root.addMoney = function(amount){
+    /*
+      Update backend
+    */
+    root.user.balance += parseInt(amount);
+    root.logoutTimer = 60;
+  }
+
+  root.withdrawMoney = function(amount){
+    /*
+      Update backend
+    */
+    root.user.balance -= parseInt(amount);
+    root.logoutTimer = 60;
+  }
+  
 }]);
