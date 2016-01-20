@@ -29,6 +29,7 @@ controller('MainCtrl', ["$scope", function ($scope) {
   root.withdraw_money_amount = 0;
   root.logoutTimer = 0;
   
+  
   root.logout = function(){
     root.rfid = null;
     root.user = null;

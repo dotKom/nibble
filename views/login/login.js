@@ -59,13 +59,11 @@ angular.module('nibble.login', ['ngRoute'])
         root.user = null;
         root.validation_fail = false;
         console.log(error);
-        Materialize.toast("Something wrong happened :O", 4000);
-        Materialize.toast("Server returned error code: " + error.status, 4000);
+        Materialize.toast("[Error] Server returned error code: " + error.status, 4000);
         /*Display error in card?*/
       
         /*Temp test code: */
         if(root.development){  
-          root.user = {name: "testUser",balance: 200};
           location.url("/shop");
         }
       }
