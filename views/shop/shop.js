@@ -72,6 +72,8 @@ angular.module('nibble.shop', ['ngRoute'])
   ];
   $scope.totalSum = 0;
   $rootScope.logoutTimer = 60;
+  $scope.isCheckingOut = false;
+
 
   function getTotalSum(){
     var totalSum = 0; 
@@ -138,6 +140,7 @@ angular.module('nibble.shop', ['ngRoute'])
     });
     
     $rootScope.logoutTimer = 5;
+    $scope.isCheckingOut = true;
 
   }
 
@@ -146,6 +149,7 @@ angular.module('nibble.shop', ['ngRoute'])
   $rootScope.newOrder = function(){
     $rootScope.shopQueue = {};
     $scope.totalSum = 0;
+    $scope.isCheckingOut = false;
     $('#checkoutModal').closeModal();
     
     $rootScope.logoutTimer = 60;
@@ -175,10 +179,11 @@ angular.module('nibble.shop', ['ngRoute'])
     }
     $rootScope.time = new Date();
     $rootScope.dTime = new Date();
-      
+    $rootScope.timeAcc = 0;
     $rootScope.interval = $interval(function(){
       $rootScope.dTime = new Date() - $rootScope.time;
       $rootScope.time = new Date();
+      $rootScope.timeAcc += $rootScope.dTime;
       $rootScope.logoutTimer -= $rootScope.dTime/1000;
       if($rootScope.logoutTimer <= 0){
         $interval.cancel($rootScope.interval);
@@ -190,7 +195,12 @@ angular.module('nibble.shop', ['ngRoute'])
           Materialize.toast("(devmode) Automated logout disabled", 1000);
         }
       }
+      else if($rootScope.logoutTimer <= 5 && $rootScope.timeAcc >= 1000 && $scope.isCheckingOut == false){
+        $rootScope.timeAcc = 0;
+        Materialize.toast("Automatisk utlogging om: " + Math.ceil($rootScope.logoutTimer), 900, "red");
+      }
     }, 50);
+
   }
 
   $scope.successCheckout = function(ret){

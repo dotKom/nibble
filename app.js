@@ -69,6 +69,7 @@ controller('MainCtrl', ["$scope", function ($scope) {
     */
     root.user.balance += parseInt(amount);
     root.logoutTimer = 60;
+    Materialize.toast(amount + "kr er blitt lagt inn på kontoen din", 5000, "nibble-color success"); 
   }
 
   root.withdrawMoney = function(amount){
