@@ -184,11 +184,12 @@ small{
 .add-money .radio-group{
 
 }
+
 .radio-group{
   display: flex;
 }
 
-.radio-group span{
+.radio-group button{
   flex-grow: 1;
 }
 

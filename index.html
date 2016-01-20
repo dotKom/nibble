@@ -70,20 +70,19 @@
           <p>
           <b>Legg kontant i pengekassa som står i kjøleskapet, så registrer samme beløp her!</b>
 
+          <!--TODO: Fix css for the buttons-->
           <div class="radio-group">
-
-          <!-- TODO: Fix checkboxes (currently nothing happens when clicked) -->
+            <button class="btn-large" ng-click="enableCustomAmount()">Velg beløp</button>
             <span ng-repeat="amount in cash_amounts track by $index">
-              <input value="{{cash_amounts[$index]}}" ng-model="add_money_amount" name="cash_amounts[$index" type="radio" id="check_{{cash_amounts[$index]}}" />
-              <label for="check_{{cash_amounts[$index]}}">{{cash_amounts[$index]}}kr</label>
+              <button class="btn-large" ng-click="selectAddAmount(amount)">{{amount}} kr</button>
             </span>
           </div>
 
           <br>
-          eller:
-          <div class="input-field col s6">
-            <input ng-model="add_money_amount" id="custom_amount" type="text">
-            <label for="custom_amount">Velg eget beløp</label>
+          <!--TODO: Fix css to keep modue size from changing when hidden-->
+          <div class="input-field col s6" ng-hide="custom_amount_disabled">
+            <input ng-model="add_money_amount" id="custom_amount" type="text" >
+            <label for="custom_amount">Skriv beløp</label>
           </div>
           
           </p>
@@ -100,22 +99,19 @@
           <h4>Ta ut penger</h4>
           <h5>Kontant</h5>
           <p>
-          <b>Velg beløpet du ønsker å ta ut, så ta pengene fra kassa i kjøleskapet!</b>
+          <b>Velg beløpet du ønsker å ta ut, så ta pengene fra pengekassa i kjøleskapet!</b>
 
           <div class="radio-group">
-
-          <!-- TODO: Fix checkboxes (currently nothing happens when clicked) -->
+            <button class="btn-large" ng-click="enableCustomAmount()">Velg beløp</button>
             <span ng-repeat="amount in cash_amounts track by $index">
-              <input value="{{cash_amounts[$index]}}" ng-model="withdraw_money_amount" name="cash_amounts[$index" type="radio" id="withdraw_check_{{cash_amounts[$index]}}" />
-              <label for="withdraw_check_{{cash_amounts[$index]}}">{{cash_amounts[$index]}}kr</label>
+              <button class="btn-large" ng-click="selectWithdrawAmount(amount)">{{amount}} kr</button>
             </span>
           </div>
 
           <br>
-          eller:
-          <div class="input-field col s6">
-            <input ng-model="withdraw_money_amount" id="withdraw_custom_amount" type="text">
-            <label for="withdraw_custom_amount">Velg eget beløp</label>
+          <div class="input-field col s6" ng-hide="custom_amount_disabled">
+            <input ng-model="withdraw_money_amount" id="withdraw_custom_amount" type="text" >
+            <label for="withdraw_custom_amount">Skriv beløp</label>
           </div>
           
           </p>
