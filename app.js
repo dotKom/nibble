@@ -1,5 +1,6 @@
 angular.module('nibble', [
   'ngRoute',
+  'api.config',
   'ui.materialize',
   'nibble.login',
   'nibble.shop',
