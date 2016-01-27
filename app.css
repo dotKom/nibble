@@ -166,6 +166,7 @@ small{
   text-transform: none !important;
   font-size: 1.2rem;
   display: block;
+  line-height: 60px;
   font-weight: 300;
 }
 
@@ -295,6 +296,9 @@ img.logo {
 
 .inventory-list {
   padding: 0em 1em;
+}
+.item-count.inventory-list{
+  color: #039be5;
 }
 
 /* Store any dependencies locally */

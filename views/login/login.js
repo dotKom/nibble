@@ -45,8 +45,8 @@ angular.module('nibble.login', ['ngRoute'])
 
   root.items = [testItem, testItem2, testItem3, testItem4, testItem5, testItem, testItem2, testItem3, testItem4];
   
-  root.itemCol1 = root.items.slice(0, Math.ceil(root.items.length/2));
-  root.itemCol2 = root.items.slice(Math.ceil(root.items.length/2));
+  root.itemCols = [root.items.slice(0, Math.ceil(root.items.length/2)), root.items.slice(Math.ceil(root.items.length/2))]
+
 
   $("#rfid-form").submit(function(e){
     /*Validation and 'login' code:*/
