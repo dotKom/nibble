@@ -9,7 +9,7 @@ angular.module('nibble.shop', ['ngRoute'])
   });
 }])
 
-.controller('shopCtrl', function($scope, $rootScope, $location, $interval, $http, Inventory) {
+.controller('shopCtrl', ['$scope', '$rootScope', '$location', '$interval', '$http', 'Inventory', 'api.config', function($scope, $rootScope, $location, $interval, $http, Inventory, api) {
   /*Note: The controller runs tiwce for some reason*/
   if(!$rootScope.user){
     if(!$rootScope.development){
@@ -25,11 +25,14 @@ angular.module('nibble.shop', ['ngRoute'])
   
   Inventory.get(
     function(ret){
-      console.log(ret)
+      //console.log(ret)
       $scope.items = ret.results;
       for(var i=0; i< $scope.items.length;i++){
+        if($scope.items[i].image)
+          $scope.items[i]["disp_image"] = api.host + $scope.items[i].image.thumb;
         $scope.items[i]["oId"] = "a" + $scope.items[i]["pk"];
       }
+      console.log($scope.items)
     },
     function(error){
       Materialize.toast("[ERROR] Could not load shop inventory", 4000);
@@ -235,7 +238,7 @@ angular.module('nibble.shop', ['ngRoute'])
       order[item.unique] = {amount:1, item:item}
 
   }*/
-});
+}]);
 
 /*
 === Models ===
