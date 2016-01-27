@@ -132,7 +132,7 @@ small{
 }
 
 .center-wrapper{
-  margin: 5% 25% !important;
+  margin: 2% 25% !important;
 }
 
 .card.small{
@@ -293,6 +293,9 @@ img.logo {
   background-color: rgba(0,0,0,0.1);
 }
 
+.inventory-list {
+  padding: 0em 1em;
+}
 
 /* Store any dependencies locally */
 
