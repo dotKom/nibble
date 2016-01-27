@@ -148,6 +148,7 @@ small{
 
 }
 
+
 .card .card-action a{
   color: black;
   margin-right: 0px;
@@ -160,6 +161,20 @@ small{
     padding: 10px 20px;
     display: inline-table;
     vertical-align: middle;
+}
+
+.item .card-title{
+  max-width: 170px;
+  text-transform: capitalize;
+  line-height: 32px !important;
+}
+
+.item .item-count{
+  line-height: 45px;
+}
+
+.item-description{
+  max-width: 170px;
 }
 
 .item-count{

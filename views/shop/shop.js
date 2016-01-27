@@ -9,7 +9,7 @@ angular.module('nibble.shop', ['ngRoute'])
   });
 }])
 
-.controller('shopCtrl', function($scope, $rootScope, $location, $interval, $http) {
+.controller('shopCtrl', function($scope, $rootScope, $location, $interval, $http, Inventory) {
   /*Note: The controller runs tiwce for some reason*/
   if(!$rootScope.user){
     if(!$rootScope.development){
@@ -22,20 +22,22 @@ angular.module('nibble.shop', ['ngRoute'])
     }
   }
   /*Download the shops inventory*/
-  $http({
-    url: "/api/v1/inventory/",
-    method: "post",
-    data: {}
-  }).then(function(ret){
-    
-    $rootScope.items = ret.data.inventory;
-    for(var i=0; i< $rootScope.items.length;i++){
-      $rootScope.items[i]["oId"] = "a" + $rootScope.items[i]["id"];
+  
+  Inventory.get(
+    function(ret){
+      console.log(ret)
+      $scope.items = ret.results;
+      for(var i=0; i< $scope.items.length;i++){
+        $scope.items[i]["oId"] = "a" + $scope.items[i]["pk"];
+      }
+    },
+    function(error){
+      Materialize.toast("[ERROR] Could not load shop inventory", 4000);
     }
-  },function(error){
-    Materialize.toast("[ERROR] Could not load shop inventory", 4000);
-  });
-  /*http://www.lunsj.no/14636-thickbox_default/knorr-tomatsuppe.jpg*/
+  );
+
+
+
   /*
     Set oId to "a" + id
     oId is used for referance in $rootScope.shopQueue

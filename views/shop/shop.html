@@ -1,15 +1,18 @@
 <div class="row">
   <div class="col m9 l9">
     <div ng-repeat="item in items track by $index" class="col s4 noselect">
-      <div class="card small hoverable clickable" ng-click="changeCount(item,1)">
+      <div class="card small hoverable clickable item" ng-click="changeCount(item,1)">
         <div class="card-image waves-effect waves-block waves-light" style="background-image: url({{item.image}});">
         </div>
         <div class="card-content">
-          <span class="card-title activator grey-text text-darken-4">
+          <span class="card-title activator grey-text text-darken-4 truncate">
             {{ item.name }}
           </span>
+          <p class="thin truncate item-description">
+           {{item.description}}
+          </p>
           <span class="item-count">
-            {{ item.price }}kr <span class="thin" ng-show="item.dispCount != 0"> x {{ item.dispCount }}</span>
+            {{ item.price }}kr <span class="thin" ng-show="item.dispCount"> x {{ item.dispCount }}</span>
           </span>
         </div>
         <div class="card-action">
