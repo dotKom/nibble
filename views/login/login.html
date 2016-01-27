@@ -1,11 +1,8 @@
 <div class="row">
-  <div class="col m6 l6 offset-m2 offset-l2 center-wrapper">
+  <div class="col m6 l6 center-wrapper">
     <div class="card nibble-color alt">
       <div class="card-content white-text">
         <span class="card-title">Scan ditt studenkort for å handle</span>
-        <p>
-            Lorem ipsum do we even need any text here, maybe how to use the system and what it is 
-        </p>
         <form ng-show="development" id="rfid-form">
           <!--Rfid input field -->
           <div input-field class="input-field">
@@ -13,10 +10,6 @@
             <label for ="rfid-input">Input field for rfid</label>
           </div>
         </form>
-        <div class="center-align" ng-show="!validation_fail">
-          <img class="rfid-img" src="static/images/rfid.png" />
-        </div>
-
         <form ng-show ="validation_fail" id="reg-form">
           <div class="row">
             <div input-field class="input-field col m6 l6">
@@ -31,19 +24,32 @@
         </form>
       </div>
     </div>
-  </div>
-  <div class="col m2 l2 side-nav fixed">
-    <table>
-      <tr class="item_box" ng-repeat="element in items track by $index"> 
-        <td>
-          <span class="item_name">
-            {{ element.name }}
-          </span> 
-          <a class="item-count right">
-            {{ element.price }} kr
-          </a>
-        </td>
-      </tr>
-    </table>
+  
+    <div class="card row">
+      <table class="col m6 l6">
+        <tr class="item_box" ng-repeat="element in itemCol1 track by $index"> 
+          <td>
+            <span class="item_name inventory-list">
+              {{ element.name }}
+            </span> 
+            <a class="item-count right inventory-list">
+              {{ element.price }} kr
+            </a>
+          </td>
+        </tr>
+      </table>
+      <table class="col m6 l6">
+        <tr class="item_box" ng-repeat="element in itemCol2 track by $index"> 
+          <td>
+            <span class="item_name inventory-list">
+              {{ element.name }}
+            </span> 
+            <a class="item-count right inventory-list">
+              {{ element.price }} kr
+            </a>
+          </td>
+        </tr>
+      </table>
+    </div>
   </div>
 </div>
