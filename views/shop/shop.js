@@ -23,14 +23,14 @@ angular.module('nibble.shop', ['ngRoute'])
   }
   /*Download the shops inventory*/
   $http({
-    url: "/api/v1/inventory/",
-    method: "post",
+    url: "http://78.91.16.140:8001/api/v1/inventory/",
+    method: "get",
     data: {}
   }).then(function(ret){
-    
-    $rootScope.items = ret.data.inventory;
+    console.log(ret);
+    $rootScope.items = ret.data.results;
     for(var i=0; i< $rootScope.items.length;i++){
-      $rootScope.items[i]["oId"] = "a" + $rootScope.items[i]["id"];
+      $rootScope.items[i]["oId"] = "a" + $rootScope.items[i]["pk"];
     }
   },function(error){
     Materialize.toast("[ERROR] Could not load shop inventory", 4000);

@@ -10,7 +10,16 @@ angular.module('nibble.login', ['ngRoute'])
 }])
 .controller('loginCtrl', ["$rootScope","$http","$location",function(root,http,location) {
   
+
   
+//  $("#rfid-input").focus();
+  console.log(document.getElementById("rfid-input"));
+  /*$("#rfid-input").focus(function(e){
+    console.log("Test");
+  });
+  $("#rfid-input").blur(function(e){
+    console.log("Test");
+  });*/
   $("#reg-form").submit(function(e){
     e.preventDefault();
     http({
@@ -36,8 +45,8 @@ angular.module('nibble.login', ['ngRoute'])
   */
   //root.items
   
-  root.itemCol1 = root.items.slice(0, Math.ceil(root.items.length/2));
-  root.itemCol2 = root.items.slice(Math.ceil(root.items.length/2));
+  //root.itemCol1 = root.items.slice(0, Math.ceil(root.items.length/2));
+  //root.itemCol2 = root.items.slice(Math.ceil(root.items.length/2));
 
   $("#rfid-form").submit(function(e){
     /*Validation and 'login' code:*/
