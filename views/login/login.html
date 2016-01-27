@@ -3,50 +3,24 @@
     <div class="card nibble-color alt">
       <div class="card-content white-text">
         <span class="card-title">Scan ditt studenkort for å handle</span>
-        <form style = "opacity: 0" id="rfid-form">
+        <form ng-submit="submit_login()" ng-hide="validation_fail" id="rfid-form">
           <!--Rfid input field -->
           <div input-field class="input-field">
-            <input class="/*hidden*/" type="text" id="rfid-input" name="rfid" ng-model="user.rfid"/>
+            <input class="/*hidden*/" type="text" id="rfid-input" name="rfid"/>
             <label for ="rfid-input">Input field for rfid</label>
-          </div>
-        </form>
-        <form ng-show ="validation_fail" id="reg-form">
-          <div class="row">
-            <div input-field class="input-field col m6 l6">
-              <input ng-model="user.username" class="col" id="user" type="text" />
-              <label for="user">Username</label>
-            </div>
-            <div input-field class="input-field col m6 l6">
-              <input ng-model="user.password" class="col" id="password" type="password"/>
-              <label for="password">Password</label>
-            </div>
           </div>
         </form>
       </div>
     </div>
   
     <div class="card row">
-      <table class="col m6 l6">
-        <tr class="item_box" ng-repeat="element in itemCol1 track by $index"> 
-          <td>
-            <span class="item_name inventory-list">
-              {{ element.name }}
-            </span> 
-            <a class="item-count right inventory-list">
-              {{ element.price }} kr
-            </a>
+      <table class="col m6 l6" ng-repeat="itemCol in itemCols">
+        <tr class="item_box" ng-repeat="element in itemCol track by $index"> 
+          <td class="item_name inventory-list">
+            {{ element.name }}
           </td>
-        </tr>
-      </table>
-      <table class="col m6 l6">
-        <tr class="item_box" ng-repeat="element in itemCol2 track by $index"> 
-          <td>
-            <span class="item_name inventory-list">
-              {{ element.name }}
-            </span> 
-            <a class="item-count right inventory-list">
-              {{ element.price }} kr
-            </a>
+          <td class="item-count inventory-list">
+            {{ element.price }} kr
           </td>
         </tr>
       </table>

@@ -20,9 +20,9 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "~1.4.7",
+    "angular": "~1.4.9",
     "angular-materialize": "*",
-    "angular-route": "~1.4.7",
+    "angular-route": "~1.4.9",
     "angular-resource": "~1.4.9"
   },
   "resolutions": {

@@ -148,6 +148,7 @@ small{
 
 }
 
+
 .card .card-action a{
   color: black;
   margin-right: 0px;
@@ -162,10 +163,25 @@ small{
     vertical-align: middle;
 }
 
+.item .card-title{
+  max-width: 170px;
+  text-transform: capitalize;
+  line-height: 32px !important;
+}
+
+.item .item-count{
+  line-height: 45px;
+}
+
+.item-description{
+  max-width: 170px;
+}
+
 .item-count{
   text-transform: none !important;
   font-size: 1.2rem;
   display: block;
+  line-height: 60px;
   font-weight: 300;
 }
 
@@ -295,6 +311,9 @@ img.logo {
 
 .inventory-list {
   padding: 0em 1em;
+}
+.item-count.inventory-list{
+  color: #039be5;
 }
 
 /* Store any dependencies locally */

@@ -9,7 +9,7 @@ angular.module('nibble.shop', ['ngRoute'])
   });
 }])
 
-.controller('shopCtrl', function($scope, $rootScope, $location, $interval, $http) {
+.controller('shopCtrl', ['$scope', '$rootScope', '$location', '$interval', '$http', 'Inventory','Transaction', 'api.config', function($scope, $rootScope, $location, $interval, $http, Inventory, api) {
   /*Note: The controller runs tiwce for some reason*/
   if(!$rootScope.user){
     if(!$rootScope.development){
@@ -22,20 +22,23 @@ angular.module('nibble.shop', ['ngRoute'])
     }
   }
   /*Download the shops inventory*/
-  $http({
-    url: "http://78.91.16.140:8001/api/v1/inventory/",
-    method: "get",
-    data: {}
-  }).then(function(ret){
-    console.log(ret);
-    $rootScope.items = ret.data.results;
-    for(var i=0; i< $rootScope.items.length;i++){
-      $rootScope.items[i]["oId"] = "a" + $rootScope.items[i]["pk"];
+  
+  Inventory.get(
+    function(ret){
+      //console.log(ret)
+      $scope.items = ret.results;
+      for(var i=0; i< $scope.items.length;i++){
+        if($scope.items[i].image)
+          $scope.items[i]["disp_image"] = api.host + $scope.items[i].image.thumb;
+        $scope.items[i]["oId"] = "a" + $scope.items[i]["pk"];
+      }
+      console.log($scope.items)
+    },
+    function(error){
+      Materialize.toast("[ERROR] Could not load shop inventory", 4000);
     }
-  },function(error){
-    Materialize.toast("[ERROR] Could not load shop inventory", 4000);
-  });
-  /*http://www.lunsj.no/14636-thickbox_default/knorr-tomatsuppe.jpg*/
+  );
+
   /*
     Set oId to "a" + id
     oId is used for referance in $rootScope.shopQueue
@@ -43,6 +46,7 @@ angular.module('nibble.shop', ['ngRoute'])
     alpha characters in order to display the queue
     correctly
   */
+  /*
   var testItem = {oId:"1",id:"1","name":"Øl", "description":"0.5L Dahls på glassflaske", "price":"20", "amount":42, "available":true, "category":"drikke", 
                   "image": "http://3.bp.blogspot.com/_eBUfxxSLsVw/TSoQTbARxiI/AAAAAAAAAEk/V927sCd8uRU/s1600/dahls.png","dispCount":0};
   var testItem2 = {oId:"2", id:"2","name":"Billys", "description":"Dypfryst pizza med ost og skinke", "price":20, "amount":42, "available":true, 
@@ -50,11 +54,12 @@ angular.module('nibble.shop', ['ngRoute'])
   var testItem3 = {oId:"3", id:"3","name":"Rett i koppen", "description":"Mat...", "price":40, "amount":42, "available":true, 
                   "category":"mat", "image": "http://www.lunsj.no/14636-thickbox_default/knorr-tomatsuppe.jpg","dispCount":0};
   /**/
+  /*
   var testItem4 = {oId:"4", id:"4","name":"Solbærtoddy", "description":"Toddy", "price":25, "amount":42, "available":true, "category":"drikke", "image": "http://proddb.kraft-hosting.net/prod_db/proddbimg/11324.png","dispCount":0};
   
   var testItem5 = {oId:"5", id:"5","name":"Kinder: bueno", "description":"Kinder", "price":10, "amount":42, "available":true, "category":"snacks", "image": "http://www.kinder.me/image/journal/article?img_id=7231869&t=1445520902223","dispCount":0};
+  */
   
-
   $rootScope.items = [testItem, testItem2, testItem3, testItem4, testItem5, testItem, testItem2, testItem3, testItem4];
   $rootScope.shopQueue = {};
 
@@ -233,7 +238,7 @@ angular.module('nibble.shop', ['ngRoute'])
       order[item.unique] = {amount:1, item:item}
 
   }*/
-});
+}]);
 
 /*
 === Models ===

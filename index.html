@@ -212,8 +212,34 @@
       <div class="modal-footer">
           <a href class="modal-action modal-close waves-effect btn-flat">Lukk</a>
       </div>
-    
   </div>
+  
+  
+  <div id="regModal" class="modal">
+      <div class="modal-content">
+          <h4>Registrer rfid kort - Nibble</h4>
+          <form ng-submit="submit_reg()" id="reg-form">
+          <div class="row">
+            <div input-field class="input-field col m6 l6">
+              <input class="col" name="username" id="user-username" type="text" />
+              <label for="user">Username</label>
+            </div>
+            <div input-field class="input-field col m6 l6">
+              <input name="password" class="col" id="user-password" type="password"/>
+              <label for="password">Password</label>
+            </div>
+            <div input-field class="input-field col m6 l6">
+              <input class="col" id="password" type="submit"/>
+            </div>
+            
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+          <a href class="modal-action modal-close waves-effect btn-flat">Lukk</a>
+      </div>
+  </div>
+  
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-route/angular-route.js"></script>
   <script src="bower_components/angular-resource/angular-resource.js"></script>

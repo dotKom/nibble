@@ -11,7 +11,7 @@ angular.module('api.config')
 .factory('Transaction', ['Resource', function ($resource) {
   return $resource('transactions/:id/', {id: '@id'});
 }]).
-factory("AuthInterceptor",["$q","$injector","$window","api.config",function($q,$injector,$window,config){
+factory("AuthInterceptor",["$q","$injector","$window","api.config",function($q,$injector,$window,api){
   return {
     request: function(config){
       token = $window.localStorage.getItem("token");
@@ -30,7 +30,7 @@ factory("AuthInterceptor",["$q","$injector","$window","api.config",function($q,$
             headers: {
               "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
             },
-            url: config.apiRoot + "auth/",
+            url: api.apiRoot + "auth/",
             transformRequest: function(obj) {
               var str = [];
               for(var p in obj)
@@ -38,9 +38,9 @@ factory("AuthInterceptor",["$q","$injector","$window","api.config",function($q,$
               return str.join("&");
             },    
             data: {
-              grant_type:"client_credentials",
-              client_id:config.client_id, 
-              client_secret: config.client_secret
+              grant_type: "client_credentials",
+              client_id: api.client_id, 
+              client_secret: api.client_secret
           },
           responseType: "json",
         }).then(function(response){

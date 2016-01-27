@@ -21,10 +21,10 @@ controller('MainCtrl', ["$scope", function ($scope) {
 
     */
 
-}]).run(["$rootScope", "$location", "$http", function(root, location, http){
+}]).run(["$rootScope", "$location", "$http","Transaction", function(root, location, http,Transaction){
   /*Definitions of root functions:*/
   root.ceil = Math.ceil;
-  root.development = false;
+  root.development = true;
   root.cash_amounts = [50, 100, 200];
   root.add_money_amount = 0;
   root.custom_amount_disabled = false;
@@ -68,6 +68,10 @@ controller('MainCtrl', ["$scope", function ($scope) {
     /*
       Update backend
     */
+    Transaction.save(function(){
+      
+      
+    });
     root.user.balance += parseInt(amount);
     root.logoutTimer = 60;
     Materialize.toast(amount + "kr er blitt lagt inn på kontoen din", 5000, "nibble-color success"); 
