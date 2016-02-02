@@ -1,6 +1,6 @@
 angular.module('api.config')
 .factory('Inventory', ['Resource', function ($resource) {
-  return $resource('inventory/');
+  return $resource('inventory/',{},{get:{isArray:true}});
 }])
 .factory('User', ['Resource', function ($resource) {
   return $resource('usersaldo/');
@@ -15,14 +15,13 @@ factory("AuthInterceptor",["$q","$injector","$window","api.config",function($q,$
   return {
     request: function(config){
       token = $window.localStorage.getItem("token");
-      
       if(token){
         config.headers["Authorization"] = "Bearer " + token;
       }
       return config; 
     },
     response: function(data){
-      console.log(data);
+      console.log("Response:", data);
       return data;
     },
     responseError: function(rejection){

@@ -23,24 +23,15 @@ angular.module('nibble.shop', ['ngRoute'])
   }
   /*Download the shops inventory*/
   $rootScope.items = [];
-  function inventoryGetter(ret){
-    $rootScope.items = $rootScope.items.concat(ret.results);
-    for(var i=0; i< $scope.items.length;i++){
-      if($rootScope.items[i].image)
-        $rootScope.items[i]["disp_image"] = api.host + $rootScope.items[i].image.thumb;
-      $rootScope.items[i]["oId"] = "a" + $rootScope.items[i]["pk"];
-    }
-    console.log(ret.count )
-    if(ret.next){
-      console.log(ret.next.split("=")[1]);
-      ret.$get({page:ret.next.split("=")[1]},inventoryGetter,
-      function(error){
-        Materialize.toast("[ERROR] Could not load shop inventory", 4000);
-      });
-    }
-  }
   var abcd = Inventory.get(
-    inventoryGetter,
+    function(ret){
+      $rootScope.items = ret;//$rootScope.items.concat(ret.results);
+      for(var i=0; i< $scope.items.length;i++){
+        if($rootScope.items[i].image)
+          $rootScope.items[i]["disp_image"] = api.host + $rootScope.items[i].image.thumb;
+        $rootScope.items[i]["oId"] = "a" + $rootScope.items[i]["pk"];
+      }  
+    },
     function(error){
       Materialize.toast("[ERROR] Could not load shop inventory", 4000);
     }

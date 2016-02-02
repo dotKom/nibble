@@ -210,42 +210,44 @@
       </div>
   </div>
   <div id="historyModal" class="modal">
-      <div class="modal-content">
-          <ul class = "collection with-header">
-            <li class = "collection-header"><h4>Kjøps historikk</h4></li>
-            <li class = "collection-item" ng-repeat="entry in user.history track by $index">
-              {{ entry.name }} - {{ entry.amount }}
-            </li>
-          </ul>
-      </div>
-      <div class="modal-footer">
-          <a href class="modal-action modal-close waves-effect btn-flat">Lukk</a>
-      </div>
+    <div class="modal-content">
+      <ul class = "collection with-header">
+        <li class = "collection-header"><h4>Kjøps historikk</h4></li>
+        <li class = "collection-item" ng-repeat="entry in user.history track by $index">
+          {{ entry.name }} - {{ entry.amount }}
+        </li>
+      </ul>
+    </div>
+    <div class="modal-footer">
+        <a href class="modal-action modal-close waves-effect btn-flat">Lukk</a>
+    </div>
   </div>
   
   
-  <div id="regModal" class="modal">
+  <div id="regModal" class="modal col m2 l2">
       <div class="modal-content">
-          <h4>Registrer rfid kort - Nibble</h4>
-          <form ng-submit="submit_reg()" id="reg-form">
+        <h4>Registrer - Nibble</h4>
+        <p>
+          Fyll inn ditt brukernavn og passord for å knytte rfidekortet opp mot din online bruker
+        </p>
+        <form ng-submit="submit_reg()" id="reg-form">
           <div class="row">
-            <div input-field class="input-field col m6 l6">
+            <div input-field class="input-field col m12 l12">
               <input class="col" name="username" id="user-username" type="text" />
               <label for="user">Username</label>
             </div>
-            <div input-field class="input-field col m6 l6">
+            <div input-field class="input-field col m12 l12">
               <input name="password" class="col" id="user-password" type="password"/>
               <label for="password">Password</label>
             </div>
-            <div input-field class="input-field col m6 l6">
-              <input class="col" id="password" type="submit"/>
-            </div>
-            
+            <input type = "submit" />
           </div>
         </form>
       </div>
+      
       <div class="modal-footer">
-          <a href class="modal-action modal-close waves-effect btn-flat">Lukk</a>
+        <a href class="modal-action modal-close waves-effect btn-flat">Avbryt</a>
+        <a href ng-click="submit_reg()" class="waves-effect btn-flat">Registrer</a>
       </div>
   </div>
   
