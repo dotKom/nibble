@@ -9,25 +9,12 @@ angular.module('nibble.login', ['ngRoute'])
   });
 }])
 .controller('loginCtrl', ["$rootScope","$http","$location","$scope","api.config","User",function(root,http,location,scope,api,User) {
-  
 
-  
-//  $("#rfid-input").focus();
-  /*$("#rfid-input").focus(function(e){
-    console.log("Test");
-  });
-  $("#rfid-input").blur(function(e){
-    console.log("Test");
-  });*/ 
-  scope.regModal = false;
+window.rfid = ""
+ 
+
+ scope.regModal = false;
   scope.rfid = "";
-  $("#rfid-input").blur(function(){
-    if(!scope.regModal){
-      $("#rfid-input").focus();
-    }
-  });
-  $("#rfid-input").focus();
-  
   root.submit_reg = function(){
     http({
       url: api.apiRoot + "rfid/",
@@ -49,41 +36,21 @@ angular.module('nibble.login', ['ngRoute'])
   }
   scope.submit_login = function(){
       /*Validation and 'login' code:*/
-    root.rfid = $("#rfid-input").val();
-    $("rfid-input").val('');
+    root.rfid = window.rfid;
+    window.rfid = "";
+	console.log("rdif cleared: " + window.rfid);
     root.validation_fail = false;
-    //Check if a user is assosiated with the rfid
-    //$http request:
-
-    /*User.get({format:"json",rfid:$("#rfid-input").val},function(ret){
-      console.log(ret);
-      if(ret.count > 0){
-          root.user = ret.results[0]; //<-- if data is json??
-          root.user.balance = root.user.saldo;
-          root.user.name = root.user.first_name + " " + root.user.last_name;
-            location.url("/shop");
-        }else{
-          $("#rfid-input").val("");
-          root.validation_fail = true;
-          $('#regModal').openModal();
-          Materialize.toast("Validation failed!", 2000);
-          Materialize.toast("Fill inn username and password", 2000);
-      }
-    },function(error){
-      Materialize.toast("[Error] Server returned error code: " + error.status, 4000);
-    });*/
       http({
         url: api.apiRoot + "usersaldo/?format=json&rfid="+ root.rfid,
         method: "get"
       }).then(function(ret){
-          console.log("Logging in!");
-          console.log(ret);
-          if(ret.data.count > 0){
+          if(ret.data.count == 1){
             root.user = ret.data.results[0]; //<-- if data is json??
             root.user.balance = root.user.saldo;
             root.user.name = root.user.first_name + " " + root.user.last_name;
             location.url("/shop");
             console.log(root.user);
+  		console.log(ret.data);
           }
           else{
             //$("#rfid-input").val("");
@@ -97,7 +64,6 @@ angular.module('nibble.login', ['ngRoute'])
                 $("#user-username").val("");
                 $("#user-password").val("");
                 scope.regModal = false;
-                $("#rfid-input").focus();
               }
             });
             Materialize.toast("Validation failed!", 2000);
@@ -127,3 +93,15 @@ angular.module('nibble.login', ['ngRoute'])
     root.itemCols = [root.items.slice(0, Math.ceil(root.items.length/2)), root.items.slice(Math.ceil(root.items.length/2))]
   }
 }]);
+
+
+$('body').keypress(function(key) {
+  if(key.keyCode == 13){ // Enter
+          console.log(window.rfid);
+          $("#rfid-form").submit();
+  }
+  else{
+    window.rfid += String.fromCharCode(key.keyCode);
+  }
+});
+  
