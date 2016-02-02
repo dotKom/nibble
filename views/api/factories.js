@@ -25,7 +25,8 @@ factory("AuthInterceptor",["$q","$injector","$window","api.config",function($q,$
       if(!token || rejection.status == 401){
         console.log("Requesting new token!");
         http = $injector.get("$http");
-        http({
+        console.log(r);
+        r = http({
             method: "POST",
             headers: {
               "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"

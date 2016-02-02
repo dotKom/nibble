@@ -26,13 +26,13 @@ angular.module('nibble.shop', ['ngRoute'])
   Inventory.get(
     function(ret){
       //console.log(ret)
-      $scope.items = ret.results;
+      $rootScope.items = ret.results;
       for(var i=0; i< $scope.items.length;i++){
-        if($scope.items[i].image)
-          $scope.items[i]["disp_image"] = api.host + $scope.items[i].image.thumb;
-        $scope.items[i]["oId"] = "a" + $scope.items[i]["pk"];
+        if($rootScope.items[i].image)
+          $rootScope.items[i]["disp_image"] = api.host + $rootScope.items[i].image.thumb;
+        $rootScope.items[i]["oId"] = "a" + $rootScope.items[i]["pk"];
       }
-      console.log($scope.items)
+      console.log($rootScope.items)
     },
     function(error){
       Materialize.toast("[ERROR] Could not load shop inventory", 4000);
@@ -60,8 +60,8 @@ angular.module('nibble.shop', ['ngRoute'])
   var testItem5 = {oId:"5", id:"5","name":"Kinder: bueno", "description":"Kinder", "price":10, "amount":42, "available":true, "category":"snacks", "image": "http://www.kinder.me/image/journal/article?img_id=7231869&t=1445520902223","dispCount":0};
   */
   
-  $rootScope.items = [testItem, testItem2, testItem3, testItem4, testItem5, testItem, testItem2, testItem3, testItem4];
-  $rootScope.shopQueue = {};
+ // $rootScope.items = [testItem, testItem2, testItem3, testItem4, testItem5, testItem, testItem2, testItem3, testItem4];
+  //$rootScope.shopQueue = {};
 
   var historyItem_1 = {
     "name":"Øl",
