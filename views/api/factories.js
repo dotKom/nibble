@@ -11,12 +11,21 @@ angular.module('api.config')
 .factory('Transaction', ['Resource', function ($resource) {
   return $resource('transactions/:id/', {id: '@id'});
 }]).
-factory("AuthInterceptor",["$q","$injector","$window","api.config",function($q,$injector,$window,api){
+factory("AuthInterceptor",["$q","$injector","$window","api.config","$rootScope",function($q,$injector,$window,api,root){
   return {
     request: function(config){
+      config.headers = {
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
+      };
+      config.transformRequest = function(obj) {
+        var str = [];
+        for(var p in obj)
+        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+        return str.join("&");
+      };
       token = $window.localStorage.getItem("token");
       if(token){
-        config.headers["Authorization"] = "Bearer " + token;
+         config.headers["Authorization"] = "Bearer " + token;
       }
       return config; 
     },
@@ -26,21 +35,22 @@ factory("AuthInterceptor",["$q","$injector","$window","api.config",function($q,$
     },
     responseError: function(rejection){
       token = $window.localStorage.getItem("token");
-      if(!token || rejection.status == 401){
+      if(!root.tries){
+        root.tries = 0;
+      }
+      if(!(root.tries >= 2) && ( !token || rejection.status == 401)){
+        root.tries++;
         console.log("Requesting new token!");
         http = $injector.get("$http");
         r = http({
             method: "POST",
-            headers: {
-              "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
-            },
             url: api.apiRoot + "auth/",
-            transformRequest: function(obj) {
+            /*transformRequest: function(obj) {
               var str = [];
               for(var p in obj)
               str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
               return str.join("&");
-            },    
+            },    */
             data: {
               grant_type: "client_credentials",
               client_id: api.client_id, 
@@ -49,6 +59,7 @@ factory("AuthInterceptor",["$q","$injector","$window","api.config",function($q,$
           responseType: "json",
         }).then(function(response){
           $window.localStorage.token = response.data.access_token;
+          root.tries = 0;
           if(rejection.status == 401){
             //Resending when token is renewed
             return http(rejection.config);
@@ -56,8 +67,8 @@ factory("AuthInterceptor",["$q","$injector","$window","api.config",function($q,$
         },function(error){
           console.log("Could not renew access token! ",error);
         });
-        return $q.reject(rejection);    
       }
+      return $q.reject(rejection);
     }
   };
 }]);

@@ -32,15 +32,11 @@ angular.module('nibble.login', ['ngRoute'])
       }
     }).then(function(ret){
       /*Success*/
-      console.log(ret);
-      if(ret){
-        $('#regModal').closeModal();
-        scope.submit_login();
-        
-      }else{
-        Materialize.toast("Registrering feilet!",3000);
-      }
+      $('#regModal').closeModal();
+      scope.submit_login();
+      
     },function(error){
+      console.log(error);
       Materialize.toast("Registrering feilet!",3000);
     });
   }
@@ -78,7 +74,8 @@ angular.module('nibble.login', ['ngRoute'])
             root.user = ret.data.results[0]; //<-- if data is json??
             root.user.balance = root.user.saldo;
             root.user.name = root.user.first_name + " " + root.user.last_name;
-              location.url("/shop");
+            location.url("/shop");
+            console.log(root.user);
           }
           else{
             console.log(ret);

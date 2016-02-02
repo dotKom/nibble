@@ -21,7 +21,7 @@ controller('MainCtrl', ["$scope", function ($scope) {
 
     */
 
-}]).run(["$rootScope", "$location", "$http","Transaction", function(root, location, http,Transaction){
+}]).run(["$rootScope", "$location", "$http","Transaction","api.config", function(root, location, http,Transaction,api){
   /*Definitions of root functions:*/
   root.ceil = Math.ceil;
   root.development = true;
@@ -68,10 +68,6 @@ controller('MainCtrl', ["$scope", function ($scope) {
     /*
       Update backend
     */
-    Transaction.save(function(){
-      
-      
-    });
     root.user.balance += parseInt(amount);
     root.logoutTimer = 60;
     Materialize.toast(amount + "kr er blitt lagt inn på kontoen din", 5000, "nibble-color success"); 
@@ -81,7 +77,19 @@ controller('MainCtrl', ["$scope", function ($scope) {
     /*
       Update backend
     */
-    root.user.balance -= parseInt(amount);
+    console.log(root.user.pk);
+    http({
+      url: api.apiRoot + "transactions/",
+      method: "post",
+      data: {
+        "user": root.user.pk,
+        "amount": -parseInt(amount)
+      }
+    }).then(function(ret){
+      root.user.balance -= parseInt(amount);
+    },function(error){
+      
+    });
     root.logoutTimer = 60;
   }
   

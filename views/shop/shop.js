@@ -122,16 +122,19 @@ angular.module('nibble.shop', ['ngRoute'])
     /*
       Insert validation code here  
     */
-
+    console.log("Checkout!");
     $('#checkoutModal').openModal({
       complete : $rootScope.newOrder
     });
     var orders = [];
-    for (elm of $rootScope.shopQueue){
-      orders.push({quantity:elm.quantity,object_id:elm.pk});
+    for (let key in $rootScope.shopQueue){
+      let elm = $rootScope.shopQueue[key]
+      console.log(elm.item,elm.quantity);
+      orders.push({quantity:elm.quantity,object_id:elm.item.pk});
     }
+    //console.log(orders);
     $http({
-      url: api.rootApi + "orderline/",
+      url: api.apiRoot + "orderline/",
       method: "post",
       data: {
         "user": $rootScope.user.pk,
@@ -204,7 +207,7 @@ angular.module('nibble.shop', ['ngRoute'])
           Materialize.toast("(devmode) Automated logout disabled", 1000);
         }
       }
-      else if($rootScope.logoutTimer <= 5 && $rootScope.timeAcc >= 1000 && $scope.isCheckingOut == false){
+      else if($rootScope.logoutTimer <= 5 && $rootScope.timeAcc >= 1000 && !$scope.isCheckingOut){
         $rootScope.timeAcc = 0;
         Materialize.toast("Automatisk utlogging om: " + Math.ceil($rootScope.logoutTimer), 900, "red");
       }
