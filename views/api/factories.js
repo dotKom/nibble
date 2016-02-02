@@ -42,7 +42,7 @@ factory("AuthInterceptor",["$q","$injector","$window","api.config","$rootScope",
         root.tries++;
         console.log("Requesting new token!");
         http = $injector.get("$http");
-        r = http({
+        http({
             method: "POST",
             url: api.apiRoot + "auth/",
             headers: {
@@ -63,14 +63,13 @@ factory("AuthInterceptor",["$q","$injector","$window","api.config","$rootScope",
         }).then(function(response){
           $window.localStorage.token = response.data.access_token;
           root.tries = 0;
-          if(rejection.status == 401){
-            //Resending when token is renewed
+          /*if(rejection.status == 401){
             return http(rejection.config);
-          }
+          }*/
         },function(error){
           console.log("Could not renew access token! ",error);
         });
-      }
+      };
       return $q.reject(rejection);
     }
   };

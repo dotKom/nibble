@@ -24,7 +24,7 @@ controller('MainCtrl', ["$scope", function ($scope) {
 }]).run(["$rootScope", "$location", "$http","Transaction","api.config", function(root, location, http,Transaction,api){
   /*Definitions of root functions:*/
   root.ceil = Math.ceil;
-  root.development = true;
+  root.development = false;
   root.cash_amounts = [50, 100, 200];
   root.add_money_amount = 0;
   root.custom_amount_disabled = false;

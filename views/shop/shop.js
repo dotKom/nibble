@@ -159,8 +159,6 @@ angular.module('nibble.shop', ['ngRoute'])
     $('#checkoutModal').closeModal();
     
     $rootScope.logoutTimer = 60;
-    //$interval.cancel($rootScope.interval);
-    $scope.startInterval();
     $(".check").attr("class", "check");
     $(".fill").attr("class", "fill");
     $(".path").attr("class", "path");
@@ -196,7 +194,7 @@ angular.module('nibble.shop', ['ngRoute'])
           
         if(!$rootScope.development){
           $rootScope.logoutTimer = 0;
-          $scope.logoutRedir();
+          $rootScope.logout();
         }else{
           Materialize.toast("(devmode) Automated logout disabled", 1000);
         }
@@ -230,7 +228,6 @@ angular.module('nibble.shop', ['ngRoute'])
   }
 
   $scope.startInterval();
-
   /*function add(item){
     try:
     order[item.unique].amount += 1;

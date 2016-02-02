@@ -85,7 +85,6 @@ angular.module('nibble.login', ['ngRoute'])
             console.log(root.user);
           }
           else{
-            console.log(ret);
             //$("#rfid-input").val("");
             root.validation_fail = true;
             root.username = "";
@@ -105,10 +104,15 @@ angular.module('nibble.login', ['ngRoute'])
           }
         },
         function(error){
-          root.rfid = null;
-          root.user = null;
-          root.validation_fail = false;
-          Materialize.toast("[Error] Server returned error code: " + error.status, 4000);
+          console.log(error);
+          if(error.status == 401){
+            setTimeout(scope.submit_login,500);
+          }else{
+            root.rfid = null;
+            root.user = null;
+            root.validation_fail = false;
+            Materialize.toast("[Error] Server returned error code: " + error.status, 4000);
+          }
         }
 
       );
