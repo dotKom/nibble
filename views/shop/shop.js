@@ -23,7 +23,7 @@ angular.module('nibble.shop', ['ngRoute'])
   }
   /*Download the shops inventory*/
   $rootScope.items = [];
-  var abcd = Inventory.get(
+  Inventory.get(
     function(ret){
       $rootScope.items = ret;//$rootScope.items.concat(ret.results);
       for(var i=0; i< $scope.items.length;i++){
@@ -129,10 +129,9 @@ angular.module('nibble.shop', ['ngRoute'])
     var orders = [];
     for (let key in $rootScope.shopQueue){
       let elm = $rootScope.shopQueue[key]
-      console.log(elm.item,elm.quantity);
-      orders.push({quantity:elm.quantity,object_id:elm.item.pk});
-    }
-    //console.log(orders);
+      console.log(elm.item["pk"],elm.quantity);
+      orders.push({quantity:elm.quantity,object_id:elm.item["pk"]});
+    };
     $http({
       url: api.apiRoot + "orderline/",
       method: "post",
@@ -143,12 +142,7 @@ angular.module('nibble.shop', ['ngRoute'])
     }).then(function(ret){
       $scope.successCheckout(ret);
     },function(error){
-      if(!$rootScope.development){
-        $scope.errorCheckout(error);
-      }else{
-        Materialize.toast("(devmode) Checkout actually failed, status: "+error.status, 3000);
-        $scope.successCheckout(error);
-      }
+      $scope.errorCheckout(error);
     });
     
     $rootScope.logoutTimer = 5;
@@ -217,7 +211,7 @@ angular.module('nibble.shop', ['ngRoute'])
 
   $scope.successCheckout = function(ret){
     //TODO: get new user balance and history
-
+    $rootScope.user.balance -= $scope.totalSum;
     $(".check").attr("class", "check check-complete");
     $(".fill").attr("class", "fill fill-complete");
     setTimeout(function () {

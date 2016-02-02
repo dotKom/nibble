@@ -65,15 +65,15 @@ controller('MainCtrl', ["$scope", function ($scope) {
   }
 
   root.addMoney = function(amount){
-    /*
-      Update backend
-    */
-    root.user.balance += parseInt(amount);
     root.logoutTimer = 60;
-    Materialize.toast(amount + "kr er blitt lagt inn på kontoen din", 5000, "nibble-color success"); 
+    root.updateMoney(parseInt(amount));
   }
 
   root.withdrawMoney = function(amount){
+    root.logoutTimer = 60;
+    root.updateMoney(parseInt(-amount));
+  }
+  root.updateMoney = function(amount){
     /*
       Update backend
     */
@@ -83,10 +83,24 @@ controller('MainCtrl', ["$scope", function ($scope) {
       method: "post",
       data: {
         "user": root.user.pk,
-        "amount": -parseInt(amount)
-      }
+        "amount": amount
+      },
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"        
+      },
+      transformRequest: function(obj) {
+        var str = [];
+        for(var p in obj)
+        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+        return str.join("&");
+      },
     }).then(function(ret){
-      root.user.balance -= parseInt(amount);
+      root.user.balance += amount;
+      if(amount > 0){
+          Materialize.toast(amount + "kr er blitt lagt inn på kontoen din", 5000, "nibble-color success");
+      }else{
+          Materialize.toast((-amount) + "kr er blitt fjernet fra kontoen din", 5000, "nibble-color success"); 
+      }
     },function(error){
       
     });

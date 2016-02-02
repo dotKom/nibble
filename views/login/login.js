@@ -18,8 +18,15 @@ angular.module('nibble.login', ['ngRoute'])
   });
   $("#rfid-input").blur(function(e){
     console.log("Test");
-  });*/
+  });*/ 
+  scope.regModal = false;
   scope.rfid = "";
+  $("#rfid-input").blur(function(){
+    if(!scope.regModal){
+      $("#rfid-input").focus();
+    }
+  });
+  $("#rfid-input").focus();
   
   root.submit_reg = function(){
     http({
@@ -85,7 +92,15 @@ angular.module('nibble.login', ['ngRoute'])
             root.username = "";
             $("#user-username").val("");
             $("#user-password").val("");
-            $('#regModal').openModal();
+            scope.regModal = true;
+            $('#regModal').openModal({
+              complete: function(){
+                $("#user-username").val("");
+                $("#user-password").val("");
+                scope.regModal = false;
+                $("#rfid-input").focus();
+              }
+            });
             Materialize.toast("Validation failed!", 2000);
             Materialize.toast("Fill inn username and password", 2000);
           }

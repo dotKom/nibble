@@ -14,7 +14,7 @@ angular.module('api.config')
 factory("AuthInterceptor",["$q","$injector","$window","api.config","$rootScope",function($q,$injector,$window,api,root){
   return {
     request: function(config){
-      config.headers = {
+      /*config.headers = {
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
       };
       config.transformRequest = function(obj) {
@@ -22,7 +22,7 @@ factory("AuthInterceptor",["$q","$injector","$window","api.config","$rootScope",
         for(var p in obj)
         str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
         return str.join("&");
-      };
+      };*/
       token = $window.localStorage.getItem("token");
       if(token){
          config.headers["Authorization"] = "Bearer " + token;
@@ -45,12 +45,15 @@ factory("AuthInterceptor",["$q","$injector","$window","api.config","$rootScope",
         r = http({
             method: "POST",
             url: api.apiRoot + "auth/",
-            /*transformRequest: function(obj) {
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"        
+            },
+            transformRequest: function(obj) {
               var str = [];
               for(var p in obj)
               str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
               return str.join("&");
-            },    */
+            },
             data: {
               grant_type: "client_credentials",
               client_id: api.client_id, 
