@@ -235,7 +235,7 @@ small{
 
 .side-nav{
   float: right;
-  right: 0;
+  right: 0 !important;
   top: 64px;
   left: auto !important;
   z-index: auto;
