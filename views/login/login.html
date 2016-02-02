@@ -3,16 +3,13 @@
     <div class="card nibble-color alt">
       <div class="card-content white-text">
         <span class="card-title">Scan ditt studenkort for å handle</span>
-        <form ng-submit="submit_login()" ng-show="development" id="rfid-form">
-          <!--Rfid input field -->
-          <div input-field class="input-field">
-            <input class="/*hidden*/" type="text" id="rfid-input" name="rfid"/>
-            <label for ="rfid-input">Input field for rfid</label>
-          </div>
-        </form>
       </div>
     </div>
-  
+    <form ng-submit="submit_login()" style="opacity:0;width:0;height:0" id="rfid-form">
+          <!--Rfid input field -->
+      <input class="/*hidden*/" type="password" id="rfid-input" name="rfid"/>
+      <label for ="rfid-input">Input field for rfid</label>
+    </form>
     <div class="card row">
       <table class="col m6 l6" ng-repeat="itemCol in itemCols">
         <tr class="item_box" ng-repeat="element in itemCol track by $index"> 
