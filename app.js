@@ -23,6 +23,7 @@ controller('MainCtrl', ["$scope", function ($scope) {
 
 }]).run(["$rootScope", "$location", "$http","Transaction","api.config", function(root, location, http,Transaction,api){
   /*Definitions of root functions:*/
+  window.aRoot = root;
   root.ceil = Math.ceil;
   root.development = false;
   root.cash_amounts = [50, 100, 200];
@@ -108,3 +109,6 @@ controller('MainCtrl', ["$scope", function ($scope) {
   }
   
 }]);
+$("body").click(function(){
+  window.aRoot.interval = 60;
+});

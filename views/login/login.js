@@ -96,6 +96,7 @@ angular.module('nibble.login', ['ngRoute'])
               complete: function(){
                 $("#user-username").val("");
                 $("#user-password").val("");
+                $("#rfid-input").val("");
                 scope.regModal = false;
                 $("#rfid-input").focus();
               }
