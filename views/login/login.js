@@ -50,6 +50,7 @@ angular.module('nibble.login', ['ngRoute'])
   scope.submit_login = function(){
       /*Validation and 'login' code:*/
     root.rfid = $("#rfid-input").val();
+    $("rfid-input").val('');
     root.validation_fail = false;
     //Check if a user is assosiated with the rfid
     //$http request:
@@ -72,7 +73,7 @@ angular.module('nibble.login', ['ngRoute'])
       Materialize.toast("[Error] Server returned error code: " + error.status, 4000);
     });*/
       http({
-        url: api.apiRoot + "usersaldo/?format=json&rfid="+ $("#rfid-input").val(),
+        url: api.apiRoot + "usersaldo/?format=json&rfid="+ root.rfid,
         method: "get"
       }).then(function(ret){
           console.log("Logging in!");
