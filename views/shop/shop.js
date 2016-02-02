@@ -9,7 +9,7 @@ angular.module('nibble.shop', ['ngRoute'])
   });
 }])
 
-.controller('shopCtrl', ['$scope', '$rootScope', '$location', '$interval', '$http', 'Inventory','Transaction', 'api.config', function($scope, $rootScope, $location, $interval, $http, Inventory, api) {
+.controller('shopCtrl', ['$scope', '$rootScope', '$location', '$interval', '$http', 'Inventory','Transaction', 'api.config', function($scope, $rootScope, $location, $interval, $http, Inventory,Transaction, api) {
   /*Note: The controller runs tiwce for some reason*/
   if(!$rootScope.user){
     if(!$rootScope.development){
@@ -22,18 +22,25 @@ angular.module('nibble.shop', ['ngRoute'])
     }
   }
   /*Download the shops inventory*/
-  
-  Inventory.get(
-    function(ret){
-      //console.log(ret)
-      $rootScope.items = ret.results;
-      for(var i=0; i< $scope.items.length;i++){
-        if($rootScope.items[i].image)
-          $rootScope.items[i]["disp_image"] = api.host + $rootScope.items[i].image.thumb;
-        $rootScope.items[i]["oId"] = "a" + $rootScope.items[i]["pk"];
-      }
-      console.log($rootScope.items)
-    },
+  $rootScope.items = [];
+  function inventoryGetter(ret){
+    $rootScope.items = $rootScope.items.concat(ret.results);
+    for(var i=0; i< $scope.items.length;i++){
+      if($rootScope.items[i].image)
+        $rootScope.items[i]["disp_image"] = api.host + $rootScope.items[i].image.thumb;
+      $rootScope.items[i]["oId"] = "a" + $rootScope.items[i]["pk"];
+    }
+    console.log(ret.count )
+    if(ret.next){
+      console.log(ret.next.split("=")[1]);
+      ret.$get({page:ret.next.split("=")[1]},inventoryGetter,
+      function(error){
+        Materialize.toast("[ERROR] Could not load shop inventory", 4000);
+      });
+    }
+  }
+  var abcd = Inventory.get(
+    inventoryGetter,
     function(error){
       Materialize.toast("[ERROR] Could not load shop inventory", 4000);
     }
@@ -48,20 +55,20 @@ angular.module('nibble.shop', ['ngRoute'])
   */
   /*
   var testItem = {oId:"1",id:"1","name":"Øl", "description":"0.5L Dahls på glassflaske", "price":"20", "amount":42, "available":true, "category":"drikke", 
-                  "image": "http://3.bp.blogspot.com/_eBUfxxSLsVw/TSoQTbARxiI/AAAAAAAAAEk/V927sCd8uRU/s1600/dahls.png","dispCount":0};
+                  "image": "http://3.bp.blogspot.com/_eBUfxxSLsVw/TSoQTbARxiI/AAAAAAAAAEk/V927sCd8uRU/s1600/dahls.png","dispQuantity":0};
   var testItem2 = {oId:"2", id:"2","name":"Billys", "description":"Dypfryst pizza med ost og skinke", "price":20, "amount":42, "available":true, 
-                  "category":"mat", "image": "http://www.brynildsen.no/upload/Billys-original-NY.png","dispCount":0};
+                  "category":"mat", "image": "http://www.brynildsen.no/upload/Billys-original-NY.png","dispQuantity":0};
   var testItem3 = {oId:"3", id:"3","name":"Rett i koppen", "description":"Mat...", "price":40, "amount":42, "available":true, 
-                  "category":"mat", "image": "http://www.lunsj.no/14636-thickbox_default/knorr-tomatsuppe.jpg","dispCount":0};
+                  "category":"mat", "image": "http://www.lunsj.no/14636-thickbox_default/knorr-tomatsuppe.jpg","dispQuantity":0};
   /**/
   /*
-  var testItem4 = {oId:"4", id:"4","name":"Solbærtoddy", "description":"Toddy", "price":25, "amount":42, "available":true, "category":"drikke", "image": "http://proddb.kraft-hosting.net/prod_db/proddbimg/11324.png","dispCount":0};
+  var testItem4 = {oId:"4", id:"4","name":"Solbærtoddy", "description":"Toddy", "price":25, "amount":42, "available":true, "category":"drikke", "image": "http://proddb.kraft-hosting.net/prod_db/proddbimg/11324.png","dispQuantity":0};
   
-  var testItem5 = {oId:"5", id:"5","name":"Kinder: bueno", "description":"Kinder", "price":10, "amount":42, "available":true, "category":"snacks", "image": "http://www.kinder.me/image/journal/article?img_id=7231869&t=1445520902223","dispCount":0};
+  var testItem5 = {oId:"5", id:"5","name":"Kinder: bueno", "description":"Kinder", "price":10, "amount":42, "available":true, "category":"snacks", "image": "http://www.kinder.me/image/journal/article?img_id=7231869&t=1445520902223","dispQuantity":0};
   */
   
  // $rootScope.items = [testItem, testItem2, testItem3, testItem4, testItem5, testItem, testItem2, testItem3, testItem4];
-  //$rootScope.shopQueue = {};
+  $rootScope.shopQueue = {};
 
   var historyItem_1 = {
     "name":"Øl",
@@ -84,19 +91,20 @@ angular.module('nibble.shop', ['ngRoute'])
   function getTotalSum(){
     var totalSum = 0; 
     angular.forEach($rootScope.shopQueue, function(element) {
-      totalSum += element.count * element.item.price;
+      totalSum += element.quantity * element.item.price;
     });
     return totalSum;
   }
   
-  $scope.changeCount = function(itemRef,count){
-    if(($scope.totalSum+(itemRef.price*count)) <= $scope.user.balance){
+  $scope.changeCount = function(itemRef,quantity){
+    console.log(itemRef);
+    if(($scope.totalSum+(itemRef.price*quantity)) <= $scope.user.balance){
       if(!$rootScope.shopQueue[itemRef.oId]){
-        $rootScope.shopQueue[itemRef.oId] = {"item":itemRef,"count": 0};
+        $rootScope.shopQueue[itemRef.oId] = {"item":itemRef,"quantity": 0};
       }
-      $rootScope.shopQueue[itemRef.oId].count = Math.max(0,$rootScope.shopQueue[itemRef.oId].count+count);
-      $rootScope.shopQueue[itemRef.oId].item.dispCount = $rootScope.shopQueue[itemRef.oId].count;
-      if($rootScope.shopQueue[itemRef.oId].count <= 0){
+      $rootScope.shopQueue[itemRef.oId].quantity = Math.max(0,$rootScope.shopQueue[itemRef.oId].quantity+quantity);
+      $rootScope.shopQueue[itemRef.oId].item.dispQuantity = $rootScope.shopQueue[itemRef.oId].quantity;
+      if($rootScope.shopQueue[itemRef.oId].quantity <= 0){
         delete $rootScope.shopQueue[itemRef.oId];
         /*
           Force key 'reorder':
@@ -113,6 +121,7 @@ angular.module('nibble.shop', ['ngRoute'])
       console.log(($scope.totalSum+itemRef.price),$scope.user.balance);
       Materialize.toast("Totalprisen overstrider din saldo", 2000);
     }
+    
     $scope.totalSum = getTotalSum();
 
     $rootScope.logoutTimer = 60;
@@ -126,13 +135,16 @@ angular.module('nibble.shop', ['ngRoute'])
     $('#checkoutModal').openModal({
       complete : $rootScope.newOrder
     });
-
+    var orders = [];
+    for (elm of $rootScope.shopQueue){
+      orders.push({quantity:elm.quantity,object_id:elm.pk});
+    }
     $http({
-      url: "/payme/buy",
+      url: api.rootApi + "orderline/",
       method: "post",
       data: {
-        "user": $rootScope.rfid,
-        "products": $rootScope.shopQueue
+        "user": $rootScope.user.pk,
+        "orders": orders
       }
     }).then(function(ret){
       $scope.successCheckout(ret);

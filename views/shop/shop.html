@@ -12,7 +12,7 @@
            {{item.description}}
           </p>
           <span class="item-count">
-            {{ item.price }}kr <span class="thin" ng-show="item.dispCount"> x {{ item.dispCount }}</span>
+            {{ item.price }}kr <span class="thin" ng-show="item.dispQuantity"> x {{ item.dispQuantity }}</span>
           </span>
         </div>
         <div class="card-action">
@@ -46,11 +46,11 @@
             {{ element.item.name }}
           </span> 
           
-          <a class="remove waves-effect waves-red right" href="" ng-click = "changeCount(element.item,-element.count)">
+          <a class="remove waves-effect waves-red right" href="" ng-click = "changeCount(element.item,-element.quantity)">
             <i class="material-icons">clear</i>
           </a>
-          <a class="item-count right">
-            {{ element.count }} x {{ element.item.price }},-
+          <a class="item-quantity right">
+            {{ element.item.dispQuantity }} x {{ element.item.price }},-
           </a>
         </td>
       </tr>

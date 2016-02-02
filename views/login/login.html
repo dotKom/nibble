@@ -3,7 +3,7 @@
     <div class="card nibble-color alt">
       <div class="card-content white-text">
         <span class="card-title">Scan ditt studenkort for å handle</span>
-        <form ng-submit="submit_login()" ng-hide="validation_fail" id="rfid-form">
+        <form ng-submit="submit_login()" ng-show="development" id="rfid-form">
           <!--Rfid input field -->
           <div input-field class="input-field">
             <input class="/*hidden*/" type="text" id="rfid-input" name="rfid"/>

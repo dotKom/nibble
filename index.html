@@ -22,7 +22,6 @@
         <div class="nav-wrapper">
           <a href="" class="brand-logo"><img class="logo" src="./static/images/favicon.png"/>Nibble</a>
           <ul class="right">
-            <li title="Hjelp"><a class="nav-btn" href="#helpModal" modal><i class="material-icons">help_outline</i><span class="hover-text">Hjelp</span></a></li>
             <span ng-show="user">
               <li title="Legg til cash">
                 <a class="nav-btn" href="#addCashModal" modal>
@@ -31,11 +30,21 @@
                   <span class="hover-text"><br>Påfyll</span>
                 </a>
               </li>
+              <li title="Ta ut cash">
+                <a class="nav-btn" href="#withdrawCashModal" modal>
+                  <i class="material-icons pre-icon inline">remove</i>
+                  <i class="material-icons inline">attach_money</i>
+                  <span class="hover-text"><br>Ta ut</span>
+                </a>
+              </li>
+            </span>
+            <li title="Hjelp"><a class="nav-btn" href="#helpModal" modal><i class="material-icons">help_outline</i><span class="hover-text">Hjelp</span></a></li>
+
+            <span ng-show = "user">
               <li title="Min bruker">
-                <a href="#" class="dropdown-button darker nav-user" data-activates="user-action">
+                <a class="nav-user" data-activates="user-action">
                   <span>{{ user.name }} </span>
                   <small> {{ user.balance }}kr</small>
-                  <i class="material-icons right">arrow_drop_down</i>
                 </a>
                 <ul class="dropdown-content" id="user-action">
                   <!--View spesifict functions?-->
@@ -44,7 +53,7 @@
                   <li><a class="addMoneyTrigger" href="#addCashModal" modal>Legg til penger</a></li>
                   <!--'Ta ut penger' will so show a modal with for widthdrawing money-->
                   <li><a href="#withdrawCashModal" modal>Ta ut penger</a></li>
-                  
+
                 </ul>
               </li>
               <li>

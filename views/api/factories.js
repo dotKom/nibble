@@ -1,12 +1,12 @@
 angular.module('api.config')
 .factory('Inventory', ['Resource', function ($resource) {
-  return $resource('inventory/:id/', {id: '@id'});
+  return $resource('inventory/');
 }])
 .factory('User', ['Resource', function ($resource) {
-  return $resource('usersaldo/:rfid/', {rfid: '@rfid'});
+  return $resource('usersaldo/');
 }])
 .factory('Order', ['Resource', function ($resource) {
-  return $resource('orderline/:id/', {id: '@id'});
+  return $resource('orderline/:user.pk/', {id: '@id'});
 }])
 .factory('Transaction', ['Resource', function ($resource) {
   return $resource('transactions/:id/', {id: '@id'});
@@ -15,17 +15,21 @@ factory("AuthInterceptor",["$q","$injector","$window","api.config",function($q,$
   return {
     request: function(config){
       token = $window.localStorage.getItem("token");
+      
       if(token){
         config.headers["Authorization"] = "Bearer " + token;
       }
       return config; 
+    },
+    response: function(data){
+      console.log(data);
+      return data;
     },
     responseError: function(rejection){
       token = $window.localStorage.getItem("token");
       if(!token || rejection.status == 401){
         console.log("Requesting new token!");
         http = $injector.get("$http");
-        console.log(r);
         r = http({
             method: "POST",
             headers: {
@@ -53,9 +57,8 @@ factory("AuthInterceptor",["$q","$injector","$window","api.config",function($q,$
         },function(error){
           console.log("Could not renew access token! ",error);
         });
+        return $q.reject(rejection);    
       }
-      
-      return $q.reject(rejection);
     }
   };
 }]);
