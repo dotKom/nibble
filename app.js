@@ -10,19 +10,9 @@ config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/'});
 }]).
 controller('MainCtrl', ["$scope", function ($scope) {
-  /*Not used
-  $scope.select = {
-        value1: "Option1",
-        value2: "I'm an option",
-        choices: ["Option1", "I'm an option", "This is materialize", "No, this is Patrick."]
-    };
-
-    $scope.dummyInputs = {};
-
-    */
-
+  /*Not used*/
 }]).run(["$rootScope", "$location", "$http","Transaction","api.config", function(root, location, http,Transaction,api){
-  /*Definitions of root functions:*/
+  /*Root values:*/
   window.aRoot = root;
   root.ceil = Math.ceil;
   root.development = false;
@@ -31,8 +21,7 @@ controller('MainCtrl', ["$scope", function ($scope) {
   root.custom_amount_disabled = false;
   root.withdraw_money_amount = 0;
   root.logoutTimer = 0;
-  
-  
+
   root.logout = function(){
     root.rfid = null;
     root.user = null;
@@ -78,7 +67,6 @@ controller('MainCtrl', ["$scope", function ($scope) {
     /*
       Update backend
     */
-    console.log(root.user.pk);
     http({
       url: api.apiRoot + "transactions/",
       method: "post",
@@ -103,12 +91,12 @@ controller('MainCtrl', ["$scope", function ($scope) {
           Materialize.toast((-amount) + "kr er blitt fjernet fra kontoen din", 5000, "nibble-color success"); 
       }
     },function(error){
-      
+      Materialize.toast("Kunne ikke fullføre transaksjonene!");  
     });
     root.logoutTimer = 60;
   }
   
 }]);
-$("body").click(function(){
+/*$("body").click(function(){
   window.aRoot.interval = 60;
-});
+});*/

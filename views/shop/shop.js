@@ -10,7 +10,9 @@ angular.module('nibble.shop', ['ngRoute'])
 }])
 
 .controller('shopCtrl', ['$scope', '$rootScope', '$location', '$interval', '$http', 'Inventory','Transaction', 'api.config', function($scope, $rootScope, $location, $interval, $http, Inventory,Transaction, api) {
-  /*Note: The controller runs tiwce for some reason*/
+  /*Resetting rfid just in case*/
+  window.rfid = "";
+  
   if(!$rootScope.user){
     if(!$rootScope.development){
       $location.url("/");
@@ -44,22 +46,7 @@ angular.module('nibble.shop', ['ngRoute'])
     alpha characters in order to display the queue
     correctly
   */
-  /*
-  var testItem = {oId:"1",id:"1","name":"Øl", "description":"0.5L Dahls på glassflaske", "price":"20", "amount":42, "available":true, "category":"drikke", 
-                  "image": "http://3.bp.blogspot.com/_eBUfxxSLsVw/TSoQTbARxiI/AAAAAAAAAEk/V927sCd8uRU/s1600/dahls.png","dispQuantity":0};
-  var testItem2 = {oId:"2", id:"2","name":"Billys", "description":"Dypfryst pizza med ost og skinke", "price":20, "amount":42, "available":true, 
-                  "category":"mat", "image": "http://www.brynildsen.no/upload/Billys-original-NY.png","dispQuantity":0};
-  var testItem3 = {oId:"3", id:"3","name":"Rett i koppen", "description":"Mat...", "price":40, "amount":42, "available":true, 
-                  "category":"mat", "image": "http://www.lunsj.no/14636-thickbox_default/knorr-tomatsuppe.jpg","dispQuantity":0};
-  /**/
-  /*
-  var testItem4 = {oId:"4", id:"4","name":"Solbærtoddy", "description":"Toddy", "price":25, "amount":42, "available":true, "category":"drikke", "image": "http://proddb.kraft-hosting.net/prod_db/proddbimg/11324.png","dispQuantity":0};
-  
-  var testItem5 = {oId:"5", id:"5","name":"Kinder: bueno", "description":"Kinder", "price":10, "amount":42, "available":true, "category":"snacks", "image": "http://www.kinder.me/image/journal/article?img_id=7231869&t=1445520902223","dispQuantity":0};
-  */
-  
- // $rootScope.items = [testItem, testItem2, testItem3, testItem4, testItem5, testItem, testItem2, testItem3, testItem4];
-  $rootScope.shopQueue = {};
+ $rootScope.shopQueue = {};
 
   var historyItem_1 = {
     "name":"Øl",
@@ -191,7 +178,6 @@ angular.module('nibble.shop', ['ngRoute'])
       $rootScope.logoutTimer -= $rootScope.dTime/1000;
       if($rootScope.logoutTimer <= 0){
         $interval.cancel($rootScope.interval);
-          
         if(!$rootScope.development){
           $rootScope.logoutTimer = 0;
           $rootScope.logout();
@@ -228,13 +214,7 @@ angular.module('nibble.shop', ['ngRoute'])
   }
 
   $scope.startInterval();
-  /*function add(item){
-    try:
-    order[item.unique].amount += 1;
-    else:
-      order[item.unique] = {amount:1, item:item}
 
-  }*/
 }]);
 
 /*
@@ -254,12 +234,5 @@ Transaction
     Money diff (minus for subtraction, plus for addition) (Optional)
     Product (Optional)
     Timestamp
-
-http({
-  method: "get",
-  url: "https://www.online.ntnu.no/payme/products"
-}).then(function(data){
-  root.products = data;
-});
 
 */

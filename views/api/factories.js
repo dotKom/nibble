@@ -14,15 +14,6 @@ angular.module('api.config')
 factory("AuthInterceptor",["$q","$injector","$window","api.config","$rootScope",function($q,$injector,$window,api,root){
   return {
     request: function(config){
-      /*config.headers = {
-        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
-      };
-      config.transformRequest = function(obj) {
-        var str = [];
-        for(var p in obj)
-        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-        return str.join("&");
-      };*/
       token = $window.localStorage.getItem("token");
       if(token){
          config.headers["Authorization"] = "Bearer " + token;

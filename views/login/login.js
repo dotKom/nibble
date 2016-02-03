@@ -10,10 +10,8 @@ angular.module('nibble.login', ['ngRoute'])
 }])
 .controller('loginCtrl', ["$rootScope","$http","$location","$scope","api.config","User",function(root,http,location,scope,api,User) {
 
-window.rfid = ""
- 
-
- scope.regModal = false;
+  window.rfid = ""
+  scope.regModal = false;
   scope.rfid = "";
   root.submit_reg = function(){
     http({
@@ -26,8 +24,8 @@ window.rfid = ""
       }
     }).then(function(ret){
       /*Success*/
-      $('#regModal').closeModal();
       scope.submit_login();
+      $('#regModal').closeModal();
       
     },function(error){
       console.log(error);
@@ -37,7 +35,7 @@ window.rfid = ""
   scope.submit_login = function(){
       /*Validation and 'login' code:*/
     root.rfid = window.rfid;
-    window.rfid = "";
+    //window.rfid = "";
 	console.log("rdif cleared: " + window.rfid);
     root.validation_fail = false;
       http({
@@ -49,21 +47,20 @@ window.rfid = ""
             root.user.balance = root.user.saldo;
             root.user.name = root.user.first_name + " " + root.user.last_name;
             location.url("/shop");
+            window.rfid = "";
             console.log(root.user);
-  		console.log(ret.data);
+            console.log(ret.data);
           }
           else{
-            //$("#rfid-input").val("");
             root.validation_fail = true;
-            root.username = "";
             $("#user-username").val("");
             $("#user-password").val("");
             scope.regModal = true;
             $('#regModal').openModal({
               complete: function(){
-                $("#user-username").val("");
-                $("#user-password").val("");
-                $("#rfid-input").val("");
+                window.rfid = "";
+	            $("#user-username").val("");
+                $("#user-password").val("");  
                 scope.regModal = false;
               }
             });
@@ -76,30 +73,27 @@ window.rfid = ""
           if(error.status == 401){
             setTimeout(scope.submit_login,500);
           }else{
+            window.rfid = "";
             root.rfid = null;
             root.user = null;
             root.validation_fail = false;
             Materialize.toast("[Error] Server returned error code: " + error.status, 4000);
           }
         }
-
       );
     };
     
   /*
   Item list should be loaded in app to be used by both shop and login (?)
   */
-  //root.items
   if(root.items){
     root.itemCols = [root.items.slice(0, Math.ceil(root.items.length/2)), root.items.slice(Math.ceil(root.items.length/2))]
   }
 }]);
-
-
+ 
 $('body').keypress(function(key) {
   if(key.keyCode == 13){ // Enter
-          console.log(window.rfid);
-          $("#rfid-form").submit();
+    $("#rfid-form").submit();
   }
   else{
     window.rfid += String.fromCharCode(key.keyCode);
