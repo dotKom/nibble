@@ -15,7 +15,7 @@ controller('MainCtrl', ["$scope", function ($scope) {
   /*Root values:*/
   window.aRoot = root;
   root.ceil = Math.ceil;
-  root.development = false;
+  root.development = true;
   root.cash_amounts = [50, 100, 200];
   root.add_money_amount = 0;
   root.custom_amount_disabled = false;
@@ -103,10 +103,15 @@ controller('MainCtrl', ["$scope", function ($scope) {
 
         $('#modal-share-login').closeModal({ dismissible: true, complete: function() { $('.lean-overlay').remove() }} );
 
-    })
+    });
   }
   
 }]);
+
+$('.lean-overlay').on('click',function() { 
+    $('.lean-overlay').remove(); // fix for multiple overlayers
+    $('#modal-share-login').closeModal({ dismissible: true, complete: function() { $('.lean-overlay').remove() }});
+});
 /*$("body").click(function(){
   window.aRoot.interval = 60;
 });*/

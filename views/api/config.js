@@ -5,11 +5,15 @@ angular.module('api.config', ['ngResource'])
     method: "GET",
     responseType: "json"
   }).then(function(ret){
-    angular.module('api.config').constant(ret.data);
+    for(var e in ret.data){
+      api[e] = ret.data[e];
+    }
+    console.log(api);
+    //api.value('api.config',ret.data);
   },function(error){
     console.log("Could not load config!");
   });
 }])
 .value('api.config', {
-  //Required? :o
-});
+  //Required
+})
