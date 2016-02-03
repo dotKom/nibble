@@ -347,7 +347,21 @@ img.logo {
   -webkit-font-feature-settings: 'liga';
   -webkit-font-smoothing: antialiased;
 }
-
+.rfid-marker{
+  display: inline-block;
+  margin-top: 6em;
+  width: 15em;
+  height: 22em;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 13em;
+  /*background-color: blue;*/
+  border-style: solid;
+  border-radius: 12px;
+  border-color: #004B80;
+  border-width: .8em;
+  background-image: url("http://www.free-icons-download.net/images/rfid-signal-icon-61214.png");
+}
 
 .checkmark{width:128px;margin:0 auto;padding-bottom:40px}
 .path{stroke-dasharray:300;stroke-dashoffset:0;-webkit-animation-name:load,spin;-webkit-animation-duration:3s,3s;-webkit-animation-timing-function:linear;-webkit-animation-iteration-count:infinite;animation-name:load,spin;animation-duration:3s,3s;animation-timing-function:linear;animation-iteration-count:infinite;-webkit-transform-origin:50% 50%;-moz-transform-origin:50px 50px}

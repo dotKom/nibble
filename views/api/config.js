@@ -8,8 +8,6 @@ angular.module('api.config', ['ngResource'])
     for(var e in ret.data){
       api[e] = ret.data[e];
     }
-    console.log(api);
-    //api.value('api.config',ret.data);
   },function(error){
     console.log("Could not load config!");
   });

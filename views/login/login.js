@@ -44,6 +44,7 @@ angular.module('nibble.login', ['ngRoute'])
         method: "get"
       }).then(function(ret){
           if(ret.data.count == 1){
+            $("#rfid-rlogo")[0].style.borderColor = "#65EC00";
             root.user = ret.data.results[0]; //<-- if data is json??
             root.user.balance = root.user.saldo;
             root.user.name = root.user.first_name + " " + root.user.last_name;
@@ -53,12 +54,14 @@ angular.module('nibble.login', ['ngRoute'])
             console.log(ret.data);
           }
           else{
+            $("#rfid-rlogo")[0].style.borderColor = "#FF471E";
             root.validation_fail = true;
             $("#user-username").val("");
             $("#user-password").val("");
             scope.regModal = true;
             $('#regModal').openModal({
               complete: function(){
+                $("#rfid-rlogo")[0].style.borderColor("");
                 window.logKeys = true;
                 window.rfid = "";
 	            $("#user-username").val("");
@@ -99,6 +102,7 @@ $('body').keypress(function(key) {
   if(window.logKeys){
     if(key.keyCode == 13){ // Enter
       console.log(window.rfid);
+      $("#rfid-rlogo")[0].style.borderColor = "#FFA042";
       $("#rfid-form").submit();
     }
     else{
