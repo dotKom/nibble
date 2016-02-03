@@ -1,5 +1,6 @@
 # nibble
 App for buying foods &amp; drinks at the office
+![Nibble shop](http://i.imgur.com/1ItEFrd.png "Main show view")
 
 ## Requirements
 - [Node js](https://nodejs.org/en/) (only for bower)
