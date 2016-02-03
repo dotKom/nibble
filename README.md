@@ -11,5 +11,5 @@ App for buying foods &amp; drinks at the office
 ## Setup
 - start bash or cmd and cd to nibble
 - run: "bower install"
-- fill in host, apiRoot, client_id and client_secret in "views/api/config.js"
+- fill in host, apiRoot, client_id and client_secret in "config.json"
 - open the location of index.html in a webserver (opening as file:// messes with angular)
