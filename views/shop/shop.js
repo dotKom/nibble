@@ -12,7 +12,7 @@ angular.module('nibble.shop', ['ngRoute'])
 .controller('shopCtrl', ['$scope', '$rootScope', '$location', '$interval', '$http', 'Inventory','Transaction', 'api.config', function($scope, $rootScope, $location, $interval, $http, Inventory,Transaction, api) {
   /*Resetting rfid just in case*/
   window.rfid = "";
-  
+  window.logKeys = false;
   if(!$rootScope.user){
     if(!$rootScope.development){
       $location.url("/");

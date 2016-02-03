@@ -9,7 +9,7 @@ angular.module('nibble.login', ['ngRoute'])
   });
 }])
 .controller('loginCtrl', ["$rootScope","$http","$location","$scope","api.config","User",function(root,http,location,scope,api,User) {
-
+  window.logKeys = true;
   window.rfid = ""
   scope.regModal = false;
   scope.rfid = "";
@@ -34,6 +34,7 @@ angular.module('nibble.login', ['ngRoute'])
   }
   scope.submit_login = function(){
       /*Validation and 'login' code:*/
+    window.logKeys = false;
     root.rfid = window.rfid;
     //window.rfid = "";
 	console.log("rdif cleared: " + window.rfid);
@@ -58,6 +59,7 @@ angular.module('nibble.login', ['ngRoute'])
             scope.regModal = true;
             $('#regModal').openModal({
               complete: function(){
+                window.logKeys = true;
                 window.rfid = "";
 	            $("#user-username").val("");
                 $("#user-password").val("");  
@@ -73,6 +75,7 @@ angular.module('nibble.login', ['ngRoute'])
           if(error.status == 401){
             setTimeout(scope.submit_login,500);
           }else{
+            window.logKeys = true;
             window.rfid = "";
             root.rfid = null;
             root.user = null;
@@ -92,11 +95,15 @@ angular.module('nibble.login', ['ngRoute'])
 }]);
  
 $('body').keypress(function(key) {
-  if(key.keyCode == 13){ // Enter
-    $("#rfid-form").submit();
-  }
-  else{
-    window.rfid += String.fromCharCode(key.keyCode);
+  /*Logs keys when in login and not regestering*/
+  if(window.logKeys){
+    if(key.keyCode == 13){ // Enter
+      console.log(window.rfid);
+      $("#rfid-form").submit();
+    }
+    else{
+      window.rfid += String.fromCharCode(key.keyCode);
+    }
   }
 });
   
