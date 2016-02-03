@@ -1,6 +1,5 @@
 angular.module('api.config', ['ngResource'])
-.run(['$http',function(http){
-  /*Requesting config file: "config.json"*/
+.run(['api.config','$http',function(api,http){
   http({
     url: "/config.json",
     method: "GET",
@@ -10,4 +9,7 @@ angular.module('api.config', ['ngResource'])
   },function(error){
     console.log("Could not load config!");
   });
-}]);
+}])
+.value('api.config', {
+  //Required? :o
+});
