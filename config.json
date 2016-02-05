@@ -1,7 +1,7 @@
 //Template config
 {
-  "host": [host address],
-  "apiRoot": [host address]/[api_path],
+  "host": [host_address],
+  "apiRoot": [host_address]/[api_path],
   "client_id": "", 
   "client_secret": ""
 }
