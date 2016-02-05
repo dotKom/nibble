@@ -95,16 +95,6 @@ controller('MainCtrl', ["$scope", function ($scope) {
     });
     root.logoutTimer = 60;
   }
-
-  function updateDismissable() {
-
-    $('.lean-overlay').on('click',function() { 
-        $('.lean-overlay').remove(); // fix for multiple overlayers
-
-        $('#modal-share-login').closeModal({ dismissible: true, complete: function() { $('.lean-overlay').remove() }} );
-
-    });
-  }
   
 }]);
 
