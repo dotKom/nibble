@@ -1,0 +1,14 @@
+//Template config
+{
+  "host": [host address],
+  "apiRoot": [host address]/[api_path],
+  "client_id": "", 
+  "client_secret": ""
+}
+//Example
+{
+  "host": "https://online.ntnu.no",
+  "apiRoot": "https://online.ntnu.no/api/v1/",
+  "client_id": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", 
+  "client_secret": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+}
