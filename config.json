@@ -1,7 +1,7 @@
 //Example config
 {
-  "host": "https://online.ntnu.no",
-  "apiRoot": "https://online.ntnu.no/api/v1/",
+  "host": "https://yourdomain",
+  "apiRoot": "https://yourdomain/api/v1/",
   "client_id": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", 
   "client_secret": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 }
