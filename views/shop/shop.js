@@ -180,6 +180,8 @@ angular.module('nibble.shop', ['ngRoute'])
         $interval.cancel($rootScope.interval);
         if(!$rootScope.development){
           $rootScope.logoutTimer = 0;
+          $('#addCashModal').closeModal();
+          $('#withdrawCashModal').closeModal();
           $rootScope.logout();
         }else{
           Materialize.toast("(devmode) Automated logout disabled", 1000);
