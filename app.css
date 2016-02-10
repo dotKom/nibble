@@ -346,6 +346,7 @@ img.logo {
   direction: ltr;
   -webkit-font-feature-settings: 'liga';
   -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
 }
 .rfid-marker{
   display: inline-block;

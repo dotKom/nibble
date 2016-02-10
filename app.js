@@ -14,14 +14,24 @@ controller('MainCtrl', ["$scope", function ($scope) {
 }]).run(["$rootScope", "$location", "$http","Transaction","api.config", function(root, location, http,Transaction,api){
   /*Root values:*/
   window.aRoot = root;
+  http({
+    url: "./config.json",
+    responseType: "json"
+  }).then(function(ret){
+    root.development = ret.data.devmode || root.development;
+    root.cash_amounts = ret.data.cashList || root.cash_amounts;
+  },function(error){
+    console.log("Could not load config!");
+  });
+  
   root.ceil = Math.ceil;
-  root.development = true;
+  root.development = false;
   root.cash_amounts = [50, 100, 200];
   root.add_money_amount = 0;
   root.custom_amount_disabled = false;
   root.withdraw_money_amount = 0;
   root.logoutTimer = 0;
-
+  
   root.logout = function(){
     root.rfid = null;
     root.user = null;
