@@ -60,8 +60,8 @@ angular.module('nibble.login', ['ngRoute'])
             $("#user-password").val("");
             scope.regModal = true;
             $('#regModal').openModal({
-              complete: function(){
-                $("#rfid-rlogo")[0].style.borderColor("");
+              "complete": function(){
+                $("#rfid-rlogo")[0].style.borderColor = "";
                 window.logKeys = true;
                 window.rfid = "";
 	            $("#user-username").val("");
