@@ -102,7 +102,7 @@ $('body').keypress(function(key) {
   if(window.logKeys){
     if(key.keyCode == 13){ // Enter
       console.log(window.rfid);
-      $("#rfid-rlogo")[0].style.borderColor = "#FFA042";
+      $("#rfid-rlogo")[0].style.borderColor = "#65EC00";
       $("#rfid-form").submit();
     }
     else{
