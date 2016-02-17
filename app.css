@@ -293,10 +293,10 @@ img.logo {
   content: "";
   padding: 0;
 }
+
 .hidden{
   display:none;
 }
-
 .vertical-center{
   padding: 5em;
 }
@@ -315,7 +315,12 @@ img.logo {
 .item-count.inventory-list{
   color: #039be5;
 }
-
+.no-float{
+  float: none !important;
+}
+.align-center{
+  text-align: center;
+}
 /* Store any dependencies locally */
 
 @font-face {
