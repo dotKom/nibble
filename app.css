@@ -366,7 +366,7 @@ img.logo {
   border-radius: 12px;
   border-color: #004B80;
   border-width: .8em;
-  background-image: url("http://www.free-icons-download.net/images/rfid-signal-icon-61214.png");
+  background-image: url("./static/images/rfid.png");
 }
 
 .checkmark{width:128px;margin:0 auto;padding-bottom:40px}
