@@ -1,4 +1,3 @@
-//Example config
 {
   "host": "https://yourdomain",
   "apiRoot": "https://yourdomain/api/v1/",
