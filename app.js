@@ -18,8 +18,12 @@ controller('MainCtrl', ["$scope", function ($scope) {
     url: "./config.json",
     responseType: "json"
   }).then(function(ret){
-    root.development = ret.data.devmode || root.development;
-    root.cash_amounts = ret.data.cashList || root.cash_amounts;
+    if(ret.data){
+      root.development = ret.data.devmode || root.development;
+      root.cash_amounts = ret.data.cashList || root.cash_amounts;
+    }else{
+      console.log("Could not load config!");
+    }
   },function(error){
     console.log("Could not load config!");
   });
