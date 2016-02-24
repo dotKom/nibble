@@ -57,7 +57,7 @@
                 </ul>
               </li>
               <li>
-                <a class="nav-btn alt nibble-text" title="Avbryt og logg ut" href="#/" ng-click="logout()">
+                <a class="nav-btn alt nibble-text modal-action modal-close" title="Avbryt og logg ut" href="#/" ng-click="logout()">
                   <i class="material-icons">exit_to_app</i>
                   <span class="hover-text">Exit</span>
                 </a>
@@ -107,9 +107,9 @@
 
           <!--TODO: Fix css for the buttons-->
           <div class="radio-group">
-            <button class="btn-large" ng-click="enableCustomAmount()">Velg beløp</button>
+            <button class="btn-large" ng-click="enableCustomAmount()">Velg eget beløp</button>
             <span ng-repeat="amount in cash_amounts track by $index">
-              <button class="btn-large" ng-click="selectAddAmount(amount)">{{amount}} kr</button>
+              <button class="btn-large money-{{amount}}" ng-click="selectAddAmount(amount)">{{amount}} kr</button>
             </span>
           </div>
 
@@ -124,7 +124,7 @@
       </div>
       <div class="modal-footer align-center">
           <button ng-click="addMoney(add_money_amount)" ng-disabled="invalidAmount(add_money_amount)" class="modal-action modal-close waves-effect btn nibble-color lighter no-float
-">Sett inn</button>
+">Sett inn {{add_money_amount}}kr</button>
         <a href class="modal-action modal-close waves-effect btn-flat no-float">Avbryt</a>
       </div>
   </div>
@@ -181,7 +181,7 @@
                 {{ element.item.name }}
                 </span>
                 <span class="col s6 thinner left-align padd">
-                  {{ element.count }} x {{ element.item.price }},-
+                  {{ element.quantity }} x {{ element.item.price }},-
                 </span>
               </div>
             </div>
@@ -263,7 +263,6 @@
   <script src="views/api/providers.js"></script>
   <script src="views/login/login.js"></script>
   <script src="views/shop/shop.js"></script>
-  <script src="views/kvitering/kvitering.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
