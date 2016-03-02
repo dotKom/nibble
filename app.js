@@ -35,7 +35,15 @@ controller('MainCtrl', ["$scope", function ($scope) {
   root.custom_amount_disabled = false;
   root.withdraw_money_amount = 0;
   root.logoutTimer = 0;
-  
+  root.clearAll = function(){
+    root.user = null;
+    root.rfid = null;
+    window.rfid = "";
+    window.logKeys = true;
+    $("#user-username").val("");
+    $("#user-password").val("");  
+                
+  }
   root.logout = function(){
     root.rfid = null;
     root.user = null;

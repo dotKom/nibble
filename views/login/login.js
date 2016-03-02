@@ -9,9 +9,7 @@ angular.module('nibble.login', ['ngRoute'])
   });
 }])
 .controller('loginCtrl', ["$rootScope","$http","$location","$scope","api.config","User",function(root,http,location,scope,api,User) {
-  window.logKeys = true;
-  window.rfid = "";
-  scope.regModal = false;
+  root.clearAll();
   //In root due to being accessed by a modal in index.html
   root.submit_reg = function(){
     if(isValidRFID(root.rfid)){
@@ -58,7 +56,8 @@ angular.module('nibble.login', ['ngRoute'])
             root.validation_fail = true;
             $("#user-username").val("");
             $("#user-password").val("");
-            scope.regModal = true;
+            Materialize.toast("Validering feilet!", 2000);
+            Materialize.toast("Fyll inn brukernavn og passord", 2000);
             $('#regModal').openModal({
               "complete": function(){
                 $("#rfid-rlogo")[0].style.borderColor = "";
@@ -66,11 +65,8 @@ angular.module('nibble.login', ['ngRoute'])
                 window.rfid = null;
                 $("#user-username").val("");
                 $("#user-password").val("");  
-                scope.regModal = false;
               }
             });
-            Materialize.toast("Validation failed!", 2000);
-            Materialize.toast("Fill inn username and password", 2000);
           }
         },
         function(error){
@@ -78,16 +74,17 @@ angular.module('nibble.login', ['ngRoute'])
           if(error.status == 401){
             setTimeout(scope.submit_login,500);
           }else{
-            window.logKeys = true;
-            window.rfid = "";
-            root.rfid = null;
-            root.user = null;
+            root.clearAll();
             root.validation_fail = false;
             Materialize.toast("[Error] Server returned error code: " + error.status, 4000);
           }
         }
       );
-    };
+    }else{
+      //Defined in app.js
+      root.clearAll();
+      Materialize.toast("[Error] Invalid RFID" + error.status, 4000);    
+    }
   }
   /*
   Item list should be loaded in app to be used by both shop and login (?)
@@ -97,11 +94,7 @@ angular.module('nibble.login', ['ngRoute'])
   }
 }]);
 function isValidRFID(rfid){
-  //Null check
-  if(typeof(rfid) === "string"){
-    return /^\d{8,10}$/.test(rfid);
-  }
-  return false;
+  return typeof(rfid) === "string" && /^\d{8,10}$/.test(rfid);
 }
 $('body').keypress(function(key) {
   /*Logs keys when in login and not regestering*/
