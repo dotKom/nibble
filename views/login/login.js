@@ -83,7 +83,7 @@ angular.module('nibble.login', ['ngRoute'])
     }else{
       //Defined in app.js
       root.clearAll();
-      Materialize.toast("[Error] Invalid RFID" + error.status, 4000);    
+      Materialize.toast("[Error] Invalid RFID", 4000);    
     }
   }
   /*
