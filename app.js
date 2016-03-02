@@ -39,6 +39,7 @@ controller('MainCtrl', ["$scope", function ($scope) {
     root.rfid = null;
     window.rfid = "";
     window.logKeys = true;
+    $("#rfid-rlogo")[0].style.borderColor = "";
     $("#user-username").val("");
     $("#user-password").val("");  
                 
