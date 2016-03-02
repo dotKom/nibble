@@ -4,7 +4,6 @@ angular.module('nibble', [
   'ui.materialize',
   'nibble.login',
   'nibble.shop',
-  'nibble.kvitering'
 ]).
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/'});

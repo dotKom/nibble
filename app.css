@@ -198,7 +198,6 @@ small{
 
 
 .add-money .radio-group{
-
 }
 
 .radio-group{
@@ -207,7 +206,21 @@ small{
 
 .radio-group button{
   flex-grow: 1;
+  margin: 0 10px;
 }
+
+.money-20{ background-color: #000; }
+.money-50{ background-color: #83AB87; }
+.money-100{ background-color: #D2959A; }
+.money-100:hover {
+    background-color: hsla(355,84%,70%,1);
+}
+.money-200{ background-color: #568AB7;}
+.money-200:hover{
+    background-color: hsla(208,92%,53%,1);
+}
+.money-500{ background-color: #000; }
+.money-1000{ background-color: #000; }
 
 .checkout{
   position: fixed;
