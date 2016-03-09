@@ -54,7 +54,7 @@ factory("AuthInterceptor",["$q","$injector","$window","api.config","$rootScope",
         }).then(function(response){
           $window.localStorage.token = response.data.access_token;
           root.tries = 0;
-          http(response.config).then(function(r){
+          http(rejection.config).then(function(r){
             newPromise.resolve(r);
           },function(error){
             newPromise.reject(error);
