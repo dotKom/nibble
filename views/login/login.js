@@ -74,7 +74,6 @@ angular.module('nibble.login', ['ngRoute'])
           root.clearAll();
           root.validation_fail = false;
           Materialize.toast("[Error] Server returned error code: " + error.status, 4000);
-          }
         }
       );
     }else{
