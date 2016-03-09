@@ -64,7 +64,7 @@ angular.module('nibble.login', ['ngRoute'])
                 window.logKeys = true;
                 window.rfid = null;
                 $("#user-username").val("");
-                $("#user-password").val("");  
+                $("#user-password").val("");
               }
             });
           }
@@ -72,7 +72,7 @@ angular.module('nibble.login', ['ngRoute'])
         function(error){
           console.log(error);
           if(error.status == 401){
-            setTimeout(scope.submit_login,500);
+          //  Moved to AuthInterceptor
           }else{
             root.clearAll();
             root.validation_fail = false;
@@ -83,7 +83,7 @@ angular.module('nibble.login', ['ngRoute'])
     }else{
       //Defined in app.js
       root.clearAll();
-      Materialize.toast("[Error] Invalid RFID", 4000);    
+      Materialize.toast("[Error] Invalid RFID", 4000);
     }
   }
   /*
