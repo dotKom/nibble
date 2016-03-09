@@ -71,12 +71,9 @@ angular.module('nibble.login', ['ngRoute'])
         },
         function(error){
           console.log(error);
-          if(error.status == 401){
-          //  Moved to AuthInterceptor
-          }else{
-            root.clearAll();
-            root.validation_fail = false;
-            Materialize.toast("[Error] Server returned error code: " + error.status, 4000);
+          root.clearAll();
+          root.validation_fail = false;
+          Materialize.toast("[Error] Server returned error code: " + error.status, 4000);
           }
         }
       );
