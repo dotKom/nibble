@@ -37,6 +37,8 @@ controller('MainCtrl', ["$scope", function ($scope) {
   root.custom_amount_disabled = false;
   root.withdraw_money_amount = 0;
   root.logoutTimer = 0;
+  root.numpadKeys = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, "del"];
+  
   root.clearAll = function(){
     root.user = null;
     root.rfid = null;
@@ -57,6 +59,18 @@ controller('MainCtrl', ["$scope", function ($scope) {
   root.selectAddAmount = function(amount){
     root.add_money_amount = amount;
     root.custom_amount_disabled = true;
+  }
+
+  root.numInputAdded = function(input){
+    if(!root.add_money_amount)root.add_money_amount = 0;
+    var amount = root.add_money_amount.toString();
+    if (input == 'del') {
+      amount = amount.slice(0, amount.length - 1);
+    } else {
+      amount += input;
+    }
+
+    root.add_money_amount = parseInt(amount);
   }
 
   root.selectWithdrawAmount = function(amount){
