@@ -131,6 +131,11 @@ small{
   display: inline-table;
 }
 
+ng-keypad ng-key {
+    width: auto;
+    background: transparent;
+}
+
 .center-wrapper{
   margin: 2% 25% !important;
 }

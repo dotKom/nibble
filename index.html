@@ -117,20 +117,21 @@
 
           <br>
           <!--TODO: Fix css to keep modue size from changing when hidden-->
-          <div class="row">
-            <div class="input-field col s6" ng-hide="">
+          <div class="row" ng-show="!custom_amount_disabled">
+            <div class="input-field col s12" ng-hide="">
               <div class="android">
                 <input class="keypad-display" id="custom_amount" ng-model='add_money_amount' disabled/>
-                <ng-keypad on-key-pressed='numInputAdded'>
-                    <ng-key ng-key ng-repeat='key in numpadKeys' ng-key-data='key'>{{key}}</ng-key>
-                    <ng-key></ng-key>
-                    <ng-key ng-key-data='0'>0</ng-key>
-                    <ng-key ng-key-data='"<"'>del</ng-key>
+                <ng-keypad>
+                    <ng-key ng-key ng-repeat='key in numpadKeys'>
+                      <a ng-click="numInputAdded(key)" ng-show="key != null">
+                        <span>{{key}}</span>
+                      </a>
+                    </ng-key>
                 </ng-keypad>
               </div>
             </div>
           </div>
-          
+
           </p>
       </div>
       <div class="modal-footer align-center">
