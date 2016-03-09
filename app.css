@@ -220,7 +220,10 @@ small{
     background-color: hsla(208,92%,53%,1);
 }
 .money-500{ background-color: #000; }
-.money-1000{ background-color: #000; }
+.money-1000{ background-color: #bc4acf; }
+/*.money-1000:hover{
+    background-color: hsla(208,92%,53%,1);  
+}*/
 
 .checkout{
   position: fixed;
