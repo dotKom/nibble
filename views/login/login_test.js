@@ -6,9 +6,10 @@ describe('nibble.login module', function() {
 
   describe('login controller', function(){
 
-    it('should ....', inject(function($controller) {
+    it('should ....', inject(function($rootScope,$controller) {
       var loginCtrl = $controller('loginCtrl');
       expect(loginCtrl).toBeDefined();
+      expect($rootScope.user).not.toBeDefined();
     }));
 
   });
