@@ -156,11 +156,24 @@
           </div>
 
           <br>
-          <div class="input-field col s6">
+          <!--<div class="input-field col s6">
             <input ng-model="withdraw_money_amount" ng-disabled="custom_amount_disabled" id="withdraw_custom_amount" type="number" >
             <label for="withdraw_custom_amount">Skriv beløp</label>
+          </div>-->
+          <div class="row" ng-show="!custom_amount_disabled">
+            <div class="input-field col s12" ng-hide="">
+              <div class="android">
+                <input class="keypad-display" id="custom_amount" ng-model='withdraw_money_amount' disabled/>
+                <ng-keypad>
+                  <ng-key ng-key ng-repeat='key in numpadKeys'>
+                    <a ng-click="numInputAdded2(key)" ng-show="key != null">
+                      <span>{{key}}</span>
+                    </a>
+                  </ng-key>
+                </ng-keypad>
+              </div>
+            </div>
           </div>
-          
           </p>
       </div>
       <div class="modal-footer align-center">

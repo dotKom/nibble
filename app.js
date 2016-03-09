@@ -72,7 +72,17 @@ controller('MainCtrl', ["$scope", function ($scope) {
 
     root.add_money_amount = parseInt(amount);
   }
+  root.numInputAdded2 = function(input){
+    if(!root.withdraw_money_amount)root.withdraw_money_amount = 0;
+    var amount = root.withdraw_money_amount.toString();
+    if (input == 'del') {
+      amount = amount.slice(0, amount.length - 1);
+    } else {
+      amount += input;
+    }
 
+    root.withdraw_money_amount = parseInt(amount);
+  }
   root.selectWithdrawAmount = function(amount){
     root.withdraw_money_amount = amount;
     root.custom_amount_disabled = true;
