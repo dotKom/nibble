@@ -12,7 +12,6 @@ controller('MainCtrl', ["$scope", function ($scope) {
   /*Not used*/
 }]).run(["$rootScope", "$location", "$http","Transaction","api.config", function(root, location, http,Transaction,api){
   /*Root values:*/
-  window.aRoot = root;
   http({
     url: "./config.json",
     responseType: "json"
@@ -26,6 +25,10 @@ controller('MainCtrl', ["$scope", function ($scope) {
   },function(error){
     console.log("Could not load config!");
   });
+  if(root.development){
+    //exposes root for easy console access
+    window.aRoot = root;
+  }
   
   root.ceil = Math.ceil;
   root.development = false;
@@ -36,6 +39,16 @@ controller('MainCtrl', ["$scope", function ($scope) {
   root.logoutTimer = 0;
   root.numpadKeys = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, "del"];
   
+  root.clearAll = function(){
+    root.user = null;
+    root.rfid = null;
+    window.rfid = "";
+    window.logKeys = true;
+    $("#rfid-rlogo")[0].style.borderColor = "";
+    $("#user-username").val("");
+    $("#user-password").val("");  
+                
+  }
   root.logout = function(){
     root.rfid = null;
     root.user = null;

@@ -151,7 +151,7 @@
           <div class="radio-group">
             <button class="btn-large" ng-click="enableCustomAmount()">Velg beløp</button>
             <span ng-repeat="amount in cash_amounts track by $index">
-              <button class="btn-large" ng-click="selectWithdrawAmount(amount)">{{amount}} kr</button>
+              <button class="btn-large money-{{amount}}" ng-click="selectWithdrawAmount(amount)">{{amount}} kr</button>
             </span>
           </div>
 
@@ -165,7 +165,7 @@
       </div>
       <div class="modal-footer align-center">
         <button ng-click="withdrawMoney(withdraw_money_amount)" ng-disabled="invalidAmount(withdraw_money_amount)" class="modal-action modal-close waves-effect btn nibble-color lighter no-float
-">Ta ut</button>
+">Ta ut {{withdraw_money_amount}}kr</button>
           <a href class="modal-action modal-close waves-effect btn-flat no-float">Avbryt</a>
       </div>
   </div>

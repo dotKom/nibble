@@ -6,10 +6,10 @@ describe('nibble.shop module', function() {
 
   describe('shop controller', function(){
 
-    it('should ....', inject(function($controller) {
+    it('should ....', inject(function($rootScope,$controller) {
       var shopCtrl = $controller('shopCtrl');
       expect(shopCtrl).toBeDefined();
+      expect($rootScope.user).toBeDefined();
     }));
-
   });
-});
+}); 
