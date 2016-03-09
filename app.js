@@ -12,7 +12,6 @@ controller('MainCtrl', ["$scope", function ($scope) {
   /*Not used*/
 }]).run(["$rootScope", "$location", "$http","Transaction","api.config", function(root, location, http,Transaction,api){
   /*Root values:*/
-  window.aRoot = root;
   http({
     url: "./config.json",
     responseType: "json"
@@ -26,6 +25,10 @@ controller('MainCtrl', ["$scope", function ($scope) {
   },function(error){
     console.log("Could not load config!");
   });
+  if(root.development){
+    //exposes root for easy console access
+    window.aRoot = root;
+  }
   
   root.ceil = Math.ceil;
   root.development = false;
