@@ -11,7 +11,10 @@ angular.module('nibble.login', ['ngRoute'])
 .controller('loginCtrl', ["$rootScope","$http","$location","$scope","api.config","User",function(root,http,location,scope,api,User) {
   root.clearAll();
   //In root due to being accessed by a modal in index.html
-  root.submit_reg = function(){
+  root.submit_reg = function($event){
+    //Prevent form from refreshing page
+    $event.preventDefault();
+    
     if(isValidRFID(root.rfid)){
       http({
         url: api.apiRoot + "rfid/",
@@ -32,7 +35,9 @@ angular.module('nibble.login', ['ngRoute'])
       });
     }
   }
-  scope.submit_login = function(){
+  scope.submit_login = function($event){
+    //Prevent form from refreshing page
+    $event.preventDefault();
     /*Validation and 'login' code:*/
     $("#rfid-rlogo")[0].style.borderColor = "#65EC00";
     window.logKeys = false;
