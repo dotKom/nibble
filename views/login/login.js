@@ -68,7 +68,7 @@ angular.module('nibble.login', ['ngRoute'])
               "complete": function(){
                 $("#rfid-rlogo")[0].style.borderColor = "";
                 window.logKeys = true;
-                window.rfid = null;
+                window.rfid = "";
                 $("#user-username").val("");
                 $("#user-password").val("");
               }
