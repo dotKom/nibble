@@ -105,33 +105,20 @@
           <h4>Legg inn penger</h4>
           <h5>Kontant</h5>
           <p>
-          <b>Legg kontant i pengekassa som står i kjøleskapet, så registrer samme beløp her!</b>
+            <b>Legg kontant i pengekassa som står i kjøleskapet, så registrer samme beløp her!</b>
 
-          <!--TODO: Fix css for the buttons-->
-          <div class="radio-group">
-            <button class="btn-large" ng-click="enableCustomAmount()">Velg eget beløp</button>
-            <span ng-repeat="amount in cash_amounts track by $index">
-              <button class="btn-large money-{{amount}}" ng-click="selectAddAmount(amount)">{{amount}} kr</button>
-            </span>
-          </div>
-
-          <br>
-          <!--TODO: Fix css to keep modue size from changing when hidden-->
-          <div class="row" ng-show="!custom_amount_disabled">
-            <div class="input-field col s12" ng-hide="">
-              <div class="android">
-                <input class="keypad-display" id="custom_amount" ng-model='add_money_amount' disabled/>
-                <ng-keypad>
-                    <ng-key ng-key ng-repeat='key in numpadKeys'>
-                      <a ng-click="numInputAdded(key)" ng-show="key != null">
-                        <span>{{key}}</span>
-                      </a>
-                    </ng-key>
-                </ng-keypad>
-              </div>
+            <!--TODO: Fix css for the buttons-->
+            <div class="radio-group">
+              <button class="btn-large" ng-click="enableCustomAmount()">Velg eget beløp</button>
+              <span ng-repeat="amount in cash_amounts track by $index">
+                <button class="btn-large money-{{amount}}" ng-click="selectAddAmount(amount)">{{amount}} kr</button>
+              </span>
             </div>
-          </div>
-
+            <div class="input-field col s6" ng-hide="">
+               <input ng-model="add_money_amount" ng-disabled="custom_amount_disabled" id="custom_amount" type="number" >
+            <label for="custom_amount">Skriv beløp</label>
+            <br>
+            <!--TODO: Fix css to keep modue size from changing when hidden-->
           </p>
       </div>
       <div class="modal-footer align-center">
@@ -139,6 +126,7 @@
 ">Sett inn {{add_money_amount}}kr</button>
         <a href class="modal-action modal-close waves-effect btn-flat no-float">Avbryt</a>
       </div>
+    </div>
   </div>
 
   <div id="withdrawCashModal" class="modal add-money">
@@ -156,24 +144,11 @@
           </div>
 
           <br>
-          <!--<div class="input-field col s6">
+          <div class="input-field col s6">
             <input ng-model="withdraw_money_amount" ng-disabled="custom_amount_disabled" id="withdraw_custom_amount" type="number" >
             <label for="withdraw_custom_amount">Skriv beløp</label>
-          </div>-->
-          <div class="row" ng-show="!custom_amount_disabled">
-            <div class="input-field col s12" ng-hide="">
-              <div class="android">
-                <input class="keypad-display" id="custom_amount" ng-model='withdraw_money_amount' disabled/>
-                <ng-keypad>
-                  <ng-key ng-key ng-repeat='key in numpadKeys'>
-                    <a ng-click="numInputAdded2(key)" ng-show="key != null">
-                      <span>{{key}}</span>
-                    </a>
-                  </ng-key>
-                </ng-keypad>
-              </div>
-            </div>
           </div>
+        
           </p>
       </div>
       <div class="modal-footer align-center">
