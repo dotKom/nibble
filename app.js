@@ -108,12 +108,16 @@ controller('MainCtrl', ["$scope", function ($scope) {
 
   root.addMoney = function(amount){
     root.logoutTimer = 60;
-    root.updateMoney(parseInt(amount));
+    if(!root.invalidAmount(amount)){
+      root.updateMoney(parseInt(amount));
+    }
   }
 
   root.withdrawMoney = function(amount){
     root.logoutTimer = 60;
-    root.updateMoney(parseInt(-amount));
+    if(!root.invalidAmount(amount)){
+      root.updateMoney(parseInt(-amount));
+    }
   }
   root.updateMoney = function(amount){
     /*
