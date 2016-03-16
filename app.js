@@ -10,7 +10,7 @@ config(['$routeProvider', function($routeProvider) {
 }]).
 controller('MainCtrl', ["$scope", function ($scope) {
   /*Not used*/
-}]).run(["$rootScope", "$location", "$http","Transaction","api.config", function(root, location, http,Transaction,api){
+}]).run(["$rootScope", "$location", "$http","$route","Transaction","api.config", function(root, location,http,route,Transaction,api){
   /*Root values:*/
   http({
     url: "./config.json",
@@ -19,17 +19,20 @@ controller('MainCtrl', ["$scope", function ($scope) {
     if(ret.data){
       root.development = ret.data.devmode || root.development;
       root.cash_amounts = ret.data.cashList || root.cash_amounts;
+      if(root.development){
+        //exposes root for easy console access
+        window.aRoot = root;
+      }
     }else{
       console.log("Could not load config!");
     }
   },function(error){
     console.log("Could not load config!");
   });
-  if(root.development){
-    //exposes root for easy console access
-    window.aRoot = root;
-  }
   
+  root.reloadPage = function(){
+    window.location.href = "";
+  }
   root.ceil = Math.ceil;
   root.development = false;
   root.cash_amounts = [50, 100, 200];

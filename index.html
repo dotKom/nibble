@@ -24,6 +24,14 @@
         <div class="nav-wrapper">
           <a href="" class="brand-logo" ng-click="logout()"><img class="logo" src="./static/images/favicon.png"/>Nibble</a>
           <ul class="right">
+            <span ng-hide="user">
+              <li title="Refresh">
+                <a class="nav-btn" href="" ng-click="reloadPage()">
+                  <i class="material-icons inline">replay</i>  
+                </a>
+              </li>  
+            </span>
+            
             <span ng-show="user">
               <li title="Legg til cash">
                 <a class="nav-btn" href="#addCashModal" modal>
