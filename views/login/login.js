@@ -13,7 +13,6 @@ angular.module('nibble.login', ['ngRoute'])
   //In root due to being accessed by a modal in index.html
   root.submit_reg = function($event){
     //Prevent form from refreshing page
-    $event.preventDefault();
     
     if(isValidRFID(root.rfid)){
       http({
