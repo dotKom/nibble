@@ -36,7 +36,9 @@ angular.module('nibble.login', ['ngRoute'])
   }
   scope.submit_login = function($event){
     //Prevent form from refreshing page
-    $event.preventDefault();
+    if($event && $event.preventDefault){
+      $event.preventDefault();
+    }
     /*Validation and 'login' code:*/
     $("#rfid-rlogo")[0].style.borderColor = "#65EC00";
     window.logKeys = false;
