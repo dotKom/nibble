@@ -4,6 +4,7 @@ angular.module('nibble', [
   'ui.materialize',
   'nibble.login',
   'nibble.shop',
+  'nibble.tabs'
 ]).
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/'});
@@ -107,7 +108,7 @@ controller('MainCtrl', ["$scope", function ($scope) {
   }
 
   root.addMoney = function(amount){
-    root.logoutTimer = 60;
+    root.logoutTimer = 60
     if(!root.invalidAmount(amount)){
       root.updateMoney(parseInt(amount));
     }
