@@ -52,7 +52,7 @@ angular.module('nibble.shop', ['ngRoute'])
         $rootScope.items[i]["kat"] = ["kat_all"];
         if($rootScope.items[i]["category"]){
           var katName = $rootScope.items[i]["category"].name;
-          var katPk = "kat_" + $rootScope.items[i]["category"].id;
+          var katPk = "kat_" + $rootScope.items[i]["category"].pk;
           $rootScope.items[i]["kat"].push(katPk);
           if(!$rootScope.itemKatMap[katPk]){
             $rootScope.itemKatMap[katPk] = {"title":katName,"disabled":false}
