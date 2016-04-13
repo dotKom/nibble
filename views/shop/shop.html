@@ -5,7 +5,7 @@
     </ul>
   </div>
   <div tabify class="col m9 l9" ng-repeat="(key,kat) in itemKatMap track by $index" id="{{ key }}">
-    <div class="col s4 noselect" ng-repeat="item in items | filter:{category:key} track by $index">
+    <div class="col s4 noselect" ng-repeat="item in items | filter:{kat:key} track by $index">
       <div class="card small hoverable clickable item" ng-click="changeCount(item,1)">
         <div class="card-image waves-effect waves-block waves-light" style="background-image: url({{item.disp_image}});">
         </div>
