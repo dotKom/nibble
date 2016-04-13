@@ -155,10 +155,12 @@ controller('MainCtrl', ["$scope", function ($scope) {
   
 }]);
 
-$('.lean-overlay').on('click',function() { 
+
+$('body').on('click', '.lean-overlay', function (e) {
+    console.log($('.lean-overlay').length)
     $('.lean-overlay').remove(); // fix for multiple overlayers
-    //$('#modal-share-login').closeModal({ dismissible: true, complete: function() { $('.lean-overlay').remove() }});
 });
+
 /*$("body").click(function(){
   window.aRoot.interval = 60;
 });*/
