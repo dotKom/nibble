@@ -13,6 +13,15 @@ controller('MainCtrl', ["$scope", function ($scope) {
   /*Not used*/
 }]).run(["$rootScope", "$location", "$http","$route","Transaction","api.config", function(root, location,http,route,Transaction,api){
   /*Root values:*/
+  root.ceil = Math.ceil;
+  root.development = false;
+  root.cash_amounts = [50, 100, 200];
+  root.add_money_amount = 0;
+  root.custom_amount_disabled = false;
+  root.withdraw_money_amount = 0;
+  root.logoutTimer = 0;
+  root.numpadKeys = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, "del"];
+  
   http({
     url: "./config.json",
     responseType: "json"
@@ -30,18 +39,11 @@ controller('MainCtrl', ["$scope", function ($scope) {
   },function(error){
     console.log("Could not load config!");
   });
+  console.log(api);
   
   root.reloadPage = function(){
     window.location.href = "";
   }
-  root.ceil = Math.ceil;
-  root.development = false;
-  root.cash_amounts = [50, 100, 200];
-  root.add_money_amount = 0;
-  root.custom_amount_disabled = false;
-  root.withdraw_money_amount = 0;
-  root.logoutTimer = 0;
-  root.numpadKeys = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, "del"];
   
   root.clearAll = function(){
     root.user = null;
