@@ -8,9 +8,22 @@ angular.module('nibble.shop', ['ngRoute'])
     controller: 'shopCtrl'
   });
 }])
-
-.controller('shopCtrl', ['$scope', '$rootScope', '$location', '$interval', '$http', 'Inventory','Transaction', 'api.config', function($scope, $rootScope, $location, $interval, $http, Inventory,Transaction, api) {
+.directive('tabify',['$timeout',function($timeout){
+  return {
+    link: function($scope,element,attrs){
+      $scope.$on("invloaded",function(){
+        $timeout(function(){
+          $(document).ready(function(){
+            $('ul.tabs').tabs();
+          });
+        },0,false);
+      })
+    }
+  }
+}])
+.controller('shopCtrl', ['$scope', '$rootScope', '$location', '$interval', '$http','$filter', 'Inventory','Transaction', 'api.config', function($scope, $rootScope, $location, $interval, $http,$filter, Inventory,Transaction, api) {
   /*Resetting rfid just in case*/
+  
   window.rfid = "";
   window.logKeys = false;
   if(!$rootScope.user){
@@ -25,14 +38,21 @@ angular.module('nibble.shop', ['ngRoute'])
   }
   /*Download the shops inventory*/
   $rootScope.items = [];
+  /**/
+  $rootScope.itemKatMap = {"all":{title:"Alt","disabled":false},
+                           "foods":{"title":"Mat og Drikke","disabled":false},
+                           "misc":{"title":"Misc","disabled":true}};
   Inventory.get(
     function(ret){
       $rootScope.items = ret;//$rootScope.items.concat(ret.results);
       for(var i=0; i< $scope.items.length;i++){
+        console.log("Item:",$scope.items[i]);
         if($rootScope.items[i].image)
           $rootScope.items[i]["disp_image"] = api.host + $rootScope.items[i].image.thumb;
         $rootScope.items[i]["oId"] = "a" + $rootScope.items[i]["pk"];
-      }  
+        $rootScope.items[i]["category"] = ["All","foods"];
+      }
+      $scope.$broadcast("invloaded");
     },
     function(error){
       Materialize.toast("[ERROR] Could not load shop inventory", 4000);
@@ -194,6 +214,13 @@ angular.module('nibble.shop', ['ngRoute'])
     }, 50);
 
   }
+  
+ /* $scope.$evalAsync(function(){
+    $(document).ready(function(){
+      $('ul.tabs').tabs();
+    });
+  });*/
+  
 
   $scope.successCheckout = function(ret){
     //TODO: get new user balance and history
