@@ -1,11 +1,11 @@
 <div class="row">
   <div class="col m9 l9"> 
     <ul class="tabs">
-      <li tabify class="tab col m3 l3" ng-class="{disabled:kat.disabled}" ng-repeat="(key,kat) in itemKatMap track by $index"><a href="#{{ key }}">{{ kat.title }}</a></li>
+      <li tabify class="tab col m3 l3" ng-class="{disabled:kat.disabled}" ng-repeat="kat in itemKats | orderBy:'pk' track by $index"><a href="#{{ 'kat_' + kat.pk }}">{{ kat.title + kat.pk}}</a></li>
     </ul>
   </div>
-  <div tabify class="col m9 l9" ng-repeat="(key,kat) in itemKatMap track by $index" id="{{ key }}">
-    <div class="col s4 noselect" ng-repeat="item in items | filter:{kat:key} track by $index">
+  <div tabify class="col m9 l9" ng-repeat="kat in itemKats track by $index" id="{{ 'kat_' + kat.pk }}">
+    <div class="col s4 noselect" ng-repeat="item in items | filter:{kat:item.pk} track by $index">
       <div class="card small hoverable clickable item" ng-click="changeCount(item,1)">
         <div class="card-image waves-effect waves-block waves-light" style="background-image: url({{item.disp_image}});">
         </div>

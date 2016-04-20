@@ -39,8 +39,9 @@ angular.module('nibble.shop', ['ngRoute'])
   /*Download the shops inventory*/
   $rootScope.items = [];
   /**/
-  $rootScope.itemKatMap = {"kat_all":{"title":"Alt","disabled":false}}
-  
+  /*$rootScope.itemKatMap = {"kat_all":{"title":"Alt","disabled":false,"pk":-1},"foods":{"title":"MAT OG DRIKKE","disabled":false,"pk":-2}}
+  */
+  $rootScope.itemKats = [{"title":"Alt","disabled":false,"pk":-1}];
   Inventory.get(
     function(ret){
       $rootScope.items = ret;//$rootScope.items.concat(ret.results);
@@ -49,14 +50,16 @@ angular.module('nibble.shop', ['ngRoute'])
         if($rootScope.items[i].image)
           $rootScope.items[i]["disp_image"] = api.host + $rootScope.items[i].image.thumb;
         $rootScope.items[i]["oId"] = "a" + $rootScope.items[i]["pk"];
-        $rootScope.items[i]["kat"] = ["kat_all"];
+        $rootScope.items[i]["kat"] = ["kat_all","foods"];
         if($rootScope.items[i]["category"]){
           var katName = $rootScope.items[i]["category"].name;
           var katPk = "kat_" + $rootScope.items[i]["category"].pk;
           $rootScope.items[i]["kat"].push(katPk);
-          if(!$rootScope.itemKatMap[katPk]){
-            $rootScope.itemKatMap[katPk] = {"title":katName,"disabled":false}
-          }
+          /*if(!$rootScope.itemKatMap[katPk]){
+            $rootScope.itemKatMap[katPk] = {"pk":parseInt(katPk),"title":katName,"disabled":false}
+          }*/
+          $rootScope.itemKatMap.push({"pk":parseInt(katPk),"title":katName,"disabled":false});
+          
         }
       }
       $scope.$broadcast("invloaded");
