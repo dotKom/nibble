@@ -21,7 +21,7 @@ angular.module('nibble.shop', ['ngRoute'])
     }
   }
 }])
-.controller('shopCtrl', ['$scope', '$rootScope', '$location', '$interval', '$http','$filter', 'Inventory','Transaction', 'api.config', function($scope, $rootScope, $location, $interval, $http,$filter, Inventory,Transaction, api) {
+.controller('shopCtrl', ['$scope', '$rootScope', '$location', '$interval', '$http','$filter','$timeout', 'Inventory','Transaction', 'api.config', function($scope, $rootScope, $location, $interval, $http,$filter,$timeout, Inventory,Transaction, api) {
   /*Resetting rfid just in case*/
   
   window.rfid = "";
@@ -41,28 +41,40 @@ angular.module('nibble.shop', ['ngRoute'])
   /**/
   /*$rootScope.itemKatMap = {"kat_all":{"title":"Alt","disabled":false,"pk":-1},"foods":{"title":"MAT OG DRIKKE","disabled":false,"pk":-2}}
   */
-  $rootScope.itemKats = [{"title":"Alt","disabled":false,"pk":-1}];
+  $rootScope.itemKats = [];
+  Array.prototype.getKatUnique = function(){
+    var katMap = {};
+    var ret = [];
+    
+    for(var i = 0; i<this.length;i++){
+      if(!katMap[this[i].pk]){
+        katMap[this[i].pk] = true;
+        ret.push(this[i]);
+      }
+    }
+    return ret;
+  }
   Inventory.get(
     function(ret){
       $rootScope.items = ret;//$rootScope.items.concat(ret.results);
+      var tempKats = [{"title":"Alt","disabled":false,"pk":-1}];
       for(var i=0; i< $scope.items.length;i++){
-        console.log("Item:",$scope.items[i]);
         if($rootScope.items[i].image)
-          $rootScope.items[i]["disp_image"] = api.host + $rootScope.items[i].image.thumb;
+        $rootScope.items[i]["disp_image"] = api.host + $rootScope.items[i].image.thumb;
         $rootScope.items[i]["oId"] = "a" + $rootScope.items[i]["pk"];
-        $rootScope.items[i]["kat"] = ["kat_all","foods"];
+        $rootScope.items[i]["kat"] = ["kat_all"];
         if($rootScope.items[i]["category"]){
           var katName = $rootScope.items[i]["category"].name;
           var katPk = "kat_" + $rootScope.items[i]["category"].pk;
           $rootScope.items[i]["kat"].push(katPk);
-          /*if(!$rootScope.itemKatMap[katPk]){
-            $rootScope.itemKatMap[katPk] = {"pk":parseInt(katPk),"title":katName,"disabled":false}
-          }*/
-          $rootScope.itemKatMap.push({"pk":parseInt(katPk),"title":katName,"disabled":false});
-          
+          tempKats.push({"pk":parseInt(katPk),"title":katName,"disabled":false});
+          //$rootScope.itemKatMap.push({"pk":parseInt(katPk),"title":katName,"disabled":false});
         }
       }
-      $scope.$broadcast("invloaded");
+      $rootScope.itemKats = tempKats.getKatUnique();
+      $timeout(function(){
+        $scope.$broadcast("invloaded");
+      },10,false);
     },
     function(error){
       Materialize.toast("[ERROR] Could not load shop inventory", 4000);
