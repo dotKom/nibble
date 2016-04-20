@@ -60,7 +60,7 @@ angular.module('nibble.shop', ['ngRoute'])
       var tempKats = [{"title":"Alt","disabled":false,"pk":-1}];
       for(var i=0; i< $scope.items.length;i++){
         if($rootScope.items[i].image)
-        $rootScope.items[i]["disp_image"] = api.host + $rootScope.items[i].image.thumb;
+          $rootScope.items[i]["disp_image"] = api.host + $rootScope.items[i].image.thumb;
         $rootScope.items[i]["oId"] = "a" + $rootScope.items[i]["pk"];
         $rootScope.items[i]["kat"] = ["kat_all"];
         if($rootScope.items[i]["category"]){
