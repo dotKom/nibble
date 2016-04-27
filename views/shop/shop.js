@@ -57,20 +57,23 @@ angular.module('nibble.shop', ['ngRoute'])
   Inventory.get(
     function(ret){
       $rootScope.items = ret;//$rootScope.items.concat(ret.results);
-      var tempKats = [{"title":"AΩ","disabled":false,"pk":-1}];
+      var tempKats = [];
+      tempKats.push({"title":"AΩ","disabled":false,"pk":-1});
       for(var i=0; i< $scope.items.length;i++){
         if($rootScope.items[i].image){
           $rootScope.items[i]["disp_image"] = api.host + $rootScope.items[i].image.thumb;
         }
         $rootScope.items[i]["oId"] = "a" + $rootScope.items[i]["pk"];
-        $rootScope.items[i]["kat"] = ["kat_all"];
+        $rootScope.items[i]["kat"] = [-1];
         if($rootScope.items[i]["category"]){
           var katName = $rootScope.items[i]["category"].name;
-          var katPk = "kat_" + $rootScope.items[i]["category"].pk;
+          var katPk = $rootScope.items[i]["category"].pk;
+          //$rootScope.items[i]["kat"].push(9999);
           $rootScope.items[i]["kat"].push(katPk);
-          tempKats.push({"pk":parseInt($rootScope.items[i]["category"].pk),"title":katName,"disabled":false});
+          tempKats.push({"pk":katPk,"title":katName,"disabled":false});
           //$rootScope.itemKatMap.push({"pk":parseInt(katPk),"title":katName,"disabled":false});
         }
+        
         console.log($rootScope.items[i]);
       }
       $rootScope.itemKats = tempKats.getKatUnique();
