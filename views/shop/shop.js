@@ -73,8 +73,6 @@ angular.module('nibble.shop', ['ngRoute'])
           tempKats.push({"pk":katPk,"title":katName,"disabled":false});
           //$rootScope.itemKatMap.push({"pk":parseInt(katPk),"title":katName,"disabled":false});
         }
-        
-        console.log($rootScope.items[i]);
       }
       $rootScope.itemKats = tempKats.getKatUnique();
       $timeout(function(){
