@@ -63,6 +63,7 @@ angular.module('nibble.shop', ['ngRoute'])
         if($rootScope.items[i].image){
           $rootScope.items[i]["disp_image"] = api.host + $rootScope.items[i].image.thumb;
         }
+
         $rootScope.items[i]["oId"] = "a" + $rootScope.items[i]["pk"];
         $rootScope.items[i]["kat"] = [-1];
         if($rootScope.items[i]["category"]){

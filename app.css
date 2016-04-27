@@ -383,20 +383,36 @@ img.logo {
   -webkit-font-smoothing: antialiased;
   font-smoothing: antialiased;
 }
-.rfid-marker{
+
+.marker{
   display: inline-block;
-  margin-top: 6em;
+  margin-top: 1em;
   width: 17em;
-  height: 25em;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 13em;
-  /*background-color: blue;*/
   border-style: solid;
   border-radius: 12px;
   border-color: #004B80;
   border-width: .8em;
+}
+
+.rfid-marker{
+  display: inline-block;
+  height: 25em;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 13em;
   background-image: url("./static/images/rfid.png");
+}
+
+.qr-saldo-link{
+  display: inline-block;
+  height: 13em;
+  text-align: center;
+}
+
+.qr-saldo-image{
+  height: 8em;
+  width: 8em;
+  margin-top: -0.5em;
 }
 
 .checkmark{width:128px;margin:0 auto;padding-bottom:40px}
