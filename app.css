@@ -321,7 +321,16 @@ img.logo {
 .vertical-center{
   padding: 5em;
 }
+.tabs .indicator{
+  background-color: #616161;
+}
 
+.nibbleGray{
+  background-color: rgb(160, 160, 160);
+}
+.tab .active{
+  background-color: #bdbdbd;
+}
 .darker {
   background-color: rgba(0,0,0,0.3);
 }

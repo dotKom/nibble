@@ -1,7 +1,7 @@
 <div class="row">
-  <div class="col m{{ 9 }} l{{ 9 }}"> 
-    <ul class="tabs">
-      <li tabify class="tab" ng-class="{disabled:kat.disabled}" ng-repeat="kat in itemKats | orderBy:'-pk' track by $index"><a href="#{{ 'kat_' + kat.pk }}" ng-class="{active:$index==itemKats.length-1}">{{ kat.title }}</a></li>
+  <div class="row col m{{ 9 }} l{{ 9 }} grey"> 
+    <ul class="tabs nibbleGray white-text">
+      <li tabify class="tab" ng-class="{disabled:kat.disabled}" ng-repeat="kat in itemKats | orderBy:'-pk' track by $index"><a href="#{{ 'kat_' + kat.pk }}" class="white-text" ng-class="{active:$index==itemKats.length-1}">{{ kat.title }}</a></li>
     </ul>
   </div>
   <div tabify class="col m9 l9" ng-repeat="kat in itemKats track by $index" id="{{ 'kat_' + kat.pk }}">
