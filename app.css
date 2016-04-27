@@ -388,6 +388,7 @@ img.logo {
   border-color: #004B80;
   border-width: .8em;
   background-image: url("./static/images/rfid.png");
+  position: fixed;
 }
 
 .checkmark{width:128px;margin:0 auto;padding-bottom:40px}
