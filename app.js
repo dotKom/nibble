@@ -13,6 +13,7 @@ controller('MainCtrl', ["$scope", function ($scope) {
   /*Not used*/
 }]).run(["$rootScope", "$location", "$http","$route","Transaction","api.config", function(root, location,http,route,Transaction,api){
   /*Root values:*/
+  
   root.ceil = Math.ceil;
   root.development = false;
   root.cash_amounts = [50, 100, 200];
@@ -39,7 +40,6 @@ controller('MainCtrl', ["$scope", function ($scope) {
   },function(error){
     console.log("Could not load config!");
   });
-  console.log(api);
   
   root.reloadPage = function(){
     window.location.href = "";
