@@ -8,9 +8,10 @@ angular.module('nibble.login', ['ngRoute'])
     controller: 'loginCtrl'
   });
 }])
-.controller('loginCtrl', ["$rootScope","$http","$location","$scope","api.config","User",function(root,http,location,scope,api,User) {
+.controller('loginCtrl', ["$rootScope","$http","$location","$scope","api.config","Inventory","User",function(root,http,location,scope,api,Inventory,User) {
   root.clearAll();
   //In root due to being accessed by a modal in index.html
+
   root.submit_reg = function($event){
     //Prevent form from refreshing page
     
