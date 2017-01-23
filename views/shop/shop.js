@@ -59,7 +59,7 @@ angular.module('nibble.shop', ['ngRoute'])
       $rootScope.items = ret;//$rootScope.items.concat(ret.results);
       var tempKats = [];
       tempKats.push({"title":"AΩ","disabled":false,"pk":-1});
-      for(var i=0; i< $scope.items.length;i++){
+      for(var i=0; i< $rootScope.items.length;i++){
         if($rootScope.items[i].image){
           $rootScope.items[i]["disp_image"] = api.host + $rootScope.items[i].image.thumb;
         }
