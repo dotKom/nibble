@@ -14,4 +14,4 @@ angular.module('api.config', ['ngResource'])
 }])
 .value('api.config', {
   //Required
-})
+});

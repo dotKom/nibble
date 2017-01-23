@@ -8,9 +8,10 @@ angular.module('nibble.login', ['ngRoute'])
     controller: 'loginCtrl'
   });
 }])
-.controller('loginCtrl', ["$rootScope","$http","$location","$scope","api.config","User",function(root,http,location,scope,api,User) {
+.controller('loginCtrl', ["$rootScope","$http","$location","$scope","api.config","Inventory","User",function(root,http,location,scope,api,Inventory,User) {
   root.clearAll();
   //In root due to being accessed by a modal in index.html
+
   root.submit_reg = function($event){
     //Prevent form from refreshing page
     
@@ -91,9 +92,31 @@ angular.module('nibble.login', ['ngRoute'])
   /*
   Item list should be loaded in app to be used by both shop and login (?)
   */
-  if(root.items){
-    root.itemCols = [root.items.slice(0, Math.ceil(root.items.length/2)), root.items.slice(Math.ceil(root.items.length/2))]
-  }
+  Inventory.get(
+    function(ret){
+      root.items = ret;//root.items.concat(ret.results);
+      for(var i=0; i< root.items.length;i++){
+        if(root.items[i].image){
+          root.items[i]["disp_image"] = api.host + root.items[i].image.thumb;
+        }
+
+        root.items[i]["oId"] = "a" + root.items[i]["pk"];
+        root.items[i]["kat"] = [-1];
+        if(root.items[i]["category"]){
+          var katName = root.items[i]["category"].name;
+          var katPk = root.items[i]["category"].pk;
+          //root.items[i]["kat"].push(9999);
+          root.items[i]["kat"].push(katPk);
+          //root.itemKatMap.push({"pk":parseInt(katPk),"title":katName,"disabled":false});
+        }
+      }
+      root.itemCols = [root.items.slice(0, Math.ceil(root.items.length/2)), root.items.slice(Math.ceil(root.items.length/2))]
+  
+    },
+    function(error){
+      Materialize.toast("[ERROR] Could not load shop inventory", 4000);
+    }
+  );
 }]);
 function isValidRFID(rfid){
   return typeof(rfid) === "string" && /^\d{8,10}$/.test(rfid);
